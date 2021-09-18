@@ -20,7 +20,7 @@ public class UsuarioController {
 	}
 	
 	public void updateByid(Integer id, Usuario usuario) {
-		this.usuarioDao.updateAllById(id, usuario);
+		this.usuarioDao.updateById(id, usuario);
 	}
 	
 	public void addCredito(Integer id, Double credito) {

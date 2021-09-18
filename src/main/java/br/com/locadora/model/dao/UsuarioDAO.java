@@ -48,7 +48,7 @@ public class UsuarioDAO {
 		}
 	}
 	
-	public void updateAllById(Integer id, Usuario usuario) {
+	public void updateById(Integer id, Usuario usuario) {
 		String sql = "UPDATE usuarios SET nome = ?, senha = ?, nivel_acesso = ?, cpf = ?, data_nascimento = ?, telefone = ?, email = ?, endereco = ?, credito = ? WHERE id = ?";
 		
 		DateHelper dataNascimento = new DateHelper(usuario.getDataNascimento());
