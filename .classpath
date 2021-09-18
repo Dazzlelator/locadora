@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-16"/>
 	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-16">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="C:/Users/Raphael/Documents/JREs/c3p0-0.9.5.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Raphael/Documents/JREs/jstl-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Raphael/Documents/JREs/mchange-commons-java-0.2.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Raphael/Documents/JREs/mysql-connector-java-8.0.26.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Raphael/Documents/JREs/servlet-api.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
