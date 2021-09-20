@@ -29,8 +29,11 @@ public class ProdutoController {
 	
 	public void retirada(Integer id) {
 		Integer quantidade = -1;
-		this.produtoDao.addQuantidade(id, quantidade);
+		if(this.getById(id).getQuantidade() > 0) {
+			this.produtoDao.addQuantidade(id, quantidade);
+		}
 	}
+	
 	public void entrada(Integer id) {
 		Integer quantidade = 1;
 		this.produtoDao.addQuantidade(id, quantidade);
