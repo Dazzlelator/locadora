@@ -2,26 +2,27 @@ package testes;
 
 import java.util.Date;
 
-import br.com.locadora.controller.JogoController;
+import br.com.locadora.controller.AluguelController;
 import br.com.locadora.helpers.DateHelper;
-import br.com.locadora.model.Jogo;
+import br.com.locadora.model.Aluguel;
 
 public class teste1 {
 
 	public static void main(String[] args) {
 
-		DateHelper lancamento = new DateHelper("1997-10-29");
-		Date agora = new Date();
-
-		Jogo jogo = new Jogo(12, "PlayStation", "123485-7d44", "Final Fantasy 7", "Final Fantasy", "RPG", "", "9.5", "Square Enix", "", "13", "Em perfeito estado", lancamento.getData(), agora, "alugado");
 		
-		JogoController jc = new JogoController();
-//		jc.salvar(jogo);
-//		jc.updateById(9, jogo);
-//		jc.deletar(9);
-//		System.out.println(jc.getAll().get(0).getNome());
-//		System.out.println(jc.getById(8).getNome());
-		jc.updateStatus(8,1);
+		Date agora = new Date();
+		DateHelper devolucao = new DateHelper(agora);	
+		
+		Aluguel aluguel = new Aluguel(3, null,  7, 15.0, 5.0, agora, null, null, 1);
+		AluguelController ac = new AluguelController();
+//		
+//		ac.salvar(aluguel);
+//		ac.updateById(21, aluguel);
+//		ac.deletar(24);
+//		System.out.println(ac.getAll().get(10).getDataDevolucao());
+//		System.out.println(ac.getById(22).getIdAluguel());
+//		System.out.println(ac.getFilmes().size());
 	}
 
 }

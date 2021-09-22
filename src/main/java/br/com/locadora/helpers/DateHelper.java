@@ -2,6 +2,7 @@ package br.com.locadora.helpers;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -13,18 +14,22 @@ public class DateHelper {
 	SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 
 	public DateHelper(Date data) {
-		this.gc = new GregorianCalendar();
-		this.gc.setTime(data);
-		this.dataParaManipular = data;
+		if(data != null) {
+			this.gc = new GregorianCalendar();
+			this.gc.setTime(data);
+			this.dataParaManipular = data;
+			
+		}else {
+			System.out.println("Data nula");
+		}	
 	}
 
 	public DateHelper(String data){
         try {
+        	
 	        this.gc = new GregorianCalendar();
-	        Date dataFormatada = formatter.parse(data);
-	        
+	        Date dataFormatada = formatter.parse(data);	        
 	        this.dataParaManipular = dataFormatada;
-	        
 	        this.gc.setTime(dataFormatada);
 	        
         } catch (ParseException e) {
@@ -33,10 +38,24 @@ public class DateHelper {
 	}
 
 	public Date getData() {
+		
 		return this.dataParaManipular;
 	}
 
+	public void addUtil(int quantidade) {
+		gc.setTime(dataParaManipular);
+		
+		for(int i = 0; i < quantidade; i++) {
+			int diaSemana = gc.get(Calendar.DAY_OF_WEEK);
+			if(diaSemana == 7) {				
+				this.adicionarDias(1);
+			}
+			this.adicionarDias(1);
+		}		
+	}
+	
 	public void adicionarDias(int quantidade) {
+		
 		adicionar(quantidade, Calendar.DAY_OF_MONTH);
 	}
 
@@ -52,7 +71,7 @@ public class DateHelper {
 		gc.add(tipoCampo, quantidade);
 		dataParaManipular = gc.getTime();
 	}
-
+	
 	public int getMinutos() {
 		return getCampo(Calendar.MINUTE);
 	}
@@ -89,8 +108,12 @@ public class DateHelper {
 	}
 	
 	public java.sql.Date getAsSQL(){
-		java.sql.Date sqlDate = new java.sql.Date(this.dataParaManipular.getTime());
-		return sqlDate;		 
+		
+		if(this.dataParaManipular != null) {
+			java.sql.Date sqlDate = new java.sql.Date(this.dataParaManipular.getTime());
+			return sqlDate;		
+		}else{
+			return null;
+		}		 
 	}
-
 }

@@ -18,6 +18,7 @@ public class Aluguel {
 		this.idAluguel = idAluguel;
 		this.id = id;
 		this.idFilme = idFilme;
+		this.idJogo = idJogo;
 		this.valor = valor;
 		this.multa = multa;
 		this.dataAluguel = dataAluguel;
@@ -29,6 +30,7 @@ public class Aluguel {
 	public Aluguel( Integer id, Integer idFilme, Integer idJogo, Double valor, Double multa, Date dataAluguel, Date dataDevolucao, Date dataDevolvido, Integer idFuncionario) {
 		this.id = id;
 		this.idFilme = idFilme;
+		this.idJogo = idJogo;
 		this.valor = valor;
 		this.multa = multa;
 		this.dataAluguel = dataAluguel;
@@ -37,6 +39,14 @@ public class Aluguel {
 		this.idFuncionario = idFuncionario;
 	}
 
+	public void setDataDevolucao(Date devolucao) {
+		this.dataDevolucao = devolucao;
+	}
+	
+	public void setDataDevolvido(Date devolvido) {
+		this.dataDevolvido = devolvido;
+	}
+	
 	public Integer getIdAluguel() {
 		return idAluguel;
 	}

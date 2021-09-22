@@ -71,8 +71,8 @@ public class Jogo {
 		this.status = status;
 	}
 
-	public Integer getIdJogo() {
-		return idJogo;
+	public Integer getIdJogo() {	
+			return idJogo;
 	}
 
 	public Integer getIdProduto() {
