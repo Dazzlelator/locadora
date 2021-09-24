@@ -54,6 +54,13 @@ public class DateHelper {
 		}		
 	}
 	
+	public long subtrairDias(Date dia1, Date dia2) {
+		long primeiroDia = dia1.getTime();
+		long segundoDia = dia2.getTime();
+		
+		return segundoDia - primeiroDia;
+	}
+	
 	public void adicionarDias(int quantidade) {
 		
 		adicionar(quantidade, Calendar.DAY_OF_MONTH);

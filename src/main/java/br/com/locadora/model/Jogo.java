@@ -134,7 +134,4 @@ public class Jogo {
 	public String getStatus() {
 		return status;
 	}
-	
-	
-
 }

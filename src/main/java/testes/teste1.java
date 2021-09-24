@@ -12,17 +12,22 @@ public class teste1 {
 
 		
 		Date agora = new Date();
-		DateHelper devolucao = new DateHelper(agora);	
+		DateHelper devolucao = new DateHelper("2021-09-25");	
 		
-		Aluguel aluguel = new Aluguel(3, null,  7, 15.0, 5.0, agora, null, null, 1);
+		
+		Aluguel aluguel = new Aluguel(15, null,  8, 15.0, 5.0, agora, null, null, 1, 3, 0.0, 0.0);
 		AluguelController ac = new AluguelController();
 //		
-//		ac.salvar(aluguel);
+		ac.salvar(aluguel);
 //		ac.updateById(21, aluguel);
 //		ac.deletar(24);
 //		System.out.println(ac.getAll().get(10).getDataDevolucao());
 //		System.out.println(ac.getById(22).getIdAluguel());
 //		System.out.println(ac.getFilmes().size());
+		
+//		ac.updateDataDevolvido(25, devolucao.getData());
+//		System.out.println(ac.getValorTotal(25));
+		
 	}
 
 }

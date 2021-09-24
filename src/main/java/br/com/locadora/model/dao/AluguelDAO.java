@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.com.locadora.helpers.DateHelper;
@@ -19,7 +20,8 @@ public class AluguelDAO {
 	}
 	
 	public void salvar(Aluguel aluguel) {
-		String sql = "INSERT INTO aluguel (id, id_filme, id_jogo, valor, valor_multa, data_aluguel, data_devolucao, data_devolvido, id_funcionario) VALUES (?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO aluguel (id, id_filme, id_jogo, valor, valor_multa, data_aluguel, data_devolucao, data_devolvido, id_funcionario, dias_para_devolucao, valor_pago, valor_total)"
+				+ " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 		try(PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
 			
 			DateHelper dataAluguel = new DateHelper(aluguel.getDataAluguel());
@@ -48,6 +50,9 @@ public class AluguelDAO {
 			pstm.setDate(7, dataDevolucao.getAsSQL());
 			pstm.setDate(8, dataDevolvido.getAsSQL());
 			pstm.setInt(9, aluguel.getIdFuncionario());
+			pstm.setInt(10, aluguel.getDiasDevolucao());
+			pstm.setDouble(11, aluguel.getValorPago());
+			pstm.setDouble(12, aluguel.getValorTotal());
 			pstm.execute();
 			
 			ResultSet rst = pstm.getGeneratedKeys();
@@ -61,7 +66,19 @@ public class AluguelDAO {
 	}
 	
 	public void updateAluguelById(Integer id, Aluguel aluguel) {
-		String sql = "UPDATE aluguel SET id = ?, id_filme = ?, id_jogo = ?, valor = ?, valor_multa = ?, data_aluguel = ?, data_devolucao = ?, data_devolvido = ?, id_funcionario = ?"
+		String sql = "UPDATE aluguel SET"
+				+ " id = ?,"
+				+ " id_filme = ?, "
+				+ " id_jogo = ?, "
+				+ " valor = ?, "
+				+ " valor_multa = ?,"
+				+ " data_aluguel = ?,"
+				+ " data_devolucao = ?,"
+				+ " data_devolvido = ?,"
+				+ " id_funcionario = ?,"
+				+ " dias_para_devolucao = ?, "
+				+ " valor_pago = ?,"
+				+ " valor_total = ?"
 				+ " WHERE id_aluguel = ?";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
 			
@@ -90,10 +107,68 @@ public class AluguelDAO {
 			pstm.setDate(7, dataDevolucao.getAsSQL());
 			pstm.setDate(8, dataDevolvido.getAsSQL());
 			pstm.setInt(9, aluguel.getIdFuncionario());
-			pstm.setInt(10, id);
+			pstm.setInt(10, aluguel.getDiasDevolucao());
+			pstm.setDouble(11, aluguel.getValorPago());
+			pstm.setDouble(12, aluguel.getValorTotal());
+			pstm.setInt(13, id);
 			pstm.execute();
 			
 			System.out.println("Aluguel de id "+id+" foi alterado com sucesso!");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateDataDevolvido(Integer id, Date dataDevolvido) {
+		
+		String sql = "UPDATE aluguel SET data_devolvido = ? WHERE id_aluguel = ?";
+		try(PreparedStatement pstm = connection.prepareStatement(sql)){
+			DateHelper devolvido = new DateHelper(dataDevolvido);
+			
+			pstm.setDate(1, devolvido.getAsSQL());
+			pstm.setInt(2, id);
+			pstm.execute();
+			
+			System.out.println("Data de devolução do aluguel de id "+id+" atualizada com sucesso! Data: "+ devolvido.getAsString());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateDiasParaDevolucao(Integer id, Integer dias) {
+		String sql = "UPDATE aluguel SET dias_para_devolucao = ? WHERE id_aluguel = ?";
+		try(PreparedStatement pstm = connection.prepareStatement(sql)){
+
+			pstm.setInt(1, dias);
+			pstm.setInt(2, id);
+			pstm.execute();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateValorPago(Integer id, Double valorPago) {
+		String sql = "UPDATE aluguel SET valor_pago = ? WHERE id_aluguel = ?";
+		try(PreparedStatement pstm = connection.prepareStatement(sql)){
+			
+			pstm.setDouble(1, valorPago);
+			pstm.setInt(2, id);
+			pstm.execute();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateValorTotal(Integer id, Double valorTotal) {
+		String sql = "UPDATE aluguel SET valor_total = ? WHERE id_aluguel = ?";
+		try(PreparedStatement pstm = connection.prepareStatement(sql)){
+			
+			pstm.setDouble(1, valorTotal);
+			pstm.setInt(2, id);
+			pstm.execute();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -105,6 +180,7 @@ public class AluguelDAO {
 		List<Aluguel> alugueis = new ArrayList<>();
 		
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
+			
 			pstm.execute();
 			this.resultToAlugueis(alugueis, pstm);
 			return alugueis;
@@ -120,6 +196,7 @@ public class AluguelDAO {
 		List<Aluguel> alugueis = new ArrayList<>();
 		
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
+			
 			pstm.setInt(1, id);
 			pstm.execute();
 			this.resultToAlugueis(alugueis, pstm);
@@ -186,7 +263,10 @@ public class AluguelDAO {
 					rst.getDate(7),
 					rst.getDate(8),
 					rst.getDate(9),
-					rst.getInt(10));
+					rst.getInt(10),
+					rst.getInt(11),
+					rst.getDouble(12),
+					rst.getDouble(13));
 			alugueis.add(aluguel);
 		}
 	}

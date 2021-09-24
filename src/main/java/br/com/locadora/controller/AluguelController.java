@@ -1,6 +1,7 @@
 package br.com.locadora.controller;
 
 import java.sql.Connection;
+import java.util.Date;
 import java.util.List;
 
 import br.com.locadora.helpers.DateHelper;
@@ -17,15 +18,61 @@ public class AluguelController {
 	}
 	
 	public void salvar(Aluguel aluguel) {
+		FilmeController fc = new FilmeController();
+		JogoController jc = new JogoController();
 		DateHelper dataDevolucao = new DateHelper(aluguel.getDataAluguel());
-		dataDevolucao.addUtil(3);
+		dataDevolucao.addUtil(aluguel.getDiasDevolucao());
 		aluguel.setDataDevolucao(dataDevolucao.getData());
 		
-		this.aluguelDao.salvar(aluguel);
+		if(fc.getById(aluguel.getIdFilme()).getStatus() == "disponivel" | jc.getById(aluguel.getIdJogo()).getStatus() == "disponivel" ) {
+			
+			this.aluguelDao.salvar(aluguel);
+			
+			if(aluguel.getIdFilme() != null) {
+				fc.updateStatus(aluguel.getIdFilme(), 2);
+			}
+			if(aluguel.getIdJogo() != null) {
+				jc.updateStatus(aluguel.getIdJogo(), 2);
+			}			
+		}else {
+			System.out.println("Produto não está disponível para aluguel");
+		}
 	}
 	
 	public void updateById(Integer id, Aluguel aluguel) {
 		this.aluguelDao.updateAluguelById(id, aluguel);
+	}
+	
+	public void updateDataDevolvido(Integer id, Date data) {
+		this.aluguelDao.updateDataDevolvido(id, data);
+		
+		FilmeController fc = new FilmeController();
+		JogoController jc = new JogoController();	
+		Aluguel aluguelAtual = this.getById(id);
+		if(aluguelAtual.getIdFilme() >= 1) {
+			fc.updateStatus(aluguelAtual.getIdFilme(), 1);
+		}
+		if(aluguelAtual.getIdJogo() != null) {
+			jc.updateStatus(aluguelAtual.getIdJogo(), 1);
+		}
+	}
+	
+	public void updateValorPago(Integer id, Double valorPago) {
+		this.aluguelDao.updateValorPago(id, valorPago);
+	}
+	
+	public void updateValorTotal(Integer id, Double valorTotal) {
+		this.aluguelDao.updateValorTotal(id, valorTotal);
+	}
+	
+	public void pagamento(Integer id, Double valorPago) {
+		UsuarioController uc = new UsuarioController();
+		Integer idUsuario = this.getById(id).getId();
+		
+		uc.addCredito(idUsuario, valorPago);
+		
+		Double credito = uc.getById(idUsuario).getCredito() - this.getValorTotal(id);
+		
 	}
 	
 	public List<Aluguel> getAll(){
@@ -41,6 +88,27 @@ public class AluguelController {
 	}
 	public List<Aluguel> getJogos(){
 		return this.aluguelDao.getFilmesOuJogos(2);
+	}
+	
+	public Double getValorMulta(Integer id) {
+		Double multa = this.getById(id).getMulta();
+		Long data1 = this.getById(id).getDataDevolucao().getTime();
+		Long data2 = this.getById(id).getDataDevolvido().getTime();
+		Long multiplicador = (data2 - data1)/86400000;
+		Double resultado = multa*multiplicador;
+		this.updateValorTotal(id, resultado);
+		
+		if(resultado > 0) {
+			return resultado;
+		}else {
+			return 0.0;
+		}		
+	}
+	
+	public Double getValorTotal(Integer id) {
+		Double multa = this.getValorMulta(id);
+		Double valorBase = this.getById(id).getValor();
+		return valorBase + multa;
 	}
 	
 	public void deletar(Integer id) {

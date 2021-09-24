@@ -13,8 +13,13 @@ public class Aluguel {
 	private Date dataDevolucao;
 	private Date dataDevolvido;
 	private Integer idFuncionario;
-	
-	public Aluguel(Integer idAluguel, Integer id, Integer idFilme, Integer idJogo, Double valor, Double multa, Date dataAluguel, Date dataDevolucao, Date dataDevolvido, Integer idFuncionario) {
+	private Integer diasDevolucao;
+	private Double valorPago;
+	private Double valorTotal;
+
+	public Aluguel(Integer idAluguel, Integer id, Integer idFilme, Integer idJogo, Double valor, Double multa,
+			Date dataAluguel, Date dataDevolucao, Date dataDevolvido, Integer idFuncionario, Integer diasDevolucao,
+			Double valorPago, Double valorTotal) {
 		this.idAluguel = idAluguel;
 		this.id = id;
 		this.idFilme = idFilme;
@@ -25,9 +30,13 @@ public class Aluguel {
 		this.dataDevolucao = dataDevolucao;
 		this.dataDevolvido = dataDevolvido;
 		this.idFuncionario = idFuncionario;
+		this.diasDevolucao = diasDevolucao;
+		this.valorPago = valorPago;
+		this.valorTotal = valorTotal;
 	}
-	
-	public Aluguel( Integer id, Integer idFilme, Integer idJogo, Double valor, Double multa, Date dataAluguel, Date dataDevolucao, Date dataDevolvido, Integer idFuncionario) {
+
+	public Aluguel(Integer id, Integer idFilme, Integer idJogo, Double valor, Double multa, Date dataAluguel,
+			Date dataDevolucao, Date dataDevolvido, Integer idFuncionario, Integer diasDevolucao, Double valorPago, Double valorTotal) {
 		this.id = id;
 		this.idFilme = idFilme;
 		this.idJogo = idJogo;
@@ -37,16 +46,43 @@ public class Aluguel {
 		this.dataDevolucao = dataDevolucao;
 		this.dataDevolvido = dataDevolvido;
 		this.idFuncionario = idFuncionario;
+		this.diasDevolucao = diasDevolucao;
+		this.valorPago = valorPago;
+		this.valorTotal = valorTotal;
+	}
+	
+	public void setValorTotal(Double valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 
 	public void setDataDevolucao(Date devolucao) {
 		this.dataDevolucao = devolucao;
 	}
-	
+
 	public void setDataDevolvido(Date devolvido) {
 		this.dataDevolvido = devolvido;
 	}
 	
+	public void setDiasDevolucao(Integer diasDevolucao) {
+		this.diasDevolucao = diasDevolucao;
+	}
+	
+	public Integer getDiasDevolucao() {
+		return diasDevolucao;
+	}
+
+	public Double getValorPago() {
+		return valorPago;
+	}
+
+	public void setValorPago(Double valorPago) {
+		this.valorPago = valorPago;
+	}
+
+	public Double getValorTotal() {
+		return valorTotal;
+	}
+
 	public Integer getIdAluguel() {
 		return idAluguel;
 	}
