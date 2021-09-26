@@ -45,6 +45,20 @@ public class Usuario {
 		this.dataCriacao = dataCriacao;
 	}
 	
+public Usuario(String nome, String senha, String cpf, Date dataNascimento, String telefone, String email, String endereco) {
+		
+		this.nome = nome;
+		this.senha = senha;
+		this.nivelAcesso = 1;
+		this.cpf = cpf;
+		this.dataNascimento = dataNascimento;
+		this.telefone = telefone;
+		this.email = email;
+		this.endereco = endereco;
+		this.credito = 0.0;
+		this.dataCriacao = new Date();
+	}
+	
 	public void setCredito(Double credito) {
 		this.credito = credito;
 	}

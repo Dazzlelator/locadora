@@ -44,7 +44,7 @@ public class FilmeController {
 			if(!statusAtual.equals("alugado")) {
 				filmeAtual.setStatus("alugado");
 				pc.retirada(filmeAtual.getIdProduto());
-				this.filmeDao.updateFilmeById(id, filmeAtual);				
+				this.filmeDao.updateFilmeById(id, filmeAtual);
 			}
 			System.out.println("Filme já está "+ statusAtual);
 			break;
@@ -52,7 +52,7 @@ public class FilmeController {
 			if(!statusAtual.equals("vendido")) {
 				filmeAtual.setStatus("vendido");
 				pc.retirada(filmeAtual.getIdProduto());
-				this.filmeDao.updateFilmeById(id, filmeAtual);				
+				this.filmeDao.updateFilmeById(id, filmeAtual);
 			}
 			System.out.println("Filme já está "+ statusAtual);
 			break;
@@ -60,7 +60,7 @@ public class FilmeController {
 			if(!statusAtual.equals("extraviado")) {
 				filmeAtual.setStatus("extraviado");
 				pc.retirada(filmeAtual.getIdProduto());
-				this.filmeDao.updateFilmeById(id, filmeAtual);				
+				this.filmeDao.updateFilmeById(id, filmeAtual);
 			}
 			System.out.println("Filme já está "+ statusAtual);
 			break;

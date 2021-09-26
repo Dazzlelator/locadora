@@ -121,6 +121,22 @@ public class UsuarioDAO {
 		}
 	}
 	
+	public Usuario getUsuarioByNome(String nome) {
+		String sql = "SELECT * FROM usuarios WHERE nome = ?";
+		List<Usuario> usuarios = new ArrayList<>();
+		try(PreparedStatement pstm = connection.prepareStatement(sql)){
+			pstm.setString(1, nome);
+			pstm.execute();
+			this.resultToUsuario(usuarios, pstm);
+			
+			return usuarios.get(0);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	public void deletarById(Integer id) {
 		String sql = "DELETE FROM usuarios WHERE id = ?";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){

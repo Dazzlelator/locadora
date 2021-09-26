@@ -18,6 +18,7 @@ public class ConnectionFactory {
 		comboPooledDataSource.setPassword("96557742");
 
 		this.dataSource = comboPooledDataSource;
+		
 	}
 
 	public Connection recuperarConexao() {
