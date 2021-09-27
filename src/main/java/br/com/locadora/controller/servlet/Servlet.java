@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.locadora.controller.ProdutoController;
-import br.com.locadora.model.Produto;
+import br.com.locadora.controller.UsuarioController;
+import br.com.locadora.model.Usuario;
 
 /**
  * Servlet implementation class Servlet
@@ -40,15 +40,14 @@ public class Servlet extends HttpServlet {
 //		
 //		DateHelper dataNascimento = new DateHelper(nascimento);
 //		
-//		Usuario user = new Usuario(nome, senha, cpf, dataNascimento.getData(), telefone, email, endereco);
+//		Uo user suari= new Usuario(nome, senha, cpf, dataNascimento.getData(), telefone, email, endereco);
 //		UsuarioController uc = new UsuarioController();
 //		uc.salvar(user);
 		
-		ProdutoController pc = new ProdutoController();
-		List<Produto> produtos = pc.getAll();
+		UsuarioController uc = new UsuarioController();
+		List<Usuario> usuarios = uc.getAll();
 		
-		
-		request.setAttribute("produtos", produtos);
+		request.setAttribute("usuarios", usuarios);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/resposta.jsp");
 		rd.forward(request, response);
