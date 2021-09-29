@@ -1,4 +1,4 @@
-package br.com.locadora.controller;
+package br.com.locadora.services;
 
 import java.sql.Connection;
 import java.util.List;
@@ -7,10 +7,10 @@ import br.com.locadora.model.Filme;
 import br.com.locadora.model.dao.ConnectionFactory;
 import br.com.locadora.model.dao.FilmeDAO;
 
-public class FilmeController {
+public class FilmeService {
 	private FilmeDAO filmeDao;
 	
-	public FilmeController() {
+	public FilmeService() {
 		Connection con = new ConnectionFactory().recuperarConexao();
 		this.filmeDao = new FilmeDAO(con);
 	}
@@ -28,7 +28,7 @@ public class FilmeController {
 		Filme filmeAtual = this.filmeDao.getFilmeById(id);
 		String statusAtual = filmeAtual.getStatus();
 		
-		ProdutoController pc = new ProdutoController();
+		ProdutoService pc = new ProdutoService();
 		
 		
 		switch(status) {

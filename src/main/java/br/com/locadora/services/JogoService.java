@@ -1,4 +1,4 @@
-package br.com.locadora.controller;
+package br.com.locadora.services;
 
 import java.sql.Connection;
 import java.util.List;
@@ -7,10 +7,10 @@ import br.com.locadora.model.Jogo;
 import br.com.locadora.model.dao.ConnectionFactory;
 import br.com.locadora.model.dao.JogoDAO;
 
-public class JogoController {
+public class JogoService {
 	private JogoDAO jogoDao;
 	
-	public JogoController() {
+	public JogoService() {
 		Connection con = new ConnectionFactory().recuperarConexao();
 		this.jogoDao = new JogoDAO(con);
 	}
@@ -28,7 +28,7 @@ public class JogoController {
 		Jogo jogoAtual = this.jogoDao.getJogoById(id);
 		String statusAtual = jogoAtual.getStatus();
 		
-		ProdutoController pc = new ProdutoController();
+		ProdutoService pc = new ProdutoService();
 		
 		
 		switch(status) {

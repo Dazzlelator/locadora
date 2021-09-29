@@ -10,6 +10,7 @@
 <title>Teste de links</title>
 </head>
 <body>
-	<a href="${linkMain}">go_to_main</a>
+	<a href="${linkMain}?action=listarUsuarios">Listar</a>
+	<a href="${linkMain}?action=cadastrarUsuario"> cadastrar</a>
 </body>
 </html>

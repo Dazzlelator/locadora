@@ -1,4 +1,4 @@
-package br.com.locadora.controller;
+package br.com.locadora.services;
 
 import java.sql.Connection;
 import java.util.List;
@@ -7,10 +7,10 @@ import br.com.locadora.model.Produto;
 import br.com.locadora.model.dao.ConnectionFactory;
 import br.com.locadora.model.dao.ProdutoDAO;
 
-public class ProdutoController {
+public class ProdutoService {
 	private ProdutoDAO produtoDao;
 	
-	public ProdutoController() {
+	public ProdutoService() {
 		Connection con = new ConnectionFactory().recuperarConexao();
 		this.produtoDao = new ProdutoDAO(con);
 	}

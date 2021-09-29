@@ -1,4 +1,4 @@
-package br.com.locadora.controller;
+package br.com.locadora.services;
 
 import java.sql.Connection;
 import java.util.Date;
@@ -9,22 +9,22 @@ import br.com.locadora.model.Aluguel;
 import br.com.locadora.model.dao.AluguelDAO;
 import br.com.locadora.model.dao.ConnectionFactory;
 
-public class AluguelController {
+public class AluguelService {
 	private AluguelDAO aluguelDao;
 	
-	public AluguelController() {
+	public AluguelService() {
 		Connection con = new ConnectionFactory().recuperarConexao();
 		this.aluguelDao = new AluguelDAO(con);
 	}
 	
 	public void salvar(Aluguel aluguel) {
-		FilmeController fc = new FilmeController();
-		JogoController jc = new JogoController();
+		FilmeService fc = new FilmeService();
+		JogoService jc = new JogoService();
 		DateHelper dataDevolucao = new DateHelper(aluguel.getDataAluguel());
 		dataDevolucao.addUtil(aluguel.getDiasDevolucao());
 		aluguel.setDataDevolucao(dataDevolucao.getData());
 		
-		if(fc.getById(aluguel.getIdFilme()).getStatus() == "disponivel" | jc.getById(aluguel.getIdJogo()).getStatus() == "disponivel" ) {
+		if(fc.getById(aluguel.getIdFilme()).getStatus().equals("disponivel")  | jc.getById(aluguel.getIdJogo()).getStatus().equals("disponivel")) {
 			
 			this.aluguelDao.salvar(aluguel);
 			
@@ -46,8 +46,8 @@ public class AluguelController {
 	public void updateDataDevolvido(Integer id, Date data) {
 		this.aluguelDao.updateDataDevolvido(id, data);
 		
-		FilmeController fc = new FilmeController();
-		JogoController jc = new JogoController();	
+		FilmeService fc = new FilmeService();
+		JogoService jc = new JogoService();	
 		Aluguel aluguelAtual = this.getById(id);
 		if(aluguelAtual.getIdFilme() >= 1) {
 			fc.updateStatus(aluguelAtual.getIdFilme(), 1);
@@ -66,7 +66,7 @@ public class AluguelController {
 	}
 	
 	public void pagamento(Integer id, Double valorPago) {
-		UsuarioController uc = new UsuarioController();
+		UsuarioService uc = new UsuarioService();
 		Integer idUsuario = this.getById(id).getId();
 		
 		uc.addCredito(idUsuario, valorPago);

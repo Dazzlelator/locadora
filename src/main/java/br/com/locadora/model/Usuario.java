@@ -67,6 +67,10 @@ public Usuario(String nome, String senha, String cpf, Date dataNascimento, Strin
 		this.senha = senha;
 	}
 	
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+	
 	public void setDataNascimento(Date data) {
 		this.dataNascimento = data;
 	}

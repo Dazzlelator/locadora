@@ -2,9 +2,9 @@ package testes;
 
 import java.util.Date;
 
-import br.com.locadora.controller.AluguelController;
 import br.com.locadora.helpers.DateHelper;
 import br.com.locadora.model.Aluguel;
+import br.com.locadora.services.AluguelService;
 
 public class teste1 {
 
@@ -16,7 +16,7 @@ public class teste1 {
 		
 		
 		Aluguel aluguel = new Aluguel(15, null,  8, 15.0, 5.0, agora, null, null, 1, 3, 0.0, 0.0);
-		AluguelController ac = new AluguelController();
+		AluguelService ac = new AluguelService();
 //		
 		ac.salvar(aluguel);
 //		ac.updateById(21, aluguel);
