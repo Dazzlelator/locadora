@@ -16,7 +16,12 @@ public class UsuarioService {
 	}
 	
 	public void salvar(Usuario usuario) {
-		this.usuarioDao.salvar(usuario);
+		if(this.getByEmail(usuario.getEmail()) == null) {
+			this.usuarioDao.salvar(usuario);
+		}else {
+			System.out.println("Email já cadastrado!");
+		} 
+		
 	}
 	
 	public void updateByid(Integer id, Usuario usuario) {
@@ -34,6 +39,31 @@ public class UsuarioService {
 	
 	public Usuario getById(Integer id) {
 		return this.usuarioDao.getUsuarioById(id);
+	}
+	
+	public Usuario getByEmail(String email) {
+		if(this.usuarioDao.getusuarioByEmail(email) != null){
+			return this.usuarioDao.getusuarioByEmail(email);
+		}else {
+			System.out.println("Usuario não foi encontrado");
+			return null;
+		}		
+	}
+	
+	public boolean check(String email, String senha) {
+		Usuario user = this.getByEmail(email);
+		
+		if(user!= null) {
+			if(user.getSenha().equals(senha)) {
+				return true;
+			}else {
+				System.out.println("Senha inválida");
+				return false;
+			}
+		}else {
+			System.out.println("Usuario invalido!");
+			return false;
+		}
 	}
 	
 	public void deletar(Integer id) {

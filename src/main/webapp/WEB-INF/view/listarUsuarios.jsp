@@ -9,12 +9,17 @@
 <title>Teste de resposta</title>
 </head>
 <body>
+
+	<c:import url="logout.jsp"/>
+	
+	Usuario Logado: ${usuarioLogado.nome}
+	
 	<ul>		
 		<c:forEach items="${usuarios}" var="usuario">
 			<c:if test="${not empty usuarios}">
 				<li>${usuario.nome}</li>
-				<a href="${main}?id=${usuario.id}&action=alterarUsuario">alterar</a>
-				<a href="${main}?id=${usuario.id}&action=deletarUsuario">excluir</a>
+				<a href="${main}?id=${usuario.id}&action=AlterarUsuario">alterar</a>
+				<a href="${main}?id=${usuario.id}&action=DeletarUsuario">excluir</a>
 			</c:if>	 
 		</c:forEach>
 	</ul>

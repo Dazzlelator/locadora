@@ -9,7 +9,8 @@
 <title>Alterar Usuario teste</title>
 </head>
 <body>
-	<form action="${main}?action=alterarUsuario" method="post">
+	<c:import url="logout.jsp"/>
+	<form action="${main}?action=SalvarUsuario" method="post">
 			
 		<input type="hidden" name="id" value="${usuario.id}" readonly><br>
 		Nome: <input type="text" name="nome" value="${usuario.nome}"><br>

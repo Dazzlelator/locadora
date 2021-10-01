@@ -10,7 +10,12 @@
 <title>Teste de links</title>
 </head>
 <body>
-	<a href="${linkMain}?action=listarUsuarios">Listar</a>
-	<a href="${linkMain}?action=cadastrarUsuario"> cadastrar</a>
+	<form action="${linkMain}?action=Login" method="post">
+		Login: <input type="text" name="email"/>
+		Senha: <input type="password" name="senha"/>
+		<input type="submit"/>		
+	</form>
+	
+	<a href="${linkMain}?action=CadastrarUsuario"> cadastrar</a>
 </body>
 </html>

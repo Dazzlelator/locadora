@@ -1,9 +1,5 @@
 package br.com.locadora.controller.actions;
 
-import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,7 +7,7 @@ import br.com.locadora.helpers.DateHelper;
 import br.com.locadora.model.Usuario;
 import br.com.locadora.services.UsuarioService;
 
-public class AlterarUsuario {
+public class AlterarUsuario implements Acao{
 	public String executar(HttpServletRequest request, HttpServletResponse response) {
 		
 		String paramId = request.getParameter("id");
@@ -23,7 +19,7 @@ public class AlterarUsuario {
 			
 			request.setAttribute("usuario", user);
 			
-			return "dispatcher:/view/form-usuario-alterar.jsp";
+			return "dispatcher:/form-usuario-alterar.jsp";
 		}else {
 			
 			String paramNome = request.getParameter("nome");
@@ -46,7 +42,7 @@ public class AlterarUsuario {
 			
 			us.updateByid(id, user);
 			
-			return "response:main?action=listarUsuarios";
+			return "response:ListarUsuarios";
 			
 			
 		}
