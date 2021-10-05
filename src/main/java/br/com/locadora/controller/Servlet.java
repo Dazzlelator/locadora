@@ -25,7 +25,6 @@ public class Servlet extends HttpServlet {
 
 	public Servlet() {
 		super();
-
 	}
 
 	@SuppressWarnings({ "deprecation", "rawtypes" })
@@ -33,24 +32,25 @@ public class Servlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		String stringTipoEndereco = null;
-		String paramAcao = request.getParameter("action");
-		String nomeClasse = "br.com.locadora.controller.actions." + paramAcao; //primeiro vc cria a String do pacote onde será econtrado as actions.
+		String[] paramAcoes = request.getParameter("action").split("=");
+		String paramAcao = paramAcoes[0];
+		System.out.println(paramAcao);
 
+
+		
+		String nomeClasse = "br.com.locadora.controller.actions." + paramAcao; //primeiro vc cria a String do pacote onde será econtrado as actions.
+		
 		
 		//isso daqui é uma forma genial de chamar uma classe usando a string q vem do request parameter!	
 		try {
-			Class classe = Class.forName(nomeClasse); //segundo vc invoca a classe usando o metodo forName.
-			Acao acao = (Acao) classe.newInstance(); // terceiro vc instancia a classe e casta o tipo dela.
+			Class classe = Class.forName(nomeClasse); //segundo  invoca a classe usando o metodo forName.
+			Acao acao = (Acao) classe.newInstance(); // terceiro  instancia a classe e casta o tipo dela.
 			stringTipoEndereco = acao.executar(request, response); //com a classe instanciada e com o tipo definido, vc usa o metodo executar que essas classes devem possuir
 			
 		} catch (ClassNotFoundException|InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}		
-			
-		
-		System.out.println(paramAcao);
-
-
+					
 		String[] tipo_endereco = stringTipoEndereco.split(":");
 
 		if (tipo_endereco[0].equals("dispatcher")) {

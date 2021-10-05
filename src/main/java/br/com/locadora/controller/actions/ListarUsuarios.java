@@ -17,7 +17,7 @@ public class ListarUsuarios implements Acao{
 		List<Usuario> usuarios = us.getAll();
 		
 		request.setAttribute("usuarios", usuarios);
-		return "dispatcher:listarUsuarios.jsp";	
+		return "dispatcher:listarUsuarios.jsp";
 		
 	}
 

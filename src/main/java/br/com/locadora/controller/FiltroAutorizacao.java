@@ -13,10 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.com.locadora.model.Usuario;
+
 /**
  * Servlet Filter implementation class FiltroAutorizacao
  */
-@WebFilter("/main")
+//@WebFilter("/main")
 public class FiltroAutorizacao implements Filter {
 
  
@@ -39,15 +41,23 @@ public class FiltroAutorizacao implements Filter {
 		HttpSession sess = request.getSession();
 		
 		Boolean usuarioLogado = (sess.getAttribute("usuarioLogado") != null);
-		Boolean acaoLivre = (paramAcao.equals("Login") || paramAcao.equals("Home"));
+		Boolean acaoLivre = (paramAcao.equals("Login") || paramAcao.equals("Home") || paramAcao.equals("CadastrarUsuario") || paramAcao.equals("SalvarUsuario"));
 		
-		if(!usuarioLogado && !acaoLivre) {
-			System.out.println("dentro de dofilter");
-			response.sendRedirect("main?action=Home");
-			return;
+		if(usuarioLogado) {
+			Usuario user = (Usuario) sess.getAttribute("usuarioLogado");
+			System.out.println(user.getNivelAcesso() + " nivel de acesso!");
 		}
 		
-		chain.doFilter(request, response);
+		if(!usuarioLogado && !acaoLivre) {
+			response.sendRedirect("main?action=Home");
+			return;
+		}else {
+			System.out.println(paramAcao);	
+			chain.doFilter(request, response);
+		}
+		
+		
+		
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {

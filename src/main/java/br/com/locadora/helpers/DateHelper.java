@@ -21,6 +21,7 @@ public class DateHelper {
 			
 		}else {
 			System.out.println("Data nula");
+			return;
 		}	
 	}
 
