@@ -7,21 +7,19 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.locadora.model.Filme;
-import br.com.locadora.services.FilmeService;
+import br.com.locadora.model.Jogo;
+import br.com.locadora.services.JogoService;
 
-public class CatalogarFilmesLancamento implements Acao{
-
+public class CatalogarJogosLancamento implements Acao{
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {	
-		FilmeService fs = new FilmeService();
-		List<Filme> filmes = fs.getLancamento(1); //mes 1
+		JogoService js = new JogoService();
+		List<Jogo> jogos = js.getLancamento(1); //mes 1
 		
-		request.setAttribute("filmes", filmes);
+		request.setAttribute("jogos", jogos);
 		
 		return "dispatcher:catalogo-lancamento.jsp";
 				
 	}
-	
 }

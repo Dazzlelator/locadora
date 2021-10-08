@@ -19,7 +19,7 @@ public class ProdutoDAO {
 	}
 
 	public void salvar(Produto produto) {
-		String sql = "INSERT INTO produtos (id, cod_produto, nome, valor, valor_custo, quantidade, data_cadastro) VALUES (?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO produtos (id, cod_produto, nome, valor, valor_custo, quantidade, data_cadastro, tipo) VALUES (?,?,?,?,?,?,?,?)";
 		try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			DateHelper dataCadastro = new DateHelper(produto.getDataCadastro());
 
@@ -30,6 +30,7 @@ public class ProdutoDAO {
 			pstm.setDouble(5, produto.getCusto());
 			pstm.setInt(6, produto.getQuantidade());
 			pstm.setDate(7, dataCadastro.getAsSQL());
+			pstm.setString(8, produto.getTipo());
 
 			pstm.execute();
 
@@ -44,7 +45,7 @@ public class ProdutoDAO {
 	}
 
 	public void updateById(Integer id, Produto produto) {
-		String sql = "UPDATE produtos SET id = ?, cod_produto = ?, nome = ?, valor = ?, valor_custo = ?, quantidade = ?, data_cadastro = ? WHERE id_produto = ?";
+		String sql = "UPDATE produtos SET id = ?, cod_produto = ?, nome = ?, valor = ?, valor_custo = ?, quantidade = ?, data_cadastro = ?, tipo = ? WHERE id_produto = ?";
 		try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			DateHelper dataCadastro = new DateHelper(produto.getDataCadastro());
 
@@ -55,7 +56,8 @@ public class ProdutoDAO {
 			pstm.setDouble(5, produto.getCusto());
 			pstm.setInt(6, produto.getQuantidade());
 			pstm.setDate(7, dataCadastro.getAsSQL());
-			pstm.setInt(8, id);
+			pstm.setString(8, produto.getTipo());
+			pstm.setInt(9, id);
 
 			pstm.execute();
 
@@ -152,7 +154,7 @@ public class ProdutoDAO {
 		ResultSet rst = pstm.getResultSet();
 		while (rst.next()) {
 			Produto produto = new Produto(rst.getInt(1), rst.getInt(2), rst.getString(3), rst.getString(4),
-					rst.getDouble(5), rst.getDouble(6), rst.getInt(7), rst.getDate(8));
+					rst.getDouble(5), rst.getDouble(6), rst.getInt(7), rst.getDate(8), rst.getString(9));
 			produtos.add(produto);
 		}
 	}

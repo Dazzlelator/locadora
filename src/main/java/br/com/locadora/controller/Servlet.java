@@ -54,7 +54,7 @@ public class Servlet extends HttpServlet {
 		String[] tipo_endereco = stringTipoEndereco.split(":");
 
 		if (tipo_endereco[0].equals("dispatcher")) {
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/" + tipo_endereco[1]);
+			RequestDispatcher rd = request.getRequestDispatcher("/view/" + tipo_endereco[1]);
 			rd.forward(request, response);
 		} else {
 			response.sendRedirect("main?action="+tipo_endereco[1]);

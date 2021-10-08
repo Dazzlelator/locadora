@@ -77,6 +77,10 @@ public class FilmeService {
 	public List<Filme> getAll() {
 		return this.filmeDao.getAllFilmes();
 	}
+	
+	public List<Filme> getGroupByIdProduto(){
+		return this.filmeDao.getFilmeGroupByIdProduto();
+	}
 
 	public Filme getById(Integer id) {
 		return this.filmeDao.getFilmeById(id);
@@ -86,7 +90,7 @@ public class FilmeService {
 		
 		//atributos adicionam dias a data de lancamento e verificam se o filme pode ser classificado como lancamento;
 
-		List<Filme> filmes = this.getAll();
+		List<Filme> filmes = this.getGroupByIdProduto();
 		List<Filme> lancamentos = new ArrayList<>();
 		Long dataAtual = new Date().getTime();
 
@@ -98,7 +102,7 @@ public class FilmeService {
 				dataParaAdd.adicionarMeses(tempoDeLancamentoEmMeses);
 //				dataParaAdd.adicionarMeses(tempoDeLancamentoEmDias);
 				if (dataParaAdd.getData().getTime() > dataAtual) {	
-					lancamentos.add(filmes.get(i));
+						lancamentos.add(filmes.get(i));
 				}
 			}
 		}

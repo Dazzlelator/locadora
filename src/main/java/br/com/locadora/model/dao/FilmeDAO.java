@@ -124,6 +124,19 @@ public class FilmeDAO {
 		}		
 	}
 	
+	public List<Filme> getFilmeGroupByIdProduto() {
+		List<Filme> filmes = new ArrayList<>();
+		String sql = "SELECT * FROM filmes GROUP BY id_produto";
+		try(PreparedStatement pstm = connection.prepareStatement(sql)){
+			pstm.execute();
+			this.resultToFilmes(filmes, pstm);
+			return filmes;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	public void deletarFilmeById(Integer id) {
 		String sql = "DELETE FROM filmes WHERE id = ?";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){

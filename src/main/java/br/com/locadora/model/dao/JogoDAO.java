@@ -118,6 +118,20 @@ public class JogoDAO {
 		}
 	}
 	
+	public List<Jogo> getJogosGroupByIdProduto(){
+		List<Jogo> jogos = new ArrayList<>();
+		String sql = "SELECT * FROM jogos GROUP BY id_produto";
+		try(PreparedStatement pstm = connection.prepareStatement(sql)){
+			pstm.execute();
+			this.resultToJogos(jogos, pstm);
+			return jogos;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	public Jogo getJogoById(Integer id) {
 		String sql = "SELECT * FROM jogos WHERE id_jogo = ?";
 		List<Jogo> jogos = new ArrayList<>();

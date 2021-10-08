@@ -28,7 +28,7 @@ public class Login implements Acao{
 			if(userCheck) {
 				HttpSession sess = request.getSession();
 				sess.setAttribute("usuarioLogado",  user);
-				return "redirect:ListarUsuarios";				
+				return "redirect:PaginaInicial";				
 			}else {				
 				return "redirect:Home";
 			}

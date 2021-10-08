@@ -11,8 +11,9 @@ public class Produto {
 	private Double custo;
 	private Integer quantidade;
 	private Date dataCadastro;
+	private String tipo;
 	
-	public Produto(Integer produtoId, Integer id, String codProduto, String nome, Double valor, Double custo, Integer quantidade, Date dataCadastro) {
+	public Produto(Integer produtoId, Integer id, String codProduto, String nome, Double valor, Double custo, Integer quantidade, Date dataCadastro, String tipo) {
 		this.produtoId = produtoId;
 		this.id = id;
 		this.codProduto = codProduto;
@@ -21,9 +22,10 @@ public class Produto {
 		this.custo = custo;
 		this.quantidade = quantidade;
 		this.dataCadastro = dataCadastro;
+		this.tipo = tipo;
 	}
 	
-	public Produto( Integer id, String codProduto, String nome, Double valor, Double custo, Integer quantidade, Date dataCadastro) {
+	public Produto( Integer id, String codProduto, String nome, Double valor, Double custo, Integer quantidade, Date dataCadastro, String tipo) {
 		this.id = id;
 		this.codProduto = codProduto;
 		this.nome = nome;
@@ -31,6 +33,7 @@ public class Produto {
 		this.custo = custo;
 		this.quantidade = quantidade;
 		this.dataCadastro = dataCadastro;
+		this.tipo = tipo;
 	}
 
 	public Integer getProdutoId() {
@@ -65,5 +68,8 @@ public class Produto {
 		return dataCadastro;
 	}
 	
+	public String getTipo() {
+		return tipo;
+	}
 	
 }
