@@ -11,6 +11,7 @@
 	
 </head>
 <body>
+	<link rel="stylesheet" href="/Locadora/CSSs/menu.css">
 	<script src="/Locadora/Scripts/jquery.js"></script>
 	<script src="/Locadora/Scripts/catalogoScript.js"></script>
 	
@@ -26,7 +27,7 @@
 	<br>
 			
 	<div class="catalogos">
-		<a> Catalogo de filmes</a>
+		<a href="${main}?action=CatalogarFilmes"> Catalogo de filmes</a>
 		<a> Catalogo de Jogos</a>
 	</div>
 			
@@ -35,8 +36,6 @@
 	<div id="catalogo_id">
 		<c:import url="catalogo-lancamento.jsp" />
 	</div>
-	
-
-	
+		
 </body>
 </html>

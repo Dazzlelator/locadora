@@ -21,11 +21,12 @@ public class Filme {
 	private Date dataLancamento;
 	private Date dataCadastro;
 	private String status;
+	private String sinopse;
 
 	public Filme(Integer idFilme, Integer idProduto, String tecnologia, String numSerial, String nome, String franquia,
 			String generos, String premios, String notas, String protagonistas, String diretor, String produtor,
 			String destribuidor, String faixaEtaria, String integridade, Date dataLancamento, Date dataCadastro,
-			String status) {
+			String status, String sinopse) {
 		this.idFilme = idFilme;
 		this.idProduto = idProduto;
 		this.tecnologia = tecnologia;
@@ -44,12 +45,13 @@ public class Filme {
 		this.dataLancamento = dataLancamento;
 		this.dataCadastro = dataCadastro;
 		this.status = status;
+		this.sinopse = sinopse;
 	}
 	
 	public Filme(Integer idProduto, String tecnologia, String numSerial, String nome, String franquia,
 			String generos, String premios, String notas, String protagonistas, String diretor, String produtor,
 			String destribuidor, String faixaEtaria, String integridade, Date dataLancamento, Date dataCadastro,
-			String status) {
+			String status, String sinopse) {
 		this.idProduto = idProduto;
 		this.tecnologia = tecnologia;
 		this.numSerial = numSerial;
@@ -67,6 +69,7 @@ public class Filme {
 		this.dataLancamento = dataLancamento;
 		this.dataCadastro = dataCadastro;
 		this.status = status;
+		this.sinopse = sinopse;
 	}
 	
 	public void setStatus(String status) {
@@ -143,6 +146,10 @@ public class Filme {
 
 	public String getStatus() {
 		return status;
+	}
+	
+	public String getSinopse() {
+		return sinopse;
 	}
 
 }

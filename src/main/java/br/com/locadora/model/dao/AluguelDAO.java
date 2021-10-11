@@ -11,6 +11,7 @@ import java.util.List;
 
 import br.com.locadora.helpers.DateHelper;
 import br.com.locadora.model.Aluguel;
+import br.com.locadora.model.Filme;
 
 public class AluguelDAO {
 	private Connection connection;
@@ -38,8 +39,9 @@ public class AluguelDAO {
 				pstm.setString(2, null);
 				pstm.setInt(3, aluguel.getIdJogo());
 			}
-				System.out.println(aluguel.getIdFilme() + "filme");
-				System.out.println(aluguel.getIdJogo() + "jogo");
+			if(aluguel.getIdFuncionario() == null) {
+				aluguel.setIdFuncionario(0);
+			}
 			
 			
 			pstm.setInt(1, aluguel.getId());
@@ -175,6 +177,36 @@ public class AluguelDAO {
 		}
 	}
 	
+	public void updateParamDiasParaDevolucao(Integer dias) {
+		String sql = "UPDATE aluguel SET dias_para_devolucao = ? WHERE id_aluguel = 1";
+		try(PreparedStatement pstm = connection.prepareStatement(sql)){
+			pstm.setInt(1, dias);
+			pstm.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateParamValorAlguel(Double valorAluguel) {
+		String sql = "UPDATE aluguel SET valor = ? WHERE id_aluguel = 1";
+		try(PreparedStatement pstm = connection.prepareStatement(sql)){
+			pstm.setDouble(1, valorAluguel);
+			pstm.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateParamValorMulta(Double valorMulta) {
+		String sql = "UPDATE aluguel SET valor_multa = ? WHERE id_aluguel = 1";
+		try(PreparedStatement pstm = connection.prepareStatement(sql)){
+			pstm.setDouble(1, valorMulta);
+			pstm.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public List<Aluguel> getAllAluguel(){
 		String sql = "SELECT * FROM aluguel";
 		List<Aluguel> alugueis = new ArrayList<>();
@@ -188,6 +220,20 @@ public class AluguelDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return alugueis;
+		}
+	}
+	
+	public List<Aluguel> getAllAlugueisAtivosById(Integer id){
+		List<Aluguel> alugueis = new ArrayList<>();
+		String sql = "SELECT * FROM aluguel WHERE data_devolvido IS NULL AND id = ?";
+		try(PreparedStatement pstm = connection.prepareStatement(sql)){
+			pstm.setInt(1, id);
+			pstm.execute();
+			this.resultToAlugueis(alugueis, pstm);
+			return alugueis;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 	
@@ -231,6 +277,20 @@ public class AluguelDAO {
 			
 			this.resultToAlugueis(alugueis, pstm);
 			return alugueis;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public Aluguel getParamAluguel() {
+		String sql = "SELECT * FROM aluguel WHERE id_aluguel = 1";
+		List<Aluguel> alugueis = new ArrayList<>();
+		try(PreparedStatement pstm = connection.prepareStatement(sql)){
+			pstm.execute();
+			this.resultToAlugueis(alugueis, pstm);
+			return alugueis.get(0);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;

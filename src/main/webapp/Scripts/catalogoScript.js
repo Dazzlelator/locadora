@@ -1,15 +1,4 @@
 
-// $.ajax({
-//     type:'POST',    
-    
-//     url: "@Url.Action('CatalogarFilmesLancamento')",
-
-// }).done(function(){
-//     console.log("resposta")
-// })
-
-
-//isso daqui envia um parametro pro servlet depois dele ja ter carregadoa pagina. parametro assincrono
 
 
 var paramFilme = {

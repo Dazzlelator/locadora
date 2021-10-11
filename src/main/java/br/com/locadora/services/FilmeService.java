@@ -32,7 +32,7 @@ public class FilmeService {
 		String statusAtual = filmeAtual.getStatus();
 
 		ProdutoService pc = new ProdutoService();
-
+		System.out.println("status num: " +status);
 		switch (status) {
 		case 1:
 			if (!statusAtual.equals("disponivel")) {

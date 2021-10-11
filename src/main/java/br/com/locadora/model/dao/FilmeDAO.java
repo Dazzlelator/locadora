@@ -20,8 +20,8 @@ public class FilmeDAO {
 
 	public void salvar(Filme filme) {
 		String sql = "INSERT INTO filmes"
-				+ " (id_produto, tecnologia, num_serial, nome, franquia, generos, premios, notas, protagonistas, diretor, produtor, distribuidor, faixa_etaria, integridade, data_lancamento, data_cadastro, status)"
-				+ " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ " (id_produto, tecnologia, num_serial, nome, franquia, generos, premios, notas, protagonistas, diretor, produtor, distribuidor, faixa_etaria, integridade, data_lancamento, data_cadastro, status, sinopse)"
+				+ " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			DateHelper dataLancamento = new DateHelper(filme.getDataLancamento());
 			DateHelper dataCadastro = new DateHelper(filme.getDataCadastro());
@@ -43,6 +43,7 @@ public class FilmeDAO {
 			pstm.setDate(15, dataLancamento.getAsSQL());
 			pstm.setDate(16, dataCadastro.getAsSQL());
 			pstm.setString(17, filme.getStatus());
+			pstm.setString(18, filme.getSinopse());
 			pstm.execute();
 
 			ResultSet rst = pstm.getGeneratedKeys();
@@ -60,7 +61,7 @@ public class FilmeDAO {
 				+ " id_produto = ?," + " tecnologia = ?," + " num_serial = ?," + " nome = ?,"
 				+ " franquia = ?," + " generos = ?," + " premios = ?," + " notas = ?," + " protagonistas = ?,"
 				+ " diretor = ?," + " produtor = ?," + " distribuidor = ?," + " faixa_etaria = ?," + " integridade = ?,"
-				+ " data_lancamento = ?," + " data_cadastro = ?," + " status = ?" + " WHERE id_filme = ?";
+				+ " data_lancamento = ?," + " data_cadastro = ?," + " status = ?," + "sinopse = ?   WHERE id_filme = ?";
 		try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			DateHelper dataLancamento = new DateHelper(filme.getDataLancamento());
 			DateHelper dataCadastro = new DateHelper(filme.getDataCadastro());
@@ -82,7 +83,8 @@ public class FilmeDAO {
 			pstm.setDate(15, dataLancamento.getAsSQL());
 			pstm.setDate(16, dataCadastro.getAsSQL());
 			pstm.setString(17, filme.getStatus());
-			pstm.setInt(18, id);
+			pstm.setString(18, filme.getSinopse());
+			pstm.setInt(19, id);
 
 			pstm.execute();
 
@@ -110,6 +112,8 @@ public class FilmeDAO {
 		}
 	}
 	
+
+	
 	public Filme getFilmeById(Integer id) {
 		List<Filme> filmes = new ArrayList<>();
 		String sql = "SELECT * FROM filmes WHERE id_filme = ?";
@@ -126,7 +130,7 @@ public class FilmeDAO {
 	
 	public List<Filme> getFilmeGroupByIdProduto() {
 		List<Filme> filmes = new ArrayList<>();
-		String sql = "SELECT * FROM filmes GROUP BY id_produto";
+		String sql = "SELECT * FROM filmes_disponiveis GROUP BY id_produto";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
 			pstm.execute();
 			this.resultToFilmes(filmes, pstm);
@@ -171,7 +175,8 @@ public class FilmeDAO {
 					rst.getString(15),
 					rst.getDate(16),
 					rst.getDate(17),
-					rst.getString(18));
+					rst.getString(18),
+					rst.getString(19));
 			filmes.add(filme);
 		}
 	}

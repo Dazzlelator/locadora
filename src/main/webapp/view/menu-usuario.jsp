@@ -15,13 +15,14 @@
 
 		<div id="usuario_inf" class="cabecalho">
 			<c:import url="logout.jsp" />
-			Usuario Logado: ${usuarioLogado.nome} 
+			Usuario Logado: ${usuarioLogado.nome}  <br> Credito atual: ${usuarioLogado.credito}
 			<a href="${main}?action=PaginaInicial">Pagina inicial</a>
 		</div>
 	</header>
 	<div id=lista_opcoes>
 		<a href="${main}?id=${usuarioLogado.id}&action=AlterarUsuario">Alterar dados pessoais</a>
 		<a href="${main}?action=ListarUsuarios" class="nivel${usuarioLogado.nivelAcesso}"> Listar usuarios</a>
+		<a href="view/adicionar-credito.jsp">Adicionar Credito</a>
 		
 	</div>
 

@@ -18,22 +18,52 @@ public class AluguelService {
 	}
 	
 	public void salvar(Aluguel aluguel) {
+		
 		FilmeService fc = new FilmeService();
 		JogoService jc = new JogoService();
-		DateHelper dataDevolucao = new DateHelper(aluguel.getDataAluguel());
-		dataDevolucao.addUtil(aluguel.getDiasDevolucao());
-		aluguel.setDataDevolucao(dataDevolucao.getData());
 		
-		if(fc.getById(aluguel.getIdFilme()).getStatus().equals("disponivel")  | jc.getById(aluguel.getIdJogo()).getStatus().equals("disponivel")) {
-			
-			this.aluguelDao.salvar(aluguel);
-			
+		
+		if(aluguel.getDataAluguel() == null) {
+			aluguel.setDataAluguel(new Date());
+		}
+		
+		
+		Integer diasParaDevolucao = this.getParamAluguel().getDiasDevolucao(); //isso daqui vem do primeiro item da table aluguel. Esse item serve como parametro base para os alugueis.
+		DateHelper dataDevolucao = new DateHelper(aluguel.getDataAluguel());
+		
+		dataDevolucao.addUtil(diasParaDevolucao);
+		aluguel.setDiasDevolucao(diasParaDevolucao);
+		aluguel.setDataDevolucao(dataDevolucao.getData());
+		aluguel.setValorPago(0.0); //aqui pode ser zero ou o valor a ser pago inicialmente sem as multas.
+		aluguel.setValorTotal(0.0);
+		
+		String statusFilme = null;
+		String statusJogo = null;
+		
+		if(aluguel.getIdFilme() != null) {
+			statusFilme = fc.getById(aluguel.getIdFilme()).getStatus();
+			statusJogo = "indisponivel";
+		}
+		if(aluguel.getIdJogo() != null){
+			statusJogo = fc.getById(aluguel.getIdJogo()).getStatus();
+			statusFilme = "indisponivel";
+		}
+		
+		
+		if("disponivel".equals(statusFilme)  | "disponivel".equals(statusJogo)) {
+									
 			if(aluguel.getIdFilme() != null) {
-				fc.updateStatus(aluguel.getIdFilme(), 2);
+				fc.updateStatus(aluguel.getIdFilme(), 2);	
+				this.aluguelDao.salvar(aluguel);
+							
 			}
 			if(aluguel.getIdJogo() != null) {
 				jc.updateStatus(aluguel.getIdJogo(), 2);
-			}			
+				this.aluguelDao.salvar(aluguel);
+				
+				
+			}
+			
 		}else {
 			System.out.println("Produto não está disponível para aluguel");
 		}
@@ -66,17 +96,22 @@ public class AluguelService {
 	}
 	
 	public void pagamento(Integer id, Double valorPago) {
-		UsuarioService uc = new UsuarioService();
+		UsuarioService us = new UsuarioService();
 		Integer idUsuario = this.getById(id).getId();
 		
-		uc.addCredito(idUsuario, valorPago);
+		us.addCredito(idUsuario, valorPago);
 		
-		Double credito = uc.getById(idUsuario).getCredito() - this.getValorTotal(id);
+		
+		us.addCredito(idUsuario, -this.getValorTotal(id));
 		
 	}
 	
 	public List<Aluguel> getAll(){
 		return this.aluguelDao.getAllAluguel();
+	}
+	
+	public List<Aluguel> getAllAtivosById(Integer id){
+		return this.aluguelDao.getAllAlugueisAtivosById(id);
 	}
 	
 	public Aluguel getById(Integer id) {
@@ -109,6 +144,18 @@ public class AluguelService {
 		Double multa = this.getValorMulta(id);
 		Double valorBase = this.getById(id).getValor();
 		return valorBase + multa;
+	}
+	
+	public Aluguel getParamAluguel() {
+		return this.aluguelDao.getParamAluguel();
+	}
+	
+	public Date getDataDevolucaoPreview() {
+		Integer diasParaDevolucao = this.getParamAluguel().getDiasDevolucao();
+		DateHelper dataDevolucao = new DateHelper(new Date());
+		dataDevolucao.addUtil(diasParaDevolucao);
+		
+		return dataDevolucao.getData();
 	}
 	
 	public void deletar(Integer id) {

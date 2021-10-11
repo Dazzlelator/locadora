@@ -51,8 +51,21 @@ public class Aluguel {
 		this.valorTotal = valorTotal;
 	}
 	
+	public Aluguel(Integer id, Integer idFilme, Integer idJogo, Double valor, Double multa) {
+		this.id = id;
+		this.idFilme = idFilme;
+		this.idJogo = idJogo;
+		this.valor = valor;
+		this.multa = multa;
+	
+	}
+	
 	public void setValorTotal(Double valorTotal) {
 		this.valorTotal = valorTotal;
+	}
+	
+	public void setDataAluguel(Date dataAluguel) {
+		this.dataAluguel = dataAluguel;
 	}
 
 	public void setDataDevolucao(Date devolucao) {
@@ -67,6 +80,9 @@ public class Aluguel {
 		this.diasDevolucao = diasDevolucao;
 	}
 	
+	public void setIdFuncionario(Integer idFuncionario) {
+		this.idFuncionario = idFuncionario;
+	}
 	public Integer getDiasDevolucao() {
 		return diasDevolucao;
 	}

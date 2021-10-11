@@ -15,7 +15,7 @@ public class teste1 {
 		DateHelper devolucao = new DateHelper("2021-09-25");	
 		
 		
-		Aluguel aluguel = new Aluguel(15, null,  8, 15.0, 5.0, agora, null, null, 1, 3, 0.0, 0.0);
+		Aluguel aluguel = new Aluguel(4, 1,  null, 15.0, 5.0, agora, null, null, 1, 3, 0.0, 0.0);
 		AluguelService ac = new AluguelService();
 //		
 		ac.salvar(aluguel);

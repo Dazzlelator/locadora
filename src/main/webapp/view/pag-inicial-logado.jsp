@@ -14,10 +14,11 @@
 <body>
 	<header>
 		
-		<div id="usuario_inf" class="cabecalh">
-			<c:import url="logout.jsp"/>	
-			Usuario Logado: ${usuarioLogado.nome}
-			<a href="${main}?id=${usuarioLogado.id}&action=MenuUsuario"> Menu do usuario </a>
+		<div id="usuario_inf" class="cabecalho">
+			<c:import url="logout.jsp" />
+			Usuario Logado: ${usuarioLogado.nome}   Credito atual: ${usuarioLogado.credito}
+			<a href="${main}?action=PaginaInicial">Pagina inicial</a><br>
+			<a href="${main}?action=ListarAlugados">Filmes Alugados</a>
 		</div>
 		<br>
 		<div id="menu_usuario">
@@ -26,7 +27,7 @@
 		
 		<br>
 		<div class="catalogos">
-			<a> Catalogo de filmes</a>
+			<a href="${main}?action=CatalogarFilmes"> Catalogo de filmes</a>
 			<a> Catalogo de Jogos</a>
 		</div>
 		
