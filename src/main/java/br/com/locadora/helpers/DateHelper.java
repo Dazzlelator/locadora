@@ -37,6 +37,10 @@ public class DateHelper {
             e.printStackTrace();
         }
 	}
+	
+	public DateHelper() {
+		
+	}
 
 	public Date getData() {
 		

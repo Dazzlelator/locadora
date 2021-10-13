@@ -13,7 +13,14 @@
 </head>
 <body>
 	Dias de aluguel: ${aluguel.diasDevolucao}<br>
-	Data de devolucao: <fmt:formatDate pattern = "dd-MM-yyyy" value = "${aluguel.dataDevolucao}" />
+	Data de devolucao: <fmt:formatDate pattern = "dd-MM-yyyy" value = "${aluguel.dataDevolucao}" /><br>
+	
+	<c:if test="${aluguel.idAluguel > 2}">
+		Dias restantes: ${ diasRestantes } <br>
+		<c:if test="${diasRestantes < 0}">
+			Valor da multa atual: ${multa}
+		</c:if>
+	</c:if>
 	
 	
 </body>

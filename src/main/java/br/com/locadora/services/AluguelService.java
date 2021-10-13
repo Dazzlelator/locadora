@@ -125,10 +125,18 @@ public class AluguelService {
 		return this.aluguelDao.getFilmesOuJogos(2);
 	}
 	
+	public Aluguel getFilmeAtivoByIdUsuarioByIdFilme(Integer idUsuario, Integer idFilme) {
+		return this.aluguelDao.getAluguelFilmeAtivoByIdByIdFilme(idUsuario, idFilme);
+	}
+	
 	public Double getValorMulta(Integer id) {
 		Double multa = this.getById(id).getMulta();
 		Long data1 = this.getById(id).getDataDevolucao().getTime();
-		Long data2 = this.getById(id).getDataDevolvido().getTime();
+		Long data2 = new Date().getTime();
+		if(this.getById(id).getDataDevolvido() != null) {
+			data2 = this.getById(id).getDataDevolvido().getTime();
+		}	
+		
 		Long multiplicador = (data2 - data1)/86400000;
 		Double resultado = multa*multiplicador;
 		this.updateValorTotal(id, resultado);

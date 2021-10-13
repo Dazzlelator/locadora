@@ -20,19 +20,19 @@ public class FilmesAlugados implements Acao{
 			throws ServletException, IOException {
 		AluguelService as = new AluguelService();
 		FilmeService fs = new FilmeService();
-		
-		
+			
 		String idUsuarioParam = request.getParameter("id");
 		Integer idUsuario = Integer.valueOf(idUsuarioParam);
-		
-		
+	
 		List<Aluguel> alugados = as.getAllAtivosById(idUsuario);
-		
 		List<Filme> filmesAlugados = new ArrayList<>();
+		
 		for(int i=0; i < alugados.size(); i++) {
 			Integer idFilme = alugados.get(i).getIdFilme();
-			if(idFilme != null) {
+			if(idFilme != null && idFilme != 0) {
+				
 				filmesAlugados.add(fs.getById(idFilme));
+				
 			}			
 		}
 		

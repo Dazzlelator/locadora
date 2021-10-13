@@ -24,7 +24,7 @@
 			<c:forEach items="${filmes}" var="filme">
 				 <c:if test="${not empty filmes}">
 						<li>${filme.nome}</li>
-						<a href="${main}?id=${filme.idFilme}&action=InfoFilme">Info</a>
+						<a href="${main}?id_filme=${filme.idFilme}&action=InfoFilme">Info</a>
 						
 					</c:if>
 				<c:if test="${empty filmes }">Lista vazia</c:if>
