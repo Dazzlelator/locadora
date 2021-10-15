@@ -82,7 +82,7 @@ public class AluguelService {
 		if(aluguelAtual.getIdFilme() >= 1) {
 			fc.updateStatus(aluguelAtual.getIdFilme(), 1);
 		}
-		if(aluguelAtual.getIdJogo() != null) {
+		if(aluguelAtual.getIdJogo() >= 1) {
 			jc.updateStatus(aluguelAtual.getIdJogo(), 1);
 		}
 	}

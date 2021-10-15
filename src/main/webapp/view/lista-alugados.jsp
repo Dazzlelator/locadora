@@ -9,11 +9,8 @@
 <title>lista alugados</title>
 </head>
 <body>
-	<div id="usuario_inf" class="cabecalho">
-		<c:import url="logout.jsp" />
-		Usuario Logado: ${usuarioLogado.nome}   Credito atual: ${usuarioLogado.credito}
-		<a href="${main}?action=PaginaInicial">Pagina inicial</a>
-	</div>
+	<c:import url="cabecalho.jsp" />
+	<br>
 	<br>
 	Lista de alugueis:
 	<div id="filmes">

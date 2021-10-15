@@ -10,11 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.locadora.controller.actions.Acao;
-import br.com.locadora.controller.actions.AlterarUsuario;
-import br.com.locadora.controller.actions.CadastrarUsuario;
-import br.com.locadora.controller.actions.DeletarUsuario;
-import br.com.locadora.controller.actions.Home;
-import br.com.locadora.controller.actions.ListarUsuarios;
+import br.com.locadora.model.dao.ConnectionFactory;
 
 /**
  * Servlet implementation class Servlet
@@ -59,6 +55,9 @@ public class Servlet extends HttpServlet {
 		} else {
 			response.sendRedirect("main?action="+tipo_endereco[1]);
 		}
+		
+		ConnectionFactory cf = new ConnectionFactory();
+		cf.fecharConexao();
 
 	}
 

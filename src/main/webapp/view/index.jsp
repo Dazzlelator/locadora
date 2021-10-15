@@ -7,11 +7,12 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
+	<link rel="stylesheet" href="/Locadora/CSSs/menu.css">
 	<title>Teste de links</title>
 	
 </head>
 <body>
-	<link rel="stylesheet" href="/Locadora/CSSs/menu.css">
+	
 	<script src="/Locadora/Scripts/jquery.js"></script>
 	<script src="/Locadora/Scripts/catalogoScript.js"></script>
 	

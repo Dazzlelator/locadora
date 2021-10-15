@@ -10,11 +10,7 @@
 <title>Catalogo de filmes</title>
 </head>
 <body>
-	<div id="usuario_inf" class="cabecalho">
-		<c:import url="logout.jsp"/>	
-		Usuario Logado: ${usuarioLogado.nome}
-		<a href="${main}?id=${usuarioLogado.id}&action=MenuUsuario"> Menu do usuario </a>
-	</div>
+	<c:import url="cabecalho.jsp" />
 	<br>
 	<div id="todos_filmes">
 	Filmes disponiveis:

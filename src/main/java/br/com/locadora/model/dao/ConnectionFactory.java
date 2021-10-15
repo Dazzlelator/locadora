@@ -29,4 +29,12 @@ public class ConnectionFactory {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public void fecharConexao() {
+		try {
+			this.dataSource.getConnection().close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

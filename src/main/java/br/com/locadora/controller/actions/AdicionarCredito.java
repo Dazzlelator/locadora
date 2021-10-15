@@ -5,7 +5,9 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import br.com.locadora.model.Usuario;
 import br.com.locadora.services.UsuarioService;
 
 public class AdicionarCredito implements Acao{
@@ -23,9 +25,12 @@ public class AdicionarCredito implements Acao{
 		Double credito = Double.valueOf(paramValor);
 		
 		us.addCredito(id, credito);
+		Usuario user = us.getById(id);
 		
+		HttpSession sess = request.getSession();
+		sess.setAttribute("usuarioLogado",  user);
 		
-		return "redirect:PaginaInicial";
+		return "redirect:CatalogarFilmes";
 	}
 
 }

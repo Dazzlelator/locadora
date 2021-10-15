@@ -14,12 +14,7 @@
 <body>
 	<header>
 		
-		<div id="usuario_inf" class="cabecalho">
-			<c:import url="logout.jsp" />
-			Usuario Logado: ${usuarioLogado.nome}   Credito atual: ${usuarioLogado.credito}
-			<a href="${main}?action=PaginaInicial">Pagina inicial</a><br>
-			<a href="${main}?action=ListarAlugados">Filmes Alugados</a>
-		</div>
+		<c:import url="cabecalho.jsp" />
 		<br>
 		<div id="menu_usuario">
 			<a href="${main}?action=MenuUsuario"></a>

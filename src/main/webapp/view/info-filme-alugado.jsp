@@ -13,11 +13,7 @@
 	<body>
 		
 		
-		<div id="usuario_inf" class="cabecalho">
-			<c:import url="logout.jsp" />
-			Usuario Logado: ${usuarioLogado.nome}  <br> Credito atual: ${usuarioLogado.credito}
-			<a href="${main}?action=PaginaInicial">Pagina inicial</a>
-		</div>
+		<c:import url="cabecalho.jsp" />
 		
 		<div id="info_filme">
 			

@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-<c:url value="/main" var="linkMain" />
+<c:url value="/main" var="main" />
 
 <!DOCTYPE html>
 <html>
@@ -11,11 +11,7 @@
 <title>Adicionar Crédito</title>
 </head>
 <body>
-	<div id="usuario_inf" class="cabecalho">
-		<c:import url="logout.jsp" />
-		Usuario Logado: ${usuarioLogado.nome}   Credito atual: ${usuarioLogado.credito}
-		<a href="${main}?action=PaginaInicial">Pagina inicial</a>
-	</div>
+	<c:import url="cabecalho.jsp" />
 	
 	<div>
 		<form action="${main}?action=AdicionarCredito" method="post">

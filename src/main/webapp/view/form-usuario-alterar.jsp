@@ -10,11 +10,7 @@
 </head>
 <body>
 	
-	<div id="usuario_inf" class="cabecalho">
-		<c:import url="logout.jsp" />
-		Usuario Logado: ${usuarioLogado.nome} 
-		<a href="${main}?action=PaginaInicial">Pagina inicial</a>
-	</div>
+	<c:import url="cabecalho.jsp" />
 	<form action="${main}?action=AlterarUsuario" method="post">
 			
 		<input type="hidden" name="id" value="${usuario.id}" readonly><br>
