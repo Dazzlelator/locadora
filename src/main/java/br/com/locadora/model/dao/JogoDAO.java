@@ -23,31 +23,35 @@ public class JogoDAO {
 				+ " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 		try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-			DateHelper dataLancamento = new DateHelper(jogo.getDataLancamento());
-			DateHelper dataCadastro = new DateHelper(jogo.getDataCadadastro());
-			
-			
-			pstm.setInt(1, jogo.getIdProduto());
-			pstm.setString(2, jogo.getPlataforma());
-			pstm.setString(3, jogo.getNumSerial());
-			pstm.setString(4, jogo.getNome());
-			pstm.setString(5, jogo.getFranquia());
-			pstm.setString(6, jogo.getGeneros());
-			pstm.setString(7, jogo.getPremios());
-			pstm.setString(8, jogo.getNotas());
-			pstm.setString(9, jogo.getProdutor());
-			pstm.setString(10, jogo.getDestribuidor());
-			pstm.setString(11, jogo.getFaixaEtaria());
-			pstm.setString(12, jogo.getIntegridade());
-			pstm.setDate(13, dataLancamento.getAsSQL());
-			pstm.setDate(14, dataCadastro.getAsSQL());
-			pstm.setString(15, jogo.getStatus());
-			pstm.execute();
+			try {
+				DateHelper dataLancamento = new DateHelper(jogo.getDataLancamento());
+				DateHelper dataCadastro = new DateHelper(jogo.getDataCadadastro());
+				
+				
+				pstm.setInt(1, jogo.getIdProduto());
+				pstm.setString(2, jogo.getPlataforma());
+				pstm.setString(3, jogo.getNumSerial());
+				pstm.setString(4, jogo.getNome());
+				pstm.setString(5, jogo.getFranquia());
+				pstm.setString(6, jogo.getGeneros());
+				pstm.setString(7, jogo.getPremios());
+				pstm.setString(8, jogo.getNotas());
+				pstm.setString(9, jogo.getProdutor());
+				pstm.setString(10, jogo.getDestribuidor());
+				pstm.setString(11, jogo.getFaixaEtaria());
+				pstm.setString(12, jogo.getIntegridade());
+				pstm.setDate(13, dataLancamento.getAsSQL());
+				pstm.setDate(14, dataCadastro.getAsSQL());
+				pstm.setString(15, jogo.getStatus());
+				pstm.execute();
 
-			ResultSet rst = pstm.getGeneratedKeys();
-			rst.next();
+				ResultSet rst = pstm.getGeneratedKeys();
+				rst.next();
 
-			System.out.println("Jogo de id " + rst.getInt(1) + " foi adicionado com sucesso!");
+				System.out.println("Jogo de id " + rst.getInt(1) + " foi adicionado com sucesso!");
+			}finally {
+				pstm.close();
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -74,30 +78,34 @@ public class JogoDAO {
 				+ " status = ? WHERE id_jogo = ?";
 		
 		try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-			DateHelper dataLancamento = new DateHelper(jogo.getDataLancamento());
-			DateHelper dataCadastro = new DateHelper(jogo.getDataCadadastro());			
-			
-			pstm.setInt(1, jogo.getIdProduto());
-			pstm.setString(2, jogo.getPlataforma());
-			pstm.setString(3, jogo.getNumSerial());
-			pstm.setString(4, jogo.getNome());
-			pstm.setString(5, jogo.getFranquia());
-			pstm.setString(6, jogo.getGeneros());
-			pstm.setString(7, jogo.getPremios());
-			pstm.setString(8, jogo.getNotas());
-			pstm.setString(9, jogo.getProdutor());
-			pstm.setString(10, jogo.getDestribuidor());
-			pstm.setString(11, jogo.getFaixaEtaria());
-			pstm.setString(12, jogo.getIntegridade());
-			pstm.setDate(13, dataLancamento.getAsSQL());
-			pstm.setDate(14, dataCadastro.getAsSQL());
-			pstm.setString(15, jogo.getStatus());
-			pstm.setInt(16, id);
-			pstm.execute();
+			try {
+				DateHelper dataLancamento = new DateHelper(jogo.getDataLancamento());
+				DateHelper dataCadastro = new DateHelper(jogo.getDataCadadastro());			
+				
+				pstm.setInt(1, jogo.getIdProduto());
+				pstm.setString(2, jogo.getPlataforma());
+				pstm.setString(3, jogo.getNumSerial());
+				pstm.setString(4, jogo.getNome());
+				pstm.setString(5, jogo.getFranquia());
+				pstm.setString(6, jogo.getGeneros());
+				pstm.setString(7, jogo.getPremios());
+				pstm.setString(8, jogo.getNotas());
+				pstm.setString(9, jogo.getProdutor());
+				pstm.setString(10, jogo.getDestribuidor());
+				pstm.setString(11, jogo.getFaixaEtaria());
+				pstm.setString(12, jogo.getIntegridade());
+				pstm.setDate(13, dataLancamento.getAsSQL());
+				pstm.setDate(14, dataCadastro.getAsSQL());
+				pstm.setString(15, jogo.getStatus());
+				pstm.setInt(16, id);
+				pstm.execute();
 
 
-			System.out.println("Jogo de id " + id + " foi adicionado com sucesso!");
+				System.out.println("Jogo de id " + id + " foi adicionado com sucesso!");
 
+			}finally {
+				pstm.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -108,9 +116,13 @@ public class JogoDAO {
 		List<Jogo> jogos = new ArrayList<>();
 		try(PreparedStatement pstm = connection.prepareStatement(slq)){
 			
-			pstm.execute();
-			resultToJogos(jogos, pstm);			
-			return jogos;
+			try {
+				pstm.execute();
+				resultToJogos(jogos, pstm);			
+				return jogos;
+			}finally {
+				pstm.close();
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -122,9 +134,13 @@ public class JogoDAO {
 		List<Jogo> jogos = new ArrayList<>();
 		String sql = "SELECT * FROM jogos GROUP BY id_produto";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			pstm.execute();
-			this.resultToJogos(jogos, pstm);
-			return jogos;
+			try {
+				pstm.execute();
+				this.resultToJogos(jogos, pstm);
+				return jogos;
+			}finally {
+				pstm.close();
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -137,10 +153,14 @@ public class JogoDAO {
 		List<Jogo> jogos = new ArrayList<>();
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
 			
-			pstm.setInt(1, id);
-			pstm.execute();
-			resultToJogos(jogos, pstm);
-			return jogos.get(0);
+			try {
+				pstm.setInt(1, id);
+				pstm.execute();
+				resultToJogos(jogos, pstm);
+				return jogos.get(0);
+			}finally {
+				pstm.close();
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -152,10 +172,14 @@ public class JogoDAO {
 		String sql = "DELETE FROM jogos WHERE id_jogo  = ?";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
 			
-			pstm.setInt(1, id);
-			pstm.execute();
-			
-			System.out.println("Produto de id "+id+" foi deletado com sucesso!");
+			try {
+				pstm.setInt(1, id);
+				pstm.execute();
+				
+				System.out.println("Produto de id "+id+" foi deletado com sucesso!");
+			}finally {
+				pstm.close();
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

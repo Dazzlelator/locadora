@@ -22,8 +22,8 @@
 		
 		<br>
 		<div class="catalogos">
-			<a href="${main}?action=CatalogarFilmes"> Catalogo de filmes</a>
-			<a> Catalogo de Jogos</a>
+			<a href="${main}?action=CatalogarFilmes"> Catalogo de filmes  </a>
+			<a href="${main}?action=CatalogarJogos">  Catalogo de Jogos</a>
 		</div>
 		
 		

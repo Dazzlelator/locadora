@@ -22,26 +22,30 @@ public class UsuarioDAO {
 		String sql = "INSERT INTO usuarios (nome, senha, nivel_acesso, cpf, data_nascimento, telefone, email, endereco, credito, data_criacao) values (?,?,?,?,?,?,?,?,?,?)";
 		try(PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
 			
-			DateHelper dataNascimento = new DateHelper(usuario.getDataNascimento());
-			DateHelper dataCriacao = new DateHelper(usuario.getDataCriacao());
-			
-			
-			pstm.setString(1, usuario.getNome());
-			pstm.setString(2, usuario.getSenha());
-			pstm.setInt(3, usuario.getNivelAcesso());
-			pstm.setString(4, usuario.getCpf());
-			pstm.setDate(5, dataNascimento.getAsSQL());
-			pstm.setString(6, usuario.getTelefone());
-			pstm.setString(7, usuario.getEmail());
-			pstm.setString(8, usuario.getEndereco());
-			pstm.setDouble(9, usuario.getCredito());
-			pstm.setDate(10, dataCriacao.getAsSQL());
-			
-			pstm.execute();
-			
-			ResultSet rst = pstm.getGeneratedKeys();
-			rst.next();
-			System.out.println("Usuario de id "+ rst.getInt(1) +" foi cadastrado com sucesso!");
+			try {
+				DateHelper dataNascimento = new DateHelper(usuario.getDataNascimento());
+				DateHelper dataCriacao = new DateHelper(usuario.getDataCriacao());
+				
+				
+				pstm.setString(1, usuario.getNome());
+				pstm.setString(2, usuario.getSenha());
+				pstm.setInt(3, usuario.getNivelAcesso());
+				pstm.setString(4, usuario.getCpf());
+				pstm.setDate(5, dataNascimento.getAsSQL());
+				pstm.setString(6, usuario.getTelefone());
+				pstm.setString(7, usuario.getEmail());
+				pstm.setString(8, usuario.getEndereco());
+				pstm.setDouble(9, usuario.getCredito());
+				pstm.setDate(10, dataCriacao.getAsSQL());
+				
+				pstm.execute();
+				
+				ResultSet rst = pstm.getGeneratedKeys();
+				rst.next();
+				System.out.println("Usuario de id "+ rst.getInt(1) +" foi cadastrado com sucesso!");
+			}finally {
+				pstm.close();
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -54,20 +58,24 @@ public class UsuarioDAO {
 		DateHelper dataNascimento = new DateHelper(usuario.getDataNascimento());
 		
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			pstm.setString(1, usuario.getNome());
-			pstm.setString(2, usuario.getSenha());
-			pstm.setInt(3, usuario.getNivelAcesso());
-			pstm.setString(4, usuario.getCpf());
-			pstm.setDate(5,dataNascimento.getAsSQL());
-			pstm.setString(6, usuario.getTelefone());
-			pstm.setString(7, usuario.getEmail());
-			pstm.setString(8, usuario.getEndereco());
-			pstm.setDouble(9, usuario.getCredito());
-			pstm.setInt(10, id);
-			
-			pstm.execute();
-			
-			System.out.println("Usuario de id "+ id +" foi atualizado com sucesso!");
+			try {
+				pstm.setString(1, usuario.getNome());
+				pstm.setString(2, usuario.getSenha());
+				pstm.setInt(3, usuario.getNivelAcesso());
+				pstm.setString(4, usuario.getCpf());
+				pstm.setDate(5,dataNascimento.getAsSQL());
+				pstm.setString(6, usuario.getTelefone());
+				pstm.setString(7, usuario.getEmail());
+				pstm.setString(8, usuario.getEndereco());
+				pstm.setDouble(9, usuario.getCredito());
+				pstm.setInt(10, id);
+				
+				pstm.execute();
+				
+				System.out.println("Usuario de id "+ id +" foi atualizado com sucesso!");
+			}finally {
+				pstm.close();
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -80,12 +88,16 @@ public class UsuarioDAO {
 		
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
 			
-			pstm.setDouble(1, novoCredito);
-			pstm.setInt(2, id);
-			pstm.execute();
-			
-			System.out.println("Crédito de "+ credito +" no id "+ id +" foi alterado com sucesso! Novo credito: " + novoCredito);
-			
+			try {
+				pstm.setDouble(1, novoCredito);
+				pstm.setInt(2, id);
+				pstm.execute();
+				
+				System.out.println("Crédito de "+ credito +" no id "+ id +" foi alterado com sucesso! Novo credito: " + novoCredito);
+				
+			}finally {
+				pstm.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}		
@@ -96,10 +108,14 @@ public class UsuarioDAO {
 		List<Usuario> usuarios = new ArrayList<>();
 		
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			pstm.execute();
-			resultToUsuario(usuarios, pstm);
-			
-			return usuarios;
+			try {
+				pstm.execute();
+				resultToUsuario(usuarios, pstm);
+				
+				return usuarios;
+			}finally {
+				pstm.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -110,11 +126,15 @@ public class UsuarioDAO {
 		String sql = "SELECT * FROM usuarios WHERE id = ?";
 		List<Usuario> usuarios = new ArrayList<>();
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			pstm.setInt(1, id);
-			pstm.execute();			
-			resultToUsuario(usuarios, pstm);
-			
-			return usuarios.get(0);
+			try {
+				pstm.setInt(1, id);
+				pstm.execute();			
+				resultToUsuario(usuarios, pstm);
+				
+				return usuarios.get(0);
+			}finally {
+				pstm.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -125,11 +145,15 @@ public class UsuarioDAO {
 		String sql = "SELECT * FROM usuarios WHERE nome = ?";
 		List<Usuario> usuarios = new ArrayList<>();
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			pstm.setString(1, nome);
-			pstm.execute();
-			this.resultToUsuario(usuarios, pstm);
-			
-			return usuarios.get(0);
+			try {
+				pstm.setString(1, nome);
+				pstm.execute();
+				this.resultToUsuario(usuarios, pstm);
+				
+				return usuarios.get(0);
+			}finally {
+				pstm.close();
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -141,14 +165,18 @@ public class UsuarioDAO {
 		String sql = "SELECT * FROM usuarios WHERE email = ?";
 		List<Usuario> usuarios = new ArrayList<>();
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			pstm.setString(1, email);
-			pstm.execute();
-			this.resultToUsuario(usuarios, pstm);
-			if(usuarios.size() > 0) {
-				return usuarios.get(0);
-			}else {
-				return null;
-			}			
+			try {
+				pstm.setString(1, email);
+				pstm.execute();
+				this.resultToUsuario(usuarios, pstm);
+				if(usuarios.size() > 0) {
+					return usuarios.get(0);
+				}else {
+					return null;
+				}			
+			}finally {
+				pstm.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -158,10 +186,14 @@ public class UsuarioDAO {
 	public void deletarById(Integer id) {
 		String sql = "DELETE FROM usuarios WHERE id = ?";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			pstm.setInt(1, id);
-			pstm.execute();
-			
-			System.out.println("Usuario de id "+id+" foi deletado com sucesso!");
+			try {
+				pstm.setInt(1, id);
+				pstm.execute();
+				
+				System.out.println("Usuario de id "+id+" foi deletado com sucesso!");
+			}finally {
+				pstm.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

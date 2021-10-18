@@ -43,21 +43,19 @@ public class AluguelService {
 		if(aluguel.getIdFilme() != null) {
 			statusFilme = fc.getById(aluguel.getIdFilme()).getStatus();
 			statusJogo = "indisponivel";
-		}
-		if(aluguel.getIdJogo() != null){
+		}else if(aluguel.getIdJogo() != null){
 			statusJogo = fc.getById(aluguel.getIdJogo()).getStatus();
 			statusFilme = "indisponivel";
 		}
 		
 		
-		if("disponivel".equals(statusFilme)  | "disponivel".equals(statusJogo)) {
+		if("disponivel".equals(statusFilme)  || "disponivel".equals(statusJogo)) {
 									
 			if(aluguel.getIdFilme() != null) {
 				fc.updateStatus(aluguel.getIdFilme(), 2);	
 				this.aluguelDao.salvar(aluguel);
 							
-			}
-			if(aluguel.getIdJogo() != null) {
+			}else if(aluguel.getIdJogo() != null) {
 				jc.updateStatus(aluguel.getIdJogo(), 2);
 				this.aluguelDao.salvar(aluguel);
 				
@@ -67,6 +65,7 @@ public class AluguelService {
 		}else {
 			System.out.println("Produto não está disponível para aluguel");
 		}
+		
 	}
 	
 	public void updateById(Integer id, Aluguel aluguel) {

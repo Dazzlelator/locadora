@@ -23,33 +23,37 @@ public class FilmeDAO {
 				+ " (id_produto, tecnologia, num_serial, nome, franquia, generos, premios, notas, protagonistas, diretor, produtor, distribuidor, faixa_etaria, integridade, data_lancamento, data_cadastro, status, sinopse)"
 				+ " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-			DateHelper dataLancamento = new DateHelper(filme.getDataLancamento());
-			DateHelper dataCadastro = new DateHelper(filme.getDataCadastro());
+			try {
+				DateHelper dataLancamento = new DateHelper(filme.getDataLancamento());
+				DateHelper dataCadastro = new DateHelper(filme.getDataCadastro());
 
-			pstm.setInt(1, filme.getIdProduto());
-			pstm.setString(2, filme.getTecnologia());
-			pstm.setString(3, filme.getNumSerial());
-			pstm.setString(4, filme.getNome());
-			pstm.setString(5, filme.getFranquia());
-			pstm.setString(6, filme.getGeneros());
-			pstm.setString(7, filme.getPremios());
-			pstm.setString(8, filme.getNotas());
-			pstm.setString(9, filme.getProtagonistas());
-			pstm.setString(10, filme.getDiretor());
-			pstm.setString(11, filme.getProdutor());
-			pstm.setString(12, filme.getDestribuidor());
-			pstm.setString(13, filme.getFaixaEtaria());
-			pstm.setString(14, filme.getIntegridade());
-			pstm.setDate(15, dataLancamento.getAsSQL());
-			pstm.setDate(16, dataCadastro.getAsSQL());
-			pstm.setString(17, filme.getStatus());
-			pstm.setString(18, filme.getSinopse());
-			pstm.execute();
+				pstm.setInt(1, filme.getIdProduto());
+				pstm.setString(2, filme.getTecnologia());
+				pstm.setString(3, filme.getNumSerial());
+				pstm.setString(4, filme.getNome());
+				pstm.setString(5, filme.getFranquia());
+				pstm.setString(6, filme.getGeneros());
+				pstm.setString(7, filme.getPremios());
+				pstm.setString(8, filme.getNotas());
+				pstm.setString(9, filme.getProtagonistas());
+				pstm.setString(10, filme.getDiretor());
+				pstm.setString(11, filme.getProdutor());
+				pstm.setString(12, filme.getDestribuidor());
+				pstm.setString(13, filme.getFaixaEtaria());
+				pstm.setString(14, filme.getIntegridade());
+				pstm.setDate(15, dataLancamento.getAsSQL());
+				pstm.setDate(16, dataCadastro.getAsSQL());
+				pstm.setString(17, filme.getStatus());
+				pstm.setString(18, filme.getSinopse());
+				pstm.execute();
 
-			ResultSet rst = pstm.getGeneratedKeys();
-			rst.next();
+				ResultSet rst = pstm.getGeneratedKeys();
+				rst.next();
 
-			System.out.println("Filme de id " + rst.getInt(1) + " foi cadastrado com sucesso!");
+				System.out.println("Filme de id " + rst.getInt(1) + " foi cadastrado com sucesso!");
+			}finally {
+				pstm.close();
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -63,35 +67,39 @@ public class FilmeDAO {
 				+ " diretor = ?," + " produtor = ?," + " distribuidor = ?," + " faixa_etaria = ?," + " integridade = ?,"
 				+ " data_lancamento = ?," + " data_cadastro = ?," + " status = ?," + "sinopse = ?   WHERE id_filme = ?";
 		try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-			DateHelper dataLancamento = new DateHelper(filme.getDataLancamento());
-			DateHelper dataCadastro = new DateHelper(filme.getDataCadastro());
+			try {
+				DateHelper dataLancamento = new DateHelper(filme.getDataLancamento());
+				DateHelper dataCadastro = new DateHelper(filme.getDataCadastro());
 
-			pstm.setInt(1, filme.getIdProduto());
-			pstm.setString(2, filme.getTecnologia());
-			pstm.setString(3, filme.getNumSerial());
-			pstm.setString(4, filme.getNome());
-			pstm.setString(5, filme.getFranquia());
-			pstm.setString(6, filme.getGeneros());
-			pstm.setString(7, filme.getPremios());
-			pstm.setString(8, filme.getNotas());
-			pstm.setString(9, filme.getProtagonistas());
-			pstm.setString(10, filme.getDiretor());
-			pstm.setString(11, filme.getProdutor());
-			pstm.setString(12, filme.getDestribuidor());
-			pstm.setString(13, filme.getFaixaEtaria());
-			pstm.setString(14, filme.getIntegridade());
-			pstm.setDate(15, dataLancamento.getAsSQL());
-			pstm.setDate(16, dataCadastro.getAsSQL());
-			pstm.setString(17, filme.getStatus());
-			pstm.setString(18, filme.getSinopse());
-			pstm.setInt(19, id);
+				pstm.setInt(1, filme.getIdProduto());
+				pstm.setString(2, filme.getTecnologia());
+				pstm.setString(3, filme.getNumSerial());
+				pstm.setString(4, filme.getNome());
+				pstm.setString(5, filme.getFranquia());
+				pstm.setString(6, filme.getGeneros());
+				pstm.setString(7, filme.getPremios());
+				pstm.setString(8, filme.getNotas());
+				pstm.setString(9, filme.getProtagonistas());
+				pstm.setString(10, filme.getDiretor());
+				pstm.setString(11, filme.getProdutor());
+				pstm.setString(12, filme.getDestribuidor());
+				pstm.setString(13, filme.getFaixaEtaria());
+				pstm.setString(14, filme.getIntegridade());
+				pstm.setDate(15, dataLancamento.getAsSQL());
+				pstm.setDate(16, dataCadastro.getAsSQL());
+				pstm.setString(17, filme.getStatus());
+				pstm.setString(18, filme.getSinopse());
+				pstm.setInt(19, id);
 
-			pstm.execute();
+				pstm.execute();
 
-			ResultSet rst = pstm.getGeneratedKeys();
-			rst.next();
+				ResultSet rst = pstm.getGeneratedKeys();
+				rst.next();
 
-			System.out.println("Filme de id " + id + " foi atualizado com sucesso!");
+				System.out.println("Filme de id " + id + " foi atualizado com sucesso!");
+			}finally {
+				pstm.close();
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -103,9 +111,14 @@ public class FilmeDAO {
 		String sql = "SELECT * FROM filmes";
 		
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			pstm.execute();
-			resultToFilmes(filmes, pstm);
-			return filmes;
+			try {
+				pstm.execute();
+				resultToFilmes(filmes, pstm);
+				return filmes;
+			}finally {
+				pstm.close();
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -118,10 +131,14 @@ public class FilmeDAO {
 		List<Filme> filmes = new ArrayList<>();
 		String sql = "SELECT * FROM filmes WHERE id_filme = ?";
 		try(PreparedStatement pstm =  connection.prepareStatement(sql)){
-			pstm.setInt(1, id);
-			pstm.execute();
-			resultToFilmes(filmes, pstm);
-			return filmes.get(0);
+			try {
+				pstm.setInt(1, id);
+				pstm.execute();
+				resultToFilmes(filmes, pstm);
+				return filmes.get(0);
+			}finally {
+				pstm.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -132,9 +149,13 @@ public class FilmeDAO {
 		List<Filme> filmes = new ArrayList<>();
 		String sql = "SELECT * FROM filmes_disponiveis GROUP BY id_produto";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			pstm.execute();
-			this.resultToFilmes(filmes, pstm);
-			return filmes;
+			try {
+				pstm.execute();
+				this.resultToFilmes(filmes, pstm);
+				return filmes;
+			}finally {
+				pstm.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -144,8 +165,13 @@ public class FilmeDAO {
 	public void deletarFilmeById(Integer id) {
 		String sql = "DELETE FROM filmes WHERE id = ?";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			pstm.setInt(1, id);
-			pstm.execute();
+			try {
+				pstm.setInt(1, id);
+				pstm.execute();
+			}finally {
+				pstm.close();
+			}
+			
 			
 			System.out.println("Filme de id "+id+" foi deletado com sucesso!");
 		} catch (SQLException e) {

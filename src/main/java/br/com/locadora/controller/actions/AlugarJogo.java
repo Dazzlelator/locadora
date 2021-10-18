@@ -8,20 +8,20 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.locadora.model.Aluguel;
-import br.com.locadora.model.Filme;
+import br.com.locadora.model.Jogo;
 import br.com.locadora.model.Produto;
 import br.com.locadora.model.Usuario;
 import br.com.locadora.services.AluguelService;
-import br.com.locadora.services.FilmeService;
+import br.com.locadora.services.JogoService;
 import br.com.locadora.services.ProdutoService;
 import br.com.locadora.services.UsuarioService;
 
-public class AlugarFilme implements Acao{
+public class AlugarJogo implements Acao{
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		FilmeService fs = new FilmeService();
+		JogoService js = new JogoService();
 		AluguelService as = new AluguelService();
 		ProdutoService ps = new ProdutoService();
 		UsuarioService us = new UsuarioService();
@@ -31,16 +31,16 @@ public class AlugarFilme implements Acao{
 		Usuario usuario = us.getById(idUsuario);
 		Double credito = usuario.getCredito();
 		
-		String paramIdFilme = request.getParameter("id_filme");
-		Integer idFilme = Integer.valueOf(paramIdFilme);
-		Filme filme = fs.getById(idFilme);
+		String paramIdJogo = request.getParameter("id_jogo");
+		Integer idJogo = Integer.valueOf(paramIdJogo);
+		Jogo jogo = js.getById(idJogo);
 		
-		Integer idProduto = filme.getIdProduto();
+		Integer idProduto = jogo.getIdProduto();
 		Produto produto = ps.getById(idProduto);
 		Double valorAluguel = produto.getValorAluguel();
 		Double valorMulta = produto.getValorMulta();
 
-		Aluguel aluguel = new Aluguel(idUsuario, idFilme, null, valorAluguel, valorMulta, produto.getValorAluguel());
+		Aluguel aluguel = new Aluguel(idUsuario, null , idJogo, valorAluguel, valorMulta, produto.getValorAluguel());
 		
 		if(credito > valorAluguel) {
 			as.salvar(aluguel);

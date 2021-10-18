@@ -18,7 +18,7 @@
 				<c:forEach items="${filmes}" var="filme">
 					 <c:if test="${not empty filmes}">
 						<li>${filme.nome} ${filme.tecnologia}</li>
-						<li><a>Info</a></li>
+						<li><a href="${main}?id_filme=${filme.idFilme}&action=InfoFilme">Info</a></li>
 						
 					</c:if>
 					<c:if test="${empty filmes }">Lista vazia</c:if>		
@@ -32,7 +32,7 @@
 				<c:forEach items="${jogos}" var="jogo">
 					 <c:if test="${not empty jogos}">
 						<li>${jogo.nome} ${jogo.plataforma}</li>
-						<li><a>Info</a></li>	
+						<li><a href="${main}?id_jogo=${jogo.idJogo}&action=InfoJogo">Info</a></li>	
 					 </c:if>
 					<c:if test="${empty jogos }">Lista vazia</c:if>				
 				</c:forEach>

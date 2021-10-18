@@ -1,6 +1,7 @@
 package br.com.locadora.controller.actions;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,8 @@ public class AdicionarCredito implements Acao{
 		
 		HttpSession sess = request.getSession();
 		sess.setAttribute("usuarioLogado",  user);
+		
+		
 		
 		return "redirect:CatalogarFilmes";
 	}

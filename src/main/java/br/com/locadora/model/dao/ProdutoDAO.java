@@ -21,25 +21,29 @@ public class ProdutoDAO {
 	public void salvar(Produto produto) {
 		String sql = "INSERT INTO produtos (id, cod_produto, nome, valor, valor_custo, quantidade, data_cadastro, tipo, valor_aluguel, valor_multa) VALUES (?,?,?,?,?,?,?,?,?,?)";
 		try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-			DateHelper dataCadastro = new DateHelper(produto.getDataCadastro());
+			try {
+				DateHelper dataCadastro = new DateHelper(produto.getDataCadastro());
 
-			pstm.setInt(1, produto.getId());
-			pstm.setString(2, produto.getCodProduto());
-			pstm.setString(3, produto.getNome());
-			pstm.setDouble(4, produto.getValor());
-			pstm.setDouble(5, produto.getCusto());
-			pstm.setInt(6, produto.getQuantidade());
-			pstm.setDate(7, dataCadastro.getAsSQL());
-			pstm.setString(8, produto.getTipo());
-			pstm.setDouble(9, produto.getValorAluguel());
-			pstm.setDouble(10, produto.getValorMulta());
+				pstm.setInt(1, produto.getId());
+				pstm.setString(2, produto.getCodProduto());
+				pstm.setString(3, produto.getNome());
+				pstm.setDouble(4, produto.getValor());
+				pstm.setDouble(5, produto.getCusto());
+				pstm.setInt(6, produto.getQuantidade());
+				pstm.setDate(7, dataCadastro.getAsSQL());
+				pstm.setString(8, produto.getTipo());
+				pstm.setDouble(9, produto.getValorAluguel());
+				pstm.setDouble(10, produto.getValorMulta());
 
-			pstm.execute();
+				pstm.execute();
 
-			ResultSet rst = pstm.getGeneratedKeys();
-			rst.next();
+				ResultSet rst = pstm.getGeneratedKeys();
+				rst.next();
 
-			System.out.println("Produto de id " + rst.getInt(1) + " foi adicionado com sucesso!");
+				System.out.println("Produto de id " + rst.getInt(1) + " foi adicionado com sucesso!");
+			}finally {
+				pstm.close();
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -49,24 +53,28 @@ public class ProdutoDAO {
 	public void updateById(Integer id, Produto produto) {
 		String sql = "UPDATE produtos SET id = ?, cod_produto = ?, nome = ?, valor = ?, valor_custo = ?, quantidade = ?, data_cadastro = ?, tipo = ?, valor_aluguel = ?, valor_multa = ?  WHERE id_produto = ?";
 		try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-			DateHelper dataCadastro = new DateHelper(produto.getDataCadastro());
+			try {
+				DateHelper dataCadastro = new DateHelper(produto.getDataCadastro());
 
-			pstm.setInt(1, produto.getId());
-			pstm.setString(2, produto.getCodProduto());
-			pstm.setString(3, produto.getNome());
-			pstm.setDouble(4, produto.getValor());
-			pstm.setDouble(5, produto.getCusto());
-			pstm.setInt(6, produto.getQuantidade());
-			pstm.setDate(7, dataCadastro.getAsSQL());
-			pstm.setString(8, produto.getTipo());
-			pstm.setDouble(9, produto.getValorAluguel());
-			pstm.setDouble(10, produto.getValorMulta());
-			pstm.setInt(11, id);
+				pstm.setInt(1, produto.getId());
+				pstm.setString(2, produto.getCodProduto());
+				pstm.setString(3, produto.getNome());
+				pstm.setDouble(4, produto.getValor());
+				pstm.setDouble(5, produto.getCusto());
+				pstm.setInt(6, produto.getQuantidade());
+				pstm.setDate(7, dataCadastro.getAsSQL());
+				pstm.setString(8, produto.getTipo());
+				pstm.setDouble(9, produto.getValorAluguel());
+				pstm.setDouble(10, produto.getValorMulta());
+				pstm.setInt(11, id);
 
-			pstm.execute();
+				pstm.execute();
 
-			System.out.println("Produto de id " + id + " foi alterado com sucesso!");
+				System.out.println("Produto de id " + id + " foi alterado com sucesso!");
 
+			}finally {
+				pstm.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -79,11 +87,16 @@ public class ProdutoDAO {
 		String sql = "UPDATE produtos SET quantidade = ? WHERE id_produto = ?";
 		
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			pstm.setInt(1, total);
-			pstm.setInt(2, id);
-			pstm.execute();
 			
-			System.out.println("Quantidade de produto atualizado com sucesso. Quantidade atual: "+ total);
+			try {
+				pstm.setInt(1, total);
+				pstm.setInt(2, id);
+				pstm.execute();
+				
+				System.out.println("Quantidade de produto atualizado com sucesso. Quantidade atual: "+ total);
+			}finally {
+				pstm.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -96,11 +109,16 @@ public class ProdutoDAO {
 		String sql = "UPDATE produtos SET valor = ? WHERE id_produto = ?";
 		
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			pstm.setDouble(1, total);
-			pstm.setInt(2, id);
-			pstm.execute();
-			
-			System.out.println("Produto de id "+id+" foi aterado para valor "+total+"com sucesso!");
+			try {
+				pstm.setDouble(1, total);
+				pstm.setInt(2, id);
+				pstm.execute();
+				
+				System.out.println("Produto de id "+id+" foi aterado para valor "+total+"com sucesso!");
+			}finally {
+				pstm.close();
+			}
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -113,9 +131,13 @@ public class ProdutoDAO {
 		String sql = "SELECT * FROM produtos";
 
 		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-			pstm.execute();
-			resultToProdutos(produtos, pstm);
-			return produtos;
+			try {
+				pstm.execute();
+				resultToProdutos(produtos, pstm);
+				return produtos;
+			}finally {
+				pstm.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -128,12 +150,17 @@ public class ProdutoDAO {
 		String sql = "SELECT * FROM produtos WHERE id_produto = ?";
 
 		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-			pstm.setInt(1, id);
-			pstm.execute();
+			try {
+				pstm.setInt(1, id);
+				pstm.execute();
 
-			resultToProdutos(produtos, pstm);
+				resultToProdutos(produtos, pstm);
 
-			return produtos.get(0);
+				return produtos.get(0);
+			}finally {
+				pstm.close();
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -144,11 +171,15 @@ public class ProdutoDAO {
 		String sql = "DELETE FROM produtos WHERE id_produto = ?";
 		
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			pstm.setInt(1, id);
-			pstm.execute();
-			
-			System.out.println("Produto de id "+id+" foi deletado com sucesso!");
-			
+			try {
+				pstm.setInt(1, id);
+				pstm.execute();
+				
+				System.out.println("Produto de id "+id+" foi deletado com sucesso!");
+				
+			}finally {
+				pstm.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

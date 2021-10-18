@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mchange.v2.c3p0.DataSources;
+
 import br.com.locadora.controller.actions.Acao;
 import br.com.locadora.model.dao.ConnectionFactory;
 
@@ -56,8 +58,7 @@ public class Servlet extends HttpServlet {
 			response.sendRedirect("main?action="+tipo_endereco[1]);
 		}
 		
-		ConnectionFactory cf = new ConnectionFactory();
-		cf.fecharConexao();
+		new ConnectionFactory().fecharConexao();
 
 	}
 

@@ -6,23 +6,33 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.mchange.v2.c3p0.DataSources;
 
 public class ConnectionFactory {
 
 	public DataSource dataSource;
 
 	public ConnectionFactory() {
+		
+		
 		ComboPooledDataSource comboPooledDataSource = new ComboPooledDataSource();
 		comboPooledDataSource.setJdbcUrl("jdbc:mysql://localhost/locadora?useTimezone=true&serverTimezone=UTC");
 		comboPooledDataSource.setUser("root");
 		comboPooledDataSource.setPassword("96557742");
-
+	
+		comboPooledDataSource.setMinPoolSize(3);
+		comboPooledDataSource.setMaxPoolSize(3);
+		
+		comboPooledDataSource.setMaxConnectionAge(3);
+	
+		
 		this.dataSource = comboPooledDataSource;
 		
 	}
 
 	public Connection recuperarConexao() {
 		try {
+			
 			return this.dataSource.getConnection();
 
 		} catch(SQLException e) {
@@ -32,7 +42,8 @@ public class ConnectionFactory {
 	
 	public void fecharConexao() {
 		try {
-			this.dataSource.getConnection().close();
+			DataSources.destroy(dataSource);
+			System.out.println("Essa porra funcionou!");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

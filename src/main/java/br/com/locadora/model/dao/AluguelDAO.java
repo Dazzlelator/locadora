@@ -24,43 +24,48 @@ public class AluguelDAO {
 		String sql = "INSERT INTO aluguel (id, id_filme, id_jogo, valor, valor_multa, data_aluguel, data_devolucao, data_devolvido, id_funcionario, dias_para_devolucao, valor_pago, valor_total)"
 				+ " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 		try(PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
-			
-			DateHelper dataAluguel = new DateHelper(aluguel.getDataAluguel());
-			DateHelper dataDevolucao = new DateHelper(aluguel.getDataDevolucao());
-			DateHelper dataDevolvido = new DateHelper(aluguel.getDataDevolvido());
-			
-			if(aluguel.getIdFilme() != null && aluguel.getIdJogo() == null) {
-				System.out.println("teste1");
-				pstm.setInt(2, aluguel.getIdFilme());
-				pstm.setString(3, null);
+			try {
+				DateHelper dataAluguel = new DateHelper(aluguel.getDataAluguel());
+				DateHelper dataDevolucao = new DateHelper(aluguel.getDataDevolucao());
+				DateHelper dataDevolvido = new DateHelper(aluguel.getDataDevolvido());
+				
+				if(aluguel.getIdFilme() != null && aluguel.getIdJogo() == null) {
+					System.out.println("teste1");
+					pstm.setInt(2, aluguel.getIdFilme());
+					pstm.setString(3, null);
+				}
+				if(aluguel.getIdJogo() != null  && aluguel.getIdFilme() == null) {
+					System.out.println("teste2");
+					pstm.setString(2, null);
+					pstm.setInt(3, aluguel.getIdJogo());
+				}
+				if(aluguel.getIdFuncionario() == null) {
+					aluguel.setIdFuncionario(0);
+				}
+				
+				
+				pstm.setInt(1, aluguel.getId());
+				
+				pstm.setDouble(4, aluguel.getValor());
+				pstm.setDouble(5, aluguel.getMulta());
+				pstm.setDate(6, dataAluguel.getAsSQL());
+				pstm.setDate(7, dataDevolucao.getAsSQL());
+				pstm.setDate(8, dataDevolvido.getAsSQL());
+				pstm.setInt(9, aluguel.getIdFuncionario());
+				pstm.setInt(10, aluguel.getDiasDevolucao());
+				pstm.setDouble(11, aluguel.getValorPago());
+				pstm.setDouble(12, aluguel.getValorTotal());
+				pstm.execute();
+				
+				ResultSet rst = pstm.getGeneratedKeys();
+				rst.next();
+				
+				System.out.println("Aluguel de id "+rst.getInt(1)+" foi registrado com sucesso!");
+				
+				
+			}finally{
+				pstm.close();
 			}
-			if(aluguel.getIdJogo() != null  && aluguel.getIdFilme() == null) {
-				System.out.println("teste2");
-				pstm.setString(2, null);
-				pstm.setInt(3, aluguel.getIdJogo());
-			}
-			if(aluguel.getIdFuncionario() == null) {
-				aluguel.setIdFuncionario(0);
-			}
-			
-			
-			pstm.setInt(1, aluguel.getId());
-			
-			pstm.setDouble(4, aluguel.getValor());
-			pstm.setDouble(5, aluguel.getMulta());
-			pstm.setDate(6, dataAluguel.getAsSQL());
-			pstm.setDate(7, dataDevolucao.getAsSQL());
-			pstm.setDate(8, dataDevolvido.getAsSQL());
-			pstm.setInt(9, aluguel.getIdFuncionario());
-			pstm.setInt(10, aluguel.getDiasDevolucao());
-			pstm.setDouble(11, aluguel.getValorPago());
-			pstm.setDouble(12, aluguel.getValorTotal());
-			pstm.execute();
-			
-			ResultSet rst = pstm.getGeneratedKeys();
-			rst.next();
-			
-			System.out.println("Aluguel de id "+rst.getInt(1)+" foi registrado com sucesso!");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -83,39 +88,44 @@ public class AluguelDAO {
 				+ " valor_total = ?"
 				+ " WHERE id_aluguel = ?";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			
-			DateHelper dataAluguel = new DateHelper(aluguel.getDataAluguel());
-			DateHelper dataDevolucao = new DateHelper(aluguel.getDataDevolucao());
-			DateHelper dataDevolvido = new DateHelper(aluguel.getDataDevolvido());
-			
-			if(aluguel.getIdFilme() != null && aluguel.getIdJogo() == null) {
-				System.out.println("teste1");
-				pstm.setInt(2, aluguel.getIdFilme());
-				pstm.setString(3, null);
+			try {
+				DateHelper dataAluguel = new DateHelper(aluguel.getDataAluguel());
+				DateHelper dataDevolucao = new DateHelper(aluguel.getDataDevolucao());
+				DateHelper dataDevolvido = new DateHelper(aluguel.getDataDevolvido());
+				
+				if(aluguel.getIdFilme() != null && aluguel.getIdJogo() == null) {
+					System.out.println("teste1");
+					pstm.setInt(2, aluguel.getIdFilme());
+					pstm.setString(3, null);
+				}
+				if(aluguel.getIdJogo() != null  && aluguel.getIdFilme() == null) {
+					System.out.println("teste2");
+					pstm.setString(2, null);
+					pstm.setInt(3, aluguel.getIdJogo());
+				}
+					System.out.println(aluguel.getIdFilme() + "filme");
+					System.out.println(aluguel.getIdJogo() + "jogo");
+							
+				pstm.setInt(1, aluguel.getId());
+				
+				pstm.setDouble(4, aluguel.getValor());
+				pstm.setDouble(5, aluguel.getMulta());
+				pstm.setDate(6, dataAluguel.getAsSQL());
+				pstm.setDate(7, dataDevolucao.getAsSQL());
+				pstm.setDate(8, dataDevolvido.getAsSQL());
+				pstm.setInt(9, aluguel.getIdFuncionario());
+				pstm.setInt(10, aluguel.getDiasDevolucao());
+				pstm.setDouble(11, aluguel.getValorPago());
+				pstm.setDouble(12, aluguel.getValorTotal());
+				pstm.setInt(13, id);
+				pstm.execute();
+				
+				System.out.println("Aluguel de id "+id+" foi alterado com sucesso!");
+				
+			}finally {
+				pstm.close();
 			}
-			if(aluguel.getIdJogo() != null  && aluguel.getIdFilme() == null) {
-				System.out.println("teste2");
-				pstm.setString(2, null);
-				pstm.setInt(3, aluguel.getIdJogo());
-			}
-				System.out.println(aluguel.getIdFilme() + "filme");
-				System.out.println(aluguel.getIdJogo() + "jogo");
-						
-			pstm.setInt(1, aluguel.getId());
 			
-			pstm.setDouble(4, aluguel.getValor());
-			pstm.setDouble(5, aluguel.getMulta());
-			pstm.setDate(6, dataAluguel.getAsSQL());
-			pstm.setDate(7, dataDevolucao.getAsSQL());
-			pstm.setDate(8, dataDevolvido.getAsSQL());
-			pstm.setInt(9, aluguel.getIdFuncionario());
-			pstm.setInt(10, aluguel.getDiasDevolucao());
-			pstm.setDouble(11, aluguel.getValorPago());
-			pstm.setDouble(12, aluguel.getValorTotal());
-			pstm.setInt(13, id);
-			pstm.execute();
-			
-			System.out.println("Aluguel de id "+id+" foi alterado com sucesso!");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -126,13 +136,17 @@ public class AluguelDAO {
 		
 		String sql = "UPDATE aluguel SET data_devolvido = ? WHERE id_aluguel = ?";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			DateHelper devolvido = new DateHelper(dataDevolvido);
-			
-			pstm.setDate(1, devolvido.getAsSQL());
-			pstm.setInt(2, id);
-			pstm.execute();
-			
-			System.out.println("Data de devolução do aluguel de id "+id+" atualizada com sucesso! Data: "+ devolvido.getAsString());
+			try {
+				DateHelper devolvido = new DateHelper(dataDevolvido);
+				
+				pstm.setDate(1, devolvido.getAsSQL());
+				pstm.setInt(2, id);
+				pstm.execute();
+				
+				System.out.println("Data de devolução do aluguel de id "+id+" atualizada com sucesso! Data: "+ devolvido.getAsString());
+			}finally {
+				pstm.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -141,10 +155,15 @@ public class AluguelDAO {
 	public void updateDiasParaDevolucao(Integer id, Integer dias) {
 		String sql = "UPDATE aluguel SET dias_para_devolucao = ? WHERE id_aluguel = ?";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
+			try {
+				pstm.setInt(1, dias);
+				pstm.setInt(2, id);
+				pstm.execute();				
+			}finally {
+				pstm.close();
+			}
 
-			pstm.setInt(1, dias);
-			pstm.setInt(2, id);
-			pstm.execute();
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -154,10 +173,14 @@ public class AluguelDAO {
 	public void updateValorPago(Integer id, Double valorPago) {
 		String sql = "UPDATE aluguel SET valor_pago = ? WHERE id_aluguel = ?";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
+			try {
+				pstm.setDouble(1, valorPago);
+				pstm.setInt(2, id);
+				pstm.execute();				
+			}finally {
+				pstm.close();
+			}
 			
-			pstm.setDouble(1, valorPago);
-			pstm.setInt(2, id);
-			pstm.execute();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -167,10 +190,14 @@ public class AluguelDAO {
 	public void updateValorTotal(Integer id, Double valorTotal) {
 		String sql = "UPDATE aluguel SET valor_total = ? WHERE id_aluguel = ?";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
+			try {
+				pstm.setDouble(1, valorTotal);
+				pstm.setInt(2, id);
+				pstm.execute();
+			}finally {
+				pstm.close();
+			}
 			
-			pstm.setDouble(1, valorTotal);
-			pstm.setInt(2, id);
-			pstm.execute();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -180,8 +207,13 @@ public class AluguelDAO {
 	public void updateParamDiasParaDevolucao(Integer dias) {
 		String sql = "UPDATE aluguel SET dias_para_devolucao = ? WHERE id_aluguel = 1";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			pstm.setInt(1, dias);
-			pstm.execute();
+			try {
+				pstm.setInt(1, dias);
+				pstm.execute();
+			}finally {
+				pstm.close();
+			}
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -190,8 +222,13 @@ public class AluguelDAO {
 	public void updateParamValorAlguel(Double valorAluguel) {
 		String sql = "UPDATE aluguel SET valor = ? WHERE id_aluguel = 1";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			pstm.setDouble(1, valorAluguel);
-			pstm.execute();
+			try {
+				pstm.setDouble(1, valorAluguel);
+				pstm.execute();
+			}finally {
+				pstm.close();
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -200,8 +237,14 @@ public class AluguelDAO {
 	public void updateParamValorMulta(Double valorMulta) {
 		String sql = "UPDATE aluguel SET valor_multa = ? WHERE id_aluguel = 1";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			pstm.setDouble(1, valorMulta);
-			pstm.execute();
+			
+			try {
+				pstm.setDouble(1, valorMulta);
+				pstm.execute();
+			}finally {
+				pstm.close();
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -212,10 +255,15 @@ public class AluguelDAO {
 		List<Aluguel> alugueis = new ArrayList<>();
 		
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
+			try {
+				pstm.execute();
+				this.resultToAlugueis(alugueis, pstm);
+				return alugueis;
+			}finally {
+				pstm.close();
+			}
 			
-			pstm.execute();
-			this.resultToAlugueis(alugueis, pstm);
-			return alugueis;
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -227,10 +275,15 @@ public class AluguelDAO {
 		List<Aluguel> alugueis = new ArrayList<>();
 		String sql = "SELECT * FROM aluguel WHERE data_devolvido IS NULL AND id = ?";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			pstm.setInt(1, id);
-			pstm.execute();
-			this.resultToAlugueis(alugueis, pstm);
-			return alugueis;
+			try {
+				pstm.setInt(1, id);
+				pstm.execute();
+				this.resultToAlugueis(alugueis, pstm);
+				return alugueis;
+			}finally {
+				pstm.close();
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -243,10 +296,14 @@ public class AluguelDAO {
 		
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
 			
-			pstm.setInt(1, id);
-			pstm.execute();
-			this.resultToAlugueis(alugueis, pstm);
-			return alugueis.get(0);
+			try {
+				pstm.setInt(1, id);
+				pstm.execute();
+				this.resultToAlugueis(alugueis, pstm);
+				return alugueis.get(0);
+			}finally {
+				pstm.close();
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -259,13 +316,17 @@ public class AluguelDAO {
 		List<Aluguel> alugueis = new ArrayList<>();
 		
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			pstm.setInt(1, id);
-			pstm.setInt(2, idFilme);
-			pstm.execute();
-			
-			this.resultToAlugueis(alugueis, pstm);
-			
-			return alugueis.get(0);
+			try {
+				pstm.setInt(1, id);
+				pstm.setInt(2, idFilme);
+				pstm.execute();
+				
+				this.resultToAlugueis(alugueis, pstm);
+				
+				return alugueis.get(0);
+			}finally {
+				pstm.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 
@@ -291,11 +352,16 @@ public class AluguelDAO {
 		
 		String sql = "SELECT * FROM aluguel WHERE " +sqlOpcao + " != 'NULL'";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			List<Aluguel> alugueis = new ArrayList<>();		
-			pstm.execute();
+			try {
+				List<Aluguel> alugueis = new ArrayList<>();		
+				pstm.execute();
+				
+				this.resultToAlugueis(alugueis, pstm);
+				return alugueis;
+			}finally {
+				pstm.close();
+			}
 			
-			this.resultToAlugueis(alugueis, pstm);
-			return alugueis;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -306,9 +372,13 @@ public class AluguelDAO {
 		String sql = "SELECT * FROM aluguel WHERE id_aluguel = 2";
 		List<Aluguel> alugueis = new ArrayList<>();
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			pstm.execute();
-			this.resultToAlugueis(alugueis, pstm);
-			return alugueis.get(0);
+			try {
+				pstm.execute();
+				this.resultToAlugueis(alugueis, pstm);
+				return alugueis.get(0);
+			}finally {
+				pstm.close();
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -319,10 +389,14 @@ public class AluguelDAO {
 	public void deletarAluguel(Integer id) {
 		String sql = "DELETE FROM aluguel WHERE id_aluguel = ?";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			pstm.setInt(1, id);
-			pstm.execute();
-			
-			System.out.println("Aluguel de id "+id+" foi deletado com sucesso!");
+			try {
+				pstm.setInt(1, id);
+				pstm.execute();
+				
+				System.out.println("Aluguel de id "+id+" foi deletado com sucesso!");
+			}finally {
+				pstm.close();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

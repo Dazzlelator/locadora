@@ -13,18 +13,19 @@
 	<c:import url="cabecalho.jsp" />
 	<br>
 	<div id="todos_filmes">
-	Filmes disponiveis:
+	Jogos disponiveis:
 		<ul>
 		
-			<c:if test="${not empty filmes}">
-				<c:forEach items="${filmes}" var="filme">
-					 
-					<li>${filme.nome}</li>
-					<a href="${main}?id_filme=${filme.idFilme}&action=InfoFilme">Info</a>
+			<c:if test="${not empty jogos}">
+			<c:forEach items="${jogos}" var="jogo">
+				 
+						<li>${jogo.nome} ${jogo.plataforma}</li>
+						<a href="${main}?id_jogo=${jogo.idJogo}&action=InfoJogo">Info</a>
 					
-				</c:forEach>
+				
+			</c:forEach>
 			</c:if>
-			<c:if test="${empty filmes }">Lista vazia</c:if>
+			<c:if test="${empty jogos }">Lista vazia</c:if>
 		</ul>	
 	
 	</div>
