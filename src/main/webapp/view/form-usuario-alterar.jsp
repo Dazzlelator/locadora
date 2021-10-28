@@ -22,7 +22,7 @@
 		Email: <input type="text" name="email" value="${usuario.email }"><br>
 		Endereco: <input type="text" name="endereco" value="${usuario.endereco}"><br>
 		
-		<input type="submit">
+		<input type="submit" value="Alterar">
 	
 	</form>
 </body>

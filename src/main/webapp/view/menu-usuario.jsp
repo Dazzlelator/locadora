@@ -17,7 +17,8 @@
 	</header>
 	<div id=lista_opcoes>
 		<a href="${main}?id=${usuarioLogado.id}&action=AlterarUsuario">Alterar dados pessoais</a>
-		<a href="${main}?action=ListarUsuarios" class="nivel${usuarioLogado.nivelAcesso}"> Listar usuarios</a>
+		<c:if test="${usuarioLogado.nivelAcesso > 2}"><a href="${main}?action=ListarUsuarios" class="nivel${usuarioLogado.nivelAcesso}"> Listar usuarios</a></c:if>
+		
 		<a href="view/adicionar-credito.jsp">Adicionar Credito</a>
 		
 	</div>

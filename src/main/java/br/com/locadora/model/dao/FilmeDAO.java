@@ -145,7 +145,25 @@ public class FilmeDAO {
 		}		
 	}
 	
-	public List<Filme> getFilmeGroupByIdProduto() {
+	public List<Filme> getFilmeGoupByIdProduto(){
+		List<Filme> filmes = new ArrayList<>();
+		String sql = "SELECT * FROM filmes GROUP BY id_produto";
+		
+		try(PreparedStatement pstm = connection.prepareStatement(sql)){
+			try {
+				pstm.execute();
+				this.resultToFilmes(filmes, pstm);
+				return filmes;
+			}finally {
+				pstm.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public List<Filme> getFilmeGroupByIdProdutoDisponivel() {
 		List<Filme> filmes = new ArrayList<>();
 		String sql = "SELECT * FROM filmes_disponiveis GROUP BY id_produto";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){

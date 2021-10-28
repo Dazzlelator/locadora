@@ -19,6 +19,10 @@ public class ProdutoService {
 		this.produtoDao.salvar(produto);
 	}
 	
+	public Produto getByNome(String nome) {
+		return this.produtoDao.getProdutoByNome(nome);
+	}
+	
 	public void updateById(Integer id, Produto produto) {
 		this.produtoDao.updateById(id, produto);
 	}

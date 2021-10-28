@@ -132,7 +132,7 @@ public class JogoDAO {
 	
 	public List<Jogo> getJogosGroupByIdProduto(){
 		List<Jogo> jogos = new ArrayList<>();
-		String sql = "SELECT * FROM jogos GROUP BY id_produto";
+		String sql = "SELECT * FROM view_jogos_disponiveis GROUP BY id_produto";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
 			try {
 				pstm.execute();

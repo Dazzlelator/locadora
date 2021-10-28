@@ -85,7 +85,7 @@ public class FiltroAutorizacao implements Filter {
 						break;
 					}
 				case 2:
-					if(!acaoNivel2) {
+					if(!acaoNivel3) {
 						System.out.println("nivel 2");
 						chain.doFilter(request, response);
 						break;

@@ -51,13 +51,14 @@ public class Aluguel {
 		this.valorTotal = valorTotal;
 	}
 	
-	public Aluguel(Integer id, Integer idFilme, Integer idJogo, Double valor, Double multa, Double valorPago) {
+	public Aluguel(Integer id, Integer idFilme, Integer idJogo, Double valor, Double multa, Double valorPago, Double valorTotal) {
 		this.id = id;
 		this.idFilme = idFilme;
 		this.idJogo = idJogo;
 		this.valor = valor;
 		this.multa = multa;
 		this.valorPago = valorPago;
+		this.valorTotal = valorTotal;
 	
 	}
 	

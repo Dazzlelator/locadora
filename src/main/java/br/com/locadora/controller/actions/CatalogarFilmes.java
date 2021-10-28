@@ -16,7 +16,7 @@ public class CatalogarFilmes implements Acao{
 	public String executar(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		FilmeService fs = new FilmeService();
-		List<Filme> filmes = fs.getGroupByIdProduto();
+		List<Filme> filmes = fs.getGroupByIdProdutoDisponivel();
 		request.setAttribute("filmes", filmes);
 		return "dispatcher:catalogo-filmes.jsp";
 	}

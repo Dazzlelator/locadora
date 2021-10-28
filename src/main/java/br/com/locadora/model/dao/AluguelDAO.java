@@ -334,6 +334,28 @@ public class AluguelDAO {
 		}
 	}
 	
+	public Aluguel getAluguelJogoAtivoByIdByIdJogo(Integer id, Integer idJogo) {
+		String sql = "SELECT * FROM aluguel WHERE id = ? AND id_jogo = ? AND data_devolvido IS NULL";
+		List<Aluguel> alugueis = new ArrayList<>();
+		
+		try(PreparedStatement pstm = connection.prepareStatement(sql)){
+			try {
+				pstm.setInt(1, id);
+				pstm.setInt(2, idJogo);
+				pstm.execute();
+				
+				this.resultToAlugueis(alugueis, pstm);
+				return alugueis.get(0);
+			}finally {
+				pstm.close();
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	public List<Aluguel> getFilmesOuJogos(Integer opcao){
 		
 		String sqlOpcao = "";

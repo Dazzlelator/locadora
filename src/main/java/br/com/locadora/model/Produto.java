@@ -12,7 +12,7 @@ public class Produto {
 	private Integer quantidade;
 	private Date dataCadastro;
 	private String tipo;
-	private Double valorAlguel;
+	private Double valorAluguel;
 	private Double valorMulta;
 	
 	public Produto(Integer produtoId, Integer id, String codProduto, String nome, Double valor, Double custo, Integer quantidade, Date dataCadastro, String tipo, Double valorAlguel, Double valorMulta) {
@@ -25,7 +25,7 @@ public class Produto {
 		this.quantidade = quantidade;
 		this.dataCadastro = dataCadastro;
 		this.tipo = tipo;
-		this.valorAlguel = valorAlguel;
+		this.valorAluguel = valorAlguel;
 		this.valorMulta = valorMulta;
 	}
 	
@@ -38,7 +38,7 @@ public class Produto {
 		this.quantidade = quantidade;
 		this.dataCadastro = dataCadastro;
 		this.tipo = tipo;
-		this.valorAlguel = valorAlguel;
+		this.valorAluguel = valorAlguel;
 		this.valorMulta = valorMulta;
 	}
 
@@ -79,7 +79,7 @@ public class Produto {
 	}
 	
 	public Double getValorAluguel() {
-		return valorAlguel;
+		return valorAluguel;
 	}
 	
 	public Double getValorMulta() {

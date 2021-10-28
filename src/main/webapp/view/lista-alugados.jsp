@@ -15,10 +15,13 @@
 	Lista de alugueis:
 	<div id="filmes">
 		<c:import url="filmes-alugados.jsp" />
+	</div>	
+	<div id="jogos">
+		<c:import url="jogos-alugados.jsp"/>
 	</div>
 </body>
 <script src="/Locadora/Scripts/jquery.js"></script>
-	<script id="script_produto">	
+	<script id="script_filmes">	
 		var idUsuario = ${usuarioLogado.id}
 		
 		var paramFilmes = {
@@ -28,6 +31,19 @@
 
 		$.post("main", $.param(paramFilmes), function(response) {
 		  	$('#filmes').append(response);
+		});
+	</script>
+	
+	<script id="script_jogos">	
+		var idUsuario = ${usuarioLogado.id}
+		
+		var paraJogos = {
+			action: "JogosAlugados",
+			id: idUsuario
+		}
+
+		$.post("main", $.param(paraJogos), function(response) {
+		  	$('#jogos').append(response);
 		});
 	</script>
 		

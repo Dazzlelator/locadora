@@ -16,17 +16,21 @@ public class InfoJogo implements Acao{
 			throws ServletException, IOException {
 		String paramVariacao = request.getParameter("variacao");
 		
+		String ParamIdJogo = request.getParameter("id_jogo");
+		Integer idJogo = Integer.valueOf(ParamIdJogo);
+		
+		JogoService js = new JogoService();
+		Jogo jogo = js.getById(idJogo);
+		
+		request.setAttribute("jogo", jogo);
+		
 		if(paramVariacao == null) {
-			String ParamIdJogo = request.getParameter("id_jogo");
-			Integer idJogo = Integer.valueOf(ParamIdJogo);
-			
-			JogoService js = new JogoService();
-			Jogo jogo = js.getById(idJogo);
-			
-			request.setAttribute("jogo", jogo);
 			
 			return "dispatcher:info-jogo.jsp";
 			
+		}
+		if("alugado".equals(paramVariacao)){
+			return "dispatcher:info-jogo-alugado.jsp";
 		}
 		
 		return null;

@@ -45,7 +45,7 @@ public class Servlet extends HttpServlet {
 			Acao acao = (Acao) classe.newInstance(); // terceiro  instancia a classe e casta o tipo dela.
 			stringTipoEndereco = acao.executar(request, response); //com a classe instanciada e com o tipo definido, vc usa o metodo executar que essas classes devem possuir
 			
-		} catch (ClassNotFoundException|InstantiationException | IllegalAccessException e) {
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}		
 					
@@ -58,7 +58,7 @@ public class Servlet extends HttpServlet {
 			response.sendRedirect("main?action="+tipo_endereco[1]);
 		}
 		
-		new ConnectionFactory().fecharConexao();
+//		new ConnectionFactory().fecharConexao();
 
 	}
 

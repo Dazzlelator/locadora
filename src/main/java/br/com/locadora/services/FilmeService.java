@@ -79,7 +79,11 @@ public class FilmeService {
 	}
 	
 	public List<Filme> getGroupByIdProduto(){
-		return this.filmeDao.getFilmeGroupByIdProduto();
+		return this.filmeDao.getFilmeGoupByIdProduto();
+	}
+	
+	public List<Filme> getGroupByIdProdutoDisponivel(){
+		return this.filmeDao.getFilmeGroupByIdProdutoDisponivel();
 	}
 
 	public Filme getById(Integer id) {
@@ -90,7 +94,7 @@ public class FilmeService {
 		
 		//atributos adicionam dias a data de lancamento e verificam se o filme pode ser classificado como lancamento;
 
-		List<Filme> filmes = this.getGroupByIdProduto();
+		List<Filme> filmes = this.getGroupByIdProdutoDisponivel();
 		List<Filme> lancamentos = new ArrayList<>();
 		Long dataAtual = new Date().getTime();
 

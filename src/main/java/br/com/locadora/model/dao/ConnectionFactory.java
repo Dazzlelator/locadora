@@ -14,20 +14,17 @@ public class ConnectionFactory {
 
 	public ConnectionFactory() {
 		
-		
 		ComboPooledDataSource comboPooledDataSource = new ComboPooledDataSource();
 		comboPooledDataSource.setJdbcUrl("jdbc:mysql://localhost/locadora?useTimezone=true&serverTimezone=UTC");
 		comboPooledDataSource.setUser("root");
 		comboPooledDataSource.setPassword("96557742");
 	
-		comboPooledDataSource.setMinPoolSize(3);
-		comboPooledDataSource.setMaxPoolSize(3);
+		comboPooledDataSource.setMinPoolSize(1);
+		comboPooledDataSource.setMaxPoolSize(2);
 		
 		comboPooledDataSource.setMaxConnectionAge(3);
-	
-		
-		this.dataSource = comboPooledDataSource;
-		
+			
+		this.dataSource = comboPooledDataSource;	
 	}
 
 	public Connection recuperarConexao() {

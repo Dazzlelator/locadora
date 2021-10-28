@@ -34,32 +34,27 @@ public class AluguelService {
 		dataDevolucao.addUtil(diasParaDevolucao);
 		aluguel.setDiasDevolucao(diasParaDevolucao);
 		aluguel.setDataDevolucao(dataDevolucao.getData());
-		aluguel.setValorPago(0.0); //aqui pode ser zero ou o valor a ser pago inicialmente sem as multas.
-		aluguel.setValorTotal(0.0);
 		
-		String statusFilme = null;
-		String statusJogo = null;
+		
+		String statusFilme = "indisponivel";
+		String statusJogo = "indisponivel";
 		
 		if(aluguel.getIdFilme() != null) {
 			statusFilme = fc.getById(aluguel.getIdFilme()).getStatus();
-			statusJogo = "indisponivel";
-		}else if(aluguel.getIdJogo() != null){
-			statusJogo = fc.getById(aluguel.getIdJogo()).getStatus();
-			statusFilme = "indisponivel";
+			
+		}if(aluguel.getIdJogo() != null){
+			statusJogo = jc.getById(aluguel.getIdJogo()).getStatus();
 		}
 		
-		
-		if("disponivel".equals(statusFilme)  || "disponivel".equals(statusJogo)) {
+		System.out.println("Status jogo = " +statusJogo);
+		if("disponivel".equals(statusFilme)  | "disponivel".equals(statusJogo)) {
 									
 			if(aluguel.getIdFilme() != null) {
 				fc.updateStatus(aluguel.getIdFilme(), 2);	
-				this.aluguelDao.salvar(aluguel);
-							
+				this.aluguelDao.salvar(aluguel);							
 			}else if(aluguel.getIdJogo() != null) {
 				jc.updateStatus(aluguel.getIdJogo(), 2);
 				this.aluguelDao.salvar(aluguel);
-				
-				
 			}
 			
 		}else {
@@ -90,8 +85,8 @@ public class AluguelService {
 		this.aluguelDao.updateValorPago(id, valorPago);
 	}
 	
-	public void updateValorTotal(Integer id, Double valorTotal) {
-		this.aluguelDao.updateValorTotal(id, valorTotal);
+	public void updateValorTotal(Integer id) {		
+		this.aluguelDao.updateValorTotal(id, this.getValorTotal(id));
 	}
 	
 	public void pagamento(Integer id, Double valorPago) {
@@ -128,6 +123,10 @@ public class AluguelService {
 		return this.aluguelDao.getAluguelFilmeAtivoByIdByIdFilme(idUsuario, idFilme);
 	}
 	
+	public Aluguel getJogoAtivoByIdUsuarioByIdJogo(Integer idUsuario, Integer idJogo) {
+		return this.aluguelDao.getAluguelJogoAtivoByIdByIdJogo(idUsuario, idJogo);
+	}
+	
 	public Double getValorMulta(Integer id) {
 		Double multa = this.getById(id).getMulta();
 		Long data1 = this.getById(id).getDataDevolucao().getTime();
@@ -138,7 +137,7 @@ public class AluguelService {
 		
 		Long multiplicador = (data2 - data1)/86400000;
 		Double resultado = multa*multiplicador;
-		this.updateValorTotal(id, resultado);
+//		this.updateValorTotal(id, resultado);
 		
 		if(resultado > 0) {
 			return resultado;

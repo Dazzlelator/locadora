@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.locadora.helpers.DateHelper;
+import br.com.locadora.model.Filme;
 import br.com.locadora.model.Produto;
 
 public class ProdutoDAO {
@@ -125,8 +126,7 @@ public class ProdutoDAO {
 		
 	}
 
-	public List<Produto> getAllProdutos() {
-		
+	public List<Produto> getAllProdutos() {		
 		List<Produto> produtos = new ArrayList<>();
 		String sql = "SELECT * FROM produtos";
 
@@ -165,6 +165,26 @@ public class ProdutoDAO {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public Produto getProdutoByNome(String nome) {
+		List<Produto> produtos = new ArrayList<>();
+		String sql = "SELECT * FROM produtos WHERE nome = ?";
+		
+		try(PreparedStatement pstm = connection.prepareStatement(sql)){
+			
+			pstm.setString(1, nome);
+			pstm.execute();
+			
+			this.resultToProdutos(produtos, pstm);
+			return produtos.get(0);
+			
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 	
 	public void deleteById(Integer id) {

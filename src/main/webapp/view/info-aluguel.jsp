@@ -17,11 +17,13 @@
 	
 	<c:if test="${aluguel.idAluguel > 2}">
 		Dias restantes: ${ diasRestantes } <br>
-		<c:if test="${diasRestantes < 0}">
-			Valor da multa atual: ${multa}
+		<c:if test="${diasRestantes < 1}">
+			Valor da multa atual: ${multa} <br>
 		</c:if>
 	</c:if>
-	
+	<c:if test="${not empty diasRestantes}">
+	<a href="${main}?id_usuario=${usuarioLogado.id}&id_aluguel=${aluguel.idAluguel}&action=DevolverProduto">Devolver</a>
+	</c:if>
 	
 </body>
 </html>

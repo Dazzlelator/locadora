@@ -15,7 +15,12 @@
 			Usuario Logado: ${usuarioLogado.nome}   Credito atual: ${usuarioLogado.credito} <br>
 			<a href="${main}?id=${usuarioLogado.id}&action=MenuUsuario"> Menu do usuario </a>
 			
-			<a href="${main}?action=ListarAlugados">Filmes Alugados</a>
+			<a href="${main}?action=ListarAlugados">Itens Alugados</a>
+			
+			<c:if test="${usuarioLogado.nivelAcesso >= 2}">
+				<a href="${main}?id_usuario=${usuarioLogado.id}&action=AdicionarFilme"> Adicionar Filme </a>
+				<a href="${main}?id_usuario=${usuarioLogado.id}&action=AdicionarJogo"> Adicionar Jogo</a>
+			</c:if>
 		</div>
 
 </body>

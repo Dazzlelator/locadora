@@ -16,11 +16,11 @@
 		<c:import url="cabecalho.jsp" />
 		
 		<div id="info_filme">
-			
-			${filme.nome} ${filme.tecnologia} Sinopse: ${filme.sinopse} Lançado: ${filme.dataLancamento} 
-			
+					
+			${jogo.nome} ${jogo.plataforma} ${jogo.generos} Lançado: ${jogo.dataLancamento}
+			 			
 		</div>
-		<div id="id-filme" class="hidden">${filme.idFilme}</div>
+		<div id="id-jogo" class="hidden">${jogo.idJogo}</div>
 		<div id="info_produto">	</div>
 		<div id="info_aluguel"> </div>
 		
@@ -28,14 +28,14 @@
 	</body>
 	<script src="/Locadora/Scripts/jquery.js"></script>
 	<script id="script_produto">	
-		var idFilme = document.getElementById('id-filme').textContent
+		var idJogo = document.getElementById('id-jogo').textContent
 		
-		var paramIdFilme = {
+		var paramJogo = {
 			action: "InfoProduto",
-			id: idFilme
+			id_jogo: idJogo
 		}
 
-		$.post("main", $.param(paramIdFilme), function(response) {
+		$.post("main", $.param(paramJogo), function(response) {
 		  	$('#info_produto').append(response);
 		});
 	</script>
@@ -43,7 +43,7 @@
 	
 	
 		var paramAluguel = {
-			id_filme: ${filme.idFilme},
+			id_jogo: ${jogo.idJogo},
 			id_usuario: ${usuarioLogado.id},
 			action: "InfoAluguel"			
 		}
