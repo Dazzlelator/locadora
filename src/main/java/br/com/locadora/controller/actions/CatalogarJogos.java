@@ -17,7 +17,7 @@ public class CatalogarJogos implements Acao{
 			throws ServletException, IOException {
 		
 		JogoService js = new JogoService();
-		List<Jogo> jogos = js.getGroupByIdProduto();		
+		List<Jogo> jogos = js.getDisponiveisGroupByIdProduto();		
 		request.setAttribute("jogos",jogos);		
 		return "dispatcher:catalogo-jogos.jsp";
 	}

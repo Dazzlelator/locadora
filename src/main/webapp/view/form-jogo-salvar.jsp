@@ -7,14 +7,14 @@
 <head>
 	<meta charset="ISO-8859-1">
 	<link rel="stylesheet" href="/Locadora/CSSs/presquisa-dropdown.css">
-	<title>Adicionar Filme</title>
+	<title>Adicionar Jogo</title>
 </head>
 <body>
 	<c:import url="logout.jsp"/>
-	<form action="${main}?action=AdicionarFilme" method="post">
+	<form action="${main}?action=AdicionarJogo" method="post">
 		<div class="class_pesquisa">
 			<input type="hidden" name="id" value="${usuarioLogado.id}" readonly><br>
-			<label for="nome" class="legenda2" >Nome do filme </label>
+			<label for="nome" class="legenda2" >Nome do Jogo </label>
 			<input type="text" name="nome" value="" id="nome"><br>
 			<div id='idPesquisa' class="hidden"></div>		
 		</div>
@@ -32,16 +32,14 @@
 		generos <input type="text" name="generos" id="generos"><br>
 		premios <input type="text" name="premios" id="premios"><br>
 		notas <input type="text" name="notas" id="notas"><br>
-		protagonistas <input type="text" name="protagonistas" id="protagonistas"><br>
-		diretor<input type="text" name="diretor"  id="diretor"><br>
+		
 		produtor<input type="text" name='produtor' id='produtor'><br>
 		Destribuidor <input type='text' name='destribuidor' id='destribuidor'><br>
 		Faixa etária <input type='text' name='faixa_etaria' id='faixa_etaria'><br>
 		Integridade <input type='text' name='integridade' id='integridade'><br>
 		Data de Lançamento <input type='date' name='data_lancamento' id='data_lancamento'><br>
-		Sinopse <input type="text" name="sinopse" id='sinopse'><br>
 		
-		<input type="submit" value="Salvar Filme">
+		<input type="submit" value="Salvar Jogo">
 		
 	</form>
 </body>
@@ -49,7 +47,7 @@
 <script src="/Locadora/Scripts/DesenhaDropdown.js"></script>
 <script src="/Locadora/Scripts/Pesquisa.js"></script>
 <script>	
-	var pesquisa = new Pesquisa(${produtos}, ${filmes});
+	var pesquisa = new Pesquisa(${produtos}, ${jogos});
 	
 	pesquisa.pesquisar()
 </script>

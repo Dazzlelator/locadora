@@ -9,11 +9,11 @@ class DesenhaDropdown extends Viewer{
         for (let i=0; i< model.length; i++){
             let item = model[i];           
             listaParagrafos.push(                                
-                `<p id="${item.idFilme}" class="item_pesquisa hidden" onclick='pesquisa.selectPesquisa("${item.idProduto}")'>${item.nome}</p>`
+                `<p id="${item.idFilme}" class="item_pesquisa hidden" onclick='pesquisa.selectPesquisa("${item.idProduto}")'>${item.nome}, ${item.plataforma}</p>`
             )
-                    
+            console.log(item);
         }
-       
+       	
         return listaParagrafos.join('')
     }
     update(model){

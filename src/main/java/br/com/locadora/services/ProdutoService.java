@@ -15,12 +15,13 @@ public class ProdutoService {
 		this.produtoDao = new ProdutoDAO(con);
 	}
 	
-	public void salvar(Produto produto) {
-		this.produtoDao.salvar(produto);
+	public Integer salvar(Produto produto) {
+		return this.produtoDao.salvar(produto);
+		
 	}
 	
-	public Produto getByNome(String nome) {
-		return this.produtoDao.getProdutoByNome(nome);
+	public List<Produto> getAllByNome(String nome) {
+		return this.produtoDao.getProdutosByNome(nome);
 	}
 	
 	public void updateById(Integer id, Produto produto) {

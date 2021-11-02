@@ -10,22 +10,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.locadora.helpers.DateHelper;
 import br.com.locadora.helpers.ToJson;
-import br.com.locadora.model.Filme;
+import br.com.locadora.model.Jogo;
 import br.com.locadora.model.Produto;
-import br.com.locadora.services.FilmeService;
+import br.com.locadora.services.JogoService;
 import br.com.locadora.services.ProdutoService;
 
-public class AdicionarFilme implements Acao {
+public class AdicionarJogo implements Acao {
 
 	@Override
 	public String executar(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		FilmeService fs = new FilmeService();
-		List<Filme> filmes = fs.getGroupByIdProduto();
-		
+
+		JogoService js = new JogoService();
+		List<Jogo> jogos = js.getGroupByIdProduto();
+
 		ProdutoService ps = new ProdutoService();
 		List<Produto> produtos = ps.getAll();
-		
 
 		// sobre produto
 		String paramIdUsuario = request.getParameter("id");
@@ -34,41 +34,33 @@ public class AdicionarFilme implements Acao {
 		String paramValor = request.getParameter("valor");
 		String paramValorCusto = request.getParameter("valor_custo");
 		String paramQuantidade = request.getParameter("quantidade");
-//		String paramDataCadastro = request.getParameter("data_cadastro");
 		String paramTipo = request.getParameter("tipo");
 		String paramValorAluguel = request.getParameter("valor_aluguel");
 		String paramValorMulta = request.getParameter("valor_multa");
 		String paramIdProduto = request.getParameter("id_produto");
 
-		// sobre filme;
-
-//		String paramTecnologia = request.getParameter("tipo"); // vai ser a mesma coisa q o tipo do produto pq eh, de
-//																// fato, a mesma coisa...
+		// sobre jogo
 		String paramNumSerial = request.getParameter("num_serial");
 		String paramFranquia = request.getParameter("franquia");
 		String paramGeneros = request.getParameter("generos");
 		String paramPremios = request.getParameter("premios");
 		String paramNotas = request.getParameter("notas");
-		String paramProtagonistas = request.getParameter("protagonistas");
-		String paramDiretor = request.getParameter("diretor");
 		String paramProdutor = request.getParameter("produtor");
 		String paramDestribuidor = request.getParameter("destribuidor");
 		String paramFaixaEtaria = request.getParameter("faixa_etaria");
 		String paramIntegridade = request.getParameter("integridade");
 		String paramDataLancamento = request.getParameter("data_lancamento");
-//		String dataCadastro
 		String paramStatus = "disponivel";
-		String paramSinopse = request.getParameter("sinopse");
-		
-		String jsonFilmes = new ToJson().converter(filmes);
+
+		String jsonJogos = new ToJson().converter(jogos);
 		String jsonProdutos = new ToJson().converter(produtos);
-		
-		request.setAttribute("filmes", jsonFilmes);
-		request.setAttribute("produtos", jsonProdutos);		
-		
+
+		request.setAttribute("jogos", jsonJogos);
+		request.setAttribute("produtos", jsonProdutos);
+
 		if (paramNome != null) {
 			List<Produto> produtosPorNome = ps.getAllByNome(paramNome);
-			Produto produto = null;			
+			Produto produto = null;	
 			Boolean checkProduto = false;
 			
 			if(produtosPorNome != null) {
@@ -82,28 +74,25 @@ public class AdicionarFilme implements Acao {
 			
 			DateHelper dataLancamento = new DateHelper(paramDataLancamento);
 			
-			if(checkProduto) {
+			if (checkProduto) {
 				Integer idProduto = Integer.valueOf(paramIdProduto);
 				Integer quantidade = Integer.valueOf(paramQuantidade);
-				
+
 				ps.addQuantidade(idProduto, quantidade);
-				
-				Filme filme = new Filme(produto.getProdutoId(), produto.getTipo(), paramNumSerial, produto.getNome(),
-					paramFranquia, paramGeneros, paramPremios, paramNotas, paramProtagonistas, paramDiretor,
-					paramProdutor, paramDestribuidor, paramFaixaEtaria, paramIntegridade, dataLancamento.getData(),
-					new Date(), paramStatus, paramSinopse);
-				
+
+				Jogo jogo = new Jogo(produto.getProdutoId(), produto.getTipo(), paramNumSerial, produto.getNome(),
+						paramFranquia, paramGeneros, paramPremios, paramNotas, paramProdutor, paramDestribuidor,
+						paramFaixaEtaria, paramIntegridade, dataLancamento.getData(), new Date(), paramStatus);
 				
 				while(quantidade > 0) {
-					fs.salvar(filme);
+					js.salvar(jogo);
 					quantidade--;
 				}
 				
-				System.out.println("Filme salvo com sucesso!");
-				
-			}
+				System.out.println("Jogo salvo com sucesso!");
 
-			if (!checkProduto) {
+			}
+			if(!checkProduto) { 
 				Integer idUsuario = Integer.valueOf(paramIdUsuario);
 				Double valor = Double.valueOf(paramValor);
 				Double valorCusto = Double.valueOf(paramValorCusto);
@@ -115,27 +104,22 @@ public class AdicionarFilme implements Acao {
 				
 				novoProduto = ps.getById(ps.salvar(novoProduto));
 				
-				
-				Filme filme = new Filme(novoProduto.getProdutoId(), novoProduto.getTipo(), paramNumSerial, novoProduto.getNome(),
-						paramFranquia, paramGeneros, paramPremios, paramNotas, paramProtagonistas, paramDiretor,
-						paramProdutor, paramDestribuidor, paramFaixaEtaria, paramIntegridade, dataLancamento.getData(),
-						new Date(), paramStatus, paramSinopse);	
+				Jogo jogo = new Jogo(novoProduto.getProdutoId(), novoProduto.getTipo(), paramNumSerial, novoProduto.getNome(),
+						paramFranquia, paramGeneros, paramPremios, paramNotas, paramProdutor, paramDestribuidor,
+						paramFaixaEtaria, paramIntegridade, dataLancamento.getData(), new Date(), paramStatus);
 				
 				while(quantidade > 0) {
-					fs.salvar(filme);
+					js.salvar(jogo);
 					quantidade--;
 				}
-				System.out.println("Filme e produto salvos com sucesso!");
-				
 			}
-			return "redirect:CatalogarFilmes"; // lancar um rediretc pra lista de filmes, talvez...
-			
-		} else {
-
-			return "dispatcher:form-filme-salvar.jsp";
-
+			return "redirect:CatalogarJogos";
+		}else {
+			return "dispatcher:form-jogo-salvar.jsp";
+ 
 		}
 
+		
 	}
 
 }

@@ -19,7 +19,7 @@
 			<c:if test="${not empty filmes}">
 				<c:forEach items="${filmes}" var="filme">
 					 
-					<li>${filme.nome}</li>
+					<li>${filme.nome} ${filme.tecnologia}</li>
 					<a href="${main}?id_filme=${filme.idFilme}&action=InfoFilme">Info</a>
 					
 				</c:forEach>

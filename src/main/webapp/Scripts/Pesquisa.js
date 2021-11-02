@@ -101,21 +101,20 @@ class Pesquisa{
 		var divNomes = document.querySelector('#idPesquisa');
 		
 		this._dados2.forEach(dado=>{
-		
 			if(idProduto == dado.idProduto){
 				this._inputNumSerial.value = dado.numSerial;
 				this._inputFranquia.value = dado.franquia;
 				this._inputGeneros.value = dado.generos;
 				this._inputPremios.value = dado.premios;
-				this._inputNotas.value = dado.notas;
-				this._inputProtagonistas.value = dado.protagonistas;
-				this._inputDiretor.value = dado.diretor;
+				this._inputNotas.value = dado.notas;				
 				this._inputProdutor.value = dado.produtor;
 				this._inputDestribuidor.value = dado.destribuidor;
 				this._inputFaixaEtaria.value = dado.faixaEtaria;
 				this._inputIntegridade.value = dado.integridade;
 				this._inputDataLancamento.value = dado.dataLancamento;
 				this._inputSinopse.value = dado.sinopse;
+				this._inputProtagonistas.value = dado.protagonistas; //a ordem importa pra evitar null exceprion
+				this._inputDiretor.value = dado.diretor;
 			}
 		})
 		divNomes.classList.add('hidden');

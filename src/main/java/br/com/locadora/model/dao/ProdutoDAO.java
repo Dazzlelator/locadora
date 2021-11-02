@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.locadora.helpers.DateHelper;
-import br.com.locadora.model.Filme;
 import br.com.locadora.model.Produto;
 
 public class ProdutoDAO {
@@ -19,7 +18,7 @@ public class ProdutoDAO {
 		this.connection = connection;
 	}
 
-	public void salvar(Produto produto) {
+	public Integer salvar(Produto produto) {
 		String sql = "INSERT INTO produtos (id, cod_produto, nome, valor, valor_custo, quantidade, data_cadastro, tipo, valor_aluguel, valor_multa) VALUES (?,?,?,?,?,?,?,?,?,?)";
 		try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			try {
@@ -42,12 +41,14 @@ public class ProdutoDAO {
 				rst.next();
 
 				System.out.println("Produto de id " + rst.getInt(1) + " foi adicionado com sucesso!");
+				return rst.getInt(1);
 			}finally {
 				pstm.close();
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return 0;
 		}
 	}
 
@@ -167,19 +168,24 @@ public class ProdutoDAO {
 		}
 	}
 	
-	public Produto getProdutoByNome(String nome) {
+	public List<Produto> getProdutosByNome(String nome) {
 		List<Produto> produtos = new ArrayList<>();
 		String sql = "SELECT * FROM produtos WHERE nome = ?";
 		
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
 			
 			pstm.setString(1, nome);
+			
 			pstm.execute();
 			
 			this.resultToProdutos(produtos, pstm);
-			return produtos.get(0);
+			if(produtos.size()>0) {
+				return produtos;
+			}else {
+				return null;
+			}
 			
-				
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;

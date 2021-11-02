@@ -130,7 +130,27 @@ public class JogoDAO {
 		}
 	}
 	
-	public List<Jogo> getJogosGroupByIdProduto(){
+	public List<Jogo> getJogoGroupByIdProduto(){
+		
+		List<Jogo> jogos = new ArrayList<>();
+		String sql = "SELECT * FROM jogos GROUP BY id_produto";
+		try(PreparedStatement pstm = connection.prepareStatement(sql)){
+			try {
+				pstm.execute();
+				this.resultToJogos(jogos, pstm);
+				return jogos;
+			}finally {
+				pstm.close();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	public List<Jogo> getJogosDisponiveisGroupByIdProduto(){
 		List<Jogo> jogos = new ArrayList<>();
 		String sql = "SELECT * FROM view_jogos_disponiveis GROUP BY id_produto";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
