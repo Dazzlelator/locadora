@@ -54,7 +54,9 @@ public class FiltroAutorizacao implements Filter {
 				paramAcao.equals("CatalogarJogosLancamento")  ||
 				paramAcao.equals("CatalogarFIlmes") ||
 				paramAcao.equals("CatalogarJogos")
-				);		
+								
+				);			
+				
 		Boolean acaoNivel2 = (
 				paramAcao.equals("AdicionarFilme") ||
 				paramAcao.equals("AdicionarJogo")

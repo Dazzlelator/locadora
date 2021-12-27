@@ -75,6 +75,10 @@ public class Filme {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	public void setDataLancamento(Date data) {
+		this.dataLancamento = data;
+	}
 
 	public Integer getIdFilme() {
 		return idFilme;
@@ -139,7 +143,7 @@ public class Filme {
 	public Date getDataLancamento() {
 		return dataLancamento;
 	}
-
+	
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}

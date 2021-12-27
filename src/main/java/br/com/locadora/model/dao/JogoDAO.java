@@ -19,7 +19,7 @@ public class JogoDAO {
 	}
 
 	public void salvar(Jogo jogo) {
-		String sql = "INSERT INTO jogos (id_produto, plataforma, num_serial, nome, franquia, generos, premios, notas, produtor, distribuidor, faixa_etaria, integridade, data_lancamento, data_cadastro, status)"
+		String sql = "INSERT INTO jogos (id_produto, plataforma, num_serial, nome, franquia, generos, premios, notas, produtor, destribuidor, faixa_etaria, integridade, data_lancamento, data_cadastro, status)"
 				+ " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 		try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -70,7 +70,7 @@ public class JogoDAO {
 				+ " premios = ?,"
 				+ " notas = ?,"
 				+ " produtor = ?,"
-				+ " distribuidor = ?,"
+				+ " destribuidor = ?,"
 				+ " faixa_etaria = ?,"
 				+ " integridade = ?,"
 				+ " data_lancamento = ?,"

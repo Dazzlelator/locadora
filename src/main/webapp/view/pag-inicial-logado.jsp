@@ -5,33 +5,33 @@
 
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Pagina inicial</title>
+	<meta charset="ISO-8859-1">
+	<title>Pagina inicial</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 <script src="/Locadora/Scripts/jquery.js"></script>
 <script src="/Locadora/Scripts/catalogoScript.js"></script>
 
 <body>
 	<header>
-		
-		<c:import url="cabecalho.jsp" />
-		<br>
-		<div id="menu_usuario">
-			<a href="${main}?action=MenuUsuario"></a>
-		</div>
-		
-		<br>
-		<div class="catalogos">
-			<a href="${main}?action=CatalogarFilmes"> Catalogo de filmes  </a>
-			<a href="${main}?action=CatalogarJogos">  Catalogo de Jogos</a>
-		</div>
-		
+			<div>
+				<c:import url="cabecalho.jsp" />
+			</div>
+			<div>
+				<a id="menu_usuario" href="${main}?action=MenuUsuario"></a>
+			</div>		
+			
+			
+			
+				
 		
 	</header>
 		
 	
-	<div id="catalogo_id">
-		<c:import url="catalogo-lancamento.jsp" />
+	<div id="catalogo_id" class="texto-titulo">
+		<span>Lançamentos</span>
+		<c:import url="catalogo-lancamento.jsp" />		
 	</div>
 </body>
 </html>

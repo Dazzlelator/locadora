@@ -20,7 +20,7 @@ public class FilmeDAO {
 
 	public void salvar(Filme filme) {
 		String sql = "INSERT INTO filmes"
-				+ " (id_produto, tecnologia, num_serial, nome, franquia, generos, premios, notas, protagonistas, diretor, produtor, distribuidor, faixa_etaria, integridade, data_lancamento, data_cadastro, status, sinopse)"
+				+ " (id_produto, tecnologia, num_serial, nome, franquia, generos, premios, notas, protagonistas, diretor, produtor, destribuidor, faixa_etaria, integridade, data_lancamento, data_cadastro, status, sinopse)"
 				+ " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			try {
@@ -64,7 +64,7 @@ public class FilmeDAO {
 		String sql = "UPDATE filmes SET " 
 				+ " id_produto = ?," + " tecnologia = ?," + " num_serial = ?," + " nome = ?,"
 				+ " franquia = ?," + " generos = ?," + " premios = ?," + " notas = ?," + " protagonistas = ?,"
-				+ " diretor = ?," + " produtor = ?," + " distribuidor = ?," + " faixa_etaria = ?," + " integridade = ?,"
+				+ " diretor = ?," + " produtor = ?," + " destribuidor = ?," + " faixa_etaria = ?," + " integridade = ?,"
 				+ " data_lancamento = ?," + " data_cadastro = ?," + " status = ?," + "sinopse = ?   WHERE id_filme = ?";
 		try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			try {
@@ -165,7 +165,7 @@ public class FilmeDAO {
 	
 	public List<Filme> getFilmeGroupByIdProdutoDisponivel() {
 		List<Filme> filmes = new ArrayList<>();
-		String sql = "SELECT * FROM filmes_disponiveis GROUP BY id_produto";
+		String sql = "SELECT * FROM view_filmes_disponiveis GROUP BY id_produto";
 		try(PreparedStatement pstm = connection.prepareStatement(sql)){
 			try {
 				pstm.execute();
