@@ -14,15 +14,18 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 <body>
-	<ul>		
+	<table class="tabela">		
 		<c:if test="${not empty jogos}">
-			<c:forEach items="${jogos}" var="jogo">					
-				<li>${jogo.nome} ${jogo.plataforma}</li>
-				<a href="${main}?id_usuario=${usuarioLogado.id}&id_jogo=${jogo.idJogo}&action=InfoJogo&variacao=alugado">Info</a>										
+			<c:forEach items="${jogos}" var="jogo">
+			<tr>
+				<td>${jogo.nome} ${jogo.plataforma}</td>
+				<td style="text-align: right; padding-right: 5px;"><a href="${main}?id_usuario=${usuarioLogado.id}&id_jogo=${jogo.idJogo}&action=InfoJogo&variacao=alugado">Info</a></td>
+								
+			</tr>											
 			</c:forEach>
 		</c:if>
-		<c:if test="${empty jogos}"></c:if>	
-	</ul>
+		<c:if test="${empty jogos}"></c:if>	 
+	</table>
 
 </body>
 </html>

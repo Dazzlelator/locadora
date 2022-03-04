@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.locadora.helpers.NumberHelper;
 import br.com.locadora.model.Produto;
 import br.com.locadora.services.FilmeService;
 import br.com.locadora.services.JogoService;
@@ -20,15 +21,21 @@ public class InfoProduto implements Acao{
 		String paramIdFilme = request.getParameter("id");
 		String paramIdJogo = request.getParameter("id_jogo");
 		ProdutoService ps = new ProdutoService();
+		NumberHelper nb = new NumberHelper();
 		
 		if(paramIdFilme != null) {
+			
 			Integer IdFilme = Integer.valueOf(paramIdFilme);
 			FilmeService fs = new FilmeService();
 			Integer idProduto = fs.getById(IdFilme).getIdProduto();			
 			
 			Produto produto = ps.getById(idProduto);
+			String valorAluguelFormatado =  "R$ " + nb.pontoToVirgula(produto.getValorAluguel());
+			String multaFormatada = "R$ " + nb.pontoToVirgula(produto.getValorMulta());
 			
 			request.setAttribute("produto", produto);
+			request.setAttribute("aluguelEmReal", valorAluguelFormatado);
+			request.setAttribute("multaEmReal", multaFormatada);
 			
 			return "dispatcher:info-produto.jsp";
 		}
@@ -39,8 +46,12 @@ public class InfoProduto implements Acao{
 			Integer idProduto = js.getById(idJogo).getIdProduto();
 			
 			Produto produto = ps.getById(idProduto);
+			String valorAluguelFormatado =  "R$ " + nb.pontoToVirgula(produto.getValorAluguel());
+			String multaFormatada = "R$ " + nb.pontoToVirgula(produto.getValorMulta());
 			
 			request.setAttribute("produto", produto);
+			request.setAttribute("aluguelEmReal", valorAluguelFormatado);
+			request.setAttribute("multaEmReal", multaFormatada);
 			
 			return "dispatcher:info-produto.jsp";
 		}

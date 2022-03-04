@@ -14,17 +14,21 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 <body>
-	<ul>
-				<c:forEach items="${filmes}" var="filme">
-					 <c:if test="${not empty filmes}">
-						<li>${filme.nome} ${filme.tecnologia}</li>
-						<a href="${main}?id_usuario=${usuarioLogado.id}&id_filme=${filme.idFilme}&action=InfoFilme&variacao=alugado">Info</a>
-						
-					</c:if>
-					<c:if test="${empty filmes }">Lista vazia</c:if>		
-						
-				</c:forEach>
-			</ul>
+	<table class="tabela">
+		<c:forEach items="${filmes}" var="filme">
+			 <c:if test="${not empty filmes}">
+			 <tr>
+			 	<td>${filme.nome} ${filme.tecnologia}</td>
+				<td style="text-align: right; padding-right: 5px;"><a href="${main}?id_usuario=${usuarioLogado.id}&id_filme=${filme.idFilme}&action=InfoFilme&variacao=alugado">Info</a></td>
+					 
+			 </tr>
+				
+				
+			</c:if>
+			<c:if test="${empty filmes }">Lista vazia</c:if>		
+				
+		</c:forEach>
+	</table>
 
 </body>
 </html>

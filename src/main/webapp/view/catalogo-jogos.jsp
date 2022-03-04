@@ -16,21 +16,18 @@
 <body>
 	<c:import url="cabecalho.jsp" />
 	<br>
-	<div id="todos_filmes">
-	Jogos disponiveis:
-		<ul>
-		
-			<c:if test="${not empty jogos}">
+	<div id="todos_filmes" class="texto-titulo">
+	<h1>Jogos disponíveis</h1>
+		<c:if test="${not empty jogos}">
+		<table class="tabela">			
 			<c:forEach items="${jogos}" var="jogo">
-				 
-						<li>${jogo.nome} ${jogo.plataforma}</li>
-						<a href="${main}?id_jogo=${jogo.idJogo}&action=InfoJogo">Info</a>
-					
-				
-			</c:forEach>
-			</c:if>
-			<c:if test="${empty jogos }">Lista vazia</c:if>
-		</ul>	
+				<tr class="img-fluid texto-catalogo item-catalogo" style="background-image: url('./view/img-jogos/${jogo.nome}.jpg');background-position: center;" onclick="location.href='${main}?id_jogo=${jogo.idJogo}&action=InfoJogo';" >			 
+					<td class="titulo-area">${jogo.nome} <p>${jogo.plataforma}</p></td>
+					<td class="sin-area">${jogo.generos}</td>		
+				</tr>				
+			</c:forEach>			
+		</table>
+		</c:if>
 	
 	</div>
 

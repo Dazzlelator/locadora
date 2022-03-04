@@ -15,15 +15,18 @@
 </head>
 <body>
 	<c:import url="cabecalho.jsp" />
-	
-	<div>
-		<form action="${main}?action=AdicionarCredito" method="post">
-			<input type="hidden" name="id" value="${usuarioLogado.id}" readonly><br>
-			
-			<input type="number" name="valor"><br>
-			<input type="submit" value="Adicionar Crédito">
-		</form>
-	
+	<div class="container-fluid login_class d-flex justify-content-center my-5">
+		<div class="azul px-4 pt-4 pb-2 arredondado">
+			<form action="${main}?action=AdicionarCredito" method="post">
+				<input type="hidden" name="id" value="${usuarioLogado.id}" readonly><br>
+				
+				<input type="number" name="valor" class="d-block border-0 rounded"><br>
+				<input type="submit" value="Adicionar Crédito" class="d-inline my-1 btn btn-primary btn-sm" style="position: relative;right: -30px;">
+				
+			</form>
+		
+		</div>	
 	</div>
+	
 </body>
 </html>

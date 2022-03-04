@@ -15,7 +15,7 @@
 </head>
 <body>
 	Dias de aluguel: ${aluguel.diasDevolucao}<br>
-	Data de devolucao: <fmt:formatDate pattern = "dd-MM-yyyy" value = "${aluguel.dataDevolucao}" /><br>
+	Data de devolucao: <fmt:formatDate pattern = "dd/MM/yyyy" value = "${aluguel.dataDevolucao}" /><br>
 	
 	<c:if test="${aluguel.idAluguel > 2}">
 		Dias restantes: ${ diasRestantes } <br>
@@ -24,7 +24,9 @@
 		</c:if>
 	</c:if>
 	<c:if test="${not empty diasRestantes}">
-	<a href="${main}?id_usuario=${usuarioLogado.id}&id_aluguel=${aluguel.idAluguel}&action=DevolverProduto">Devolver</a>
+		<div class="link3">
+			<a href="${main}?id_usuario=${usuarioLogado.id}&id_aluguel=${aluguel.idAluguel}&action=DevolverProduto" class="link">Devolver</a>
+		</div>
 	</c:if>
 	
 </body>

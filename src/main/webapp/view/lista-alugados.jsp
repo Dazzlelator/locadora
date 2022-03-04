@@ -15,13 +15,16 @@
 	<c:import url="cabecalho.jsp" />
 	<br>
 	<br>
-	Lista de alugueis:
-	<div id="filmes">
-		<c:import url="filmes-alugados.jsp" />
-	</div>	
-	<div id="jogos">
-		<c:import url="jogos-alugados.jsp"/>
+	<h1 class="texto-titulo">Itens alugados</h1>
+	<div id=all-itens class="azul-3 conteiner-1" >
+		<div id="filmes">
+			<c:import url="filmes-alugados.jsp" />
+		</div>	
+		<div id="jogos">
+			<c:import url="jogos-alugados.jsp"/>
+		</div>		
 	</div>
+	
 </body>
 <script src="/Locadora/Scripts/jquery.js"></script>
 	<script id="script_filmes">	

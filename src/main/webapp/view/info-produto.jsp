@@ -14,8 +14,7 @@
 </head>
 <body>
 	Quantidade disponivel: ${produto.quantidade}<br>
-	Valor do aluguel: ${produto.valorAluguel}<br>
-	Valor da multa: ${produto.valorMulta}<br>
-	
+	Valor do aluguel: ${aluguelEmReal}<br>
+	Valor da multa: ${multaEmReal}<br>
 </body>
 </html>

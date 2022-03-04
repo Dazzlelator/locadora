@@ -115,13 +115,13 @@ class Pesquisa{
 				this._inputIntegridade.value = dado.integridade;
 				this._inputDataLancamento.value = dado.dataLancamento;
 				
-				try{ 
+				
 					this._inputSinopse.value = dado.sinopse
 					this._inputProtagonistas.value = dado.protagonistas 
 					this._inputDiretor.value = dado.diretor					
-				}catch{
+				
 					console.log("formulario não possui protagonistas nem diretor");
-				}
+				
 				
 			}
 		})

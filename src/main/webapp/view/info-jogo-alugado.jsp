@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:url value="/main" var="linkMain" />
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -17,15 +18,22 @@
 		
 		<c:import url="cabecalho.jsp" />
 		
-		<div id="info_filme">
-					
-			${jogo.nome} ${jogo.plataforma} ${jogo.generos} Lançado: ${jogo.dataLancamento}
-			 			
+		<div class="conteiner-1 azul-3">
+			<div id="info">
+				<h2>
+					${jogo.nome}
+				</h2>
+				<h3 style="font-size:20px">
+					${jogo.plataforma}
+				</h3>				
+				<p>Generos:  ${jogo.generos}</p>
+				<p><fmt:formatDate pattern = "dd/MM/yyyy" value = "${jogo.dataLancamento}" /></p>
+							
+			</div>		
+			<div id="id-jogo" class="hidden">${jogo.idJogo}</div>
+			<div id="info_produto">	</div>
+			<div id="info_aluguel">	</div>			
 		</div>
-		<div id="id-jogo" class="hidden">${jogo.idJogo}</div>
-		<div id="info_produto">	</div>
-		<div id="info_aluguel"> </div>
-		
 		
 	</body>
 	<script src="/Locadora/Scripts/jquery.js"></script>

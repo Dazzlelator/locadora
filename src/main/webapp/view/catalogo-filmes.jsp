@@ -16,7 +16,7 @@
 	<c:import url="cabecalho.jsp" />
 	<br>
 	<div id="todos_filmes" class="texto-titulo">
-		<h1>Filmes disponiveis</h1>		
+		<h1>Filmes disponíveis</h1>		
 		<c:if test="${not empty filmes}">
 		<table class="tabela">
 			
