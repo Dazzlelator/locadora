@@ -1,7 +1,8 @@
 package br.com.locadora.services;
 
-import java.sql.Connection;
 import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import br.com.locadora.model.Produto;
 import br.com.locadora.model.dao.ConnectionFactory;
@@ -11,12 +12,12 @@ public class ProdutoService {
 	private ProdutoDAO produtoDao;
 	
 	public ProdutoService() {
-		Connection con = new ConnectionFactory().recuperarConexao();
-		this.produtoDao = new ProdutoDAO(con);
+		EntityManager em = ConnectionFactory.getEntityManager();
+		this.produtoDao = new ProdutoDAO(em);
 	}
 	
-	public Integer salvar(Produto produto) {
-		return this.produtoDao.salvar(produto);
+	public void salvar(Produto produto) {
+		this.produtoDao.salvar(produto);
 		
 	}
 	
@@ -25,7 +26,7 @@ public class ProdutoService {
 	}
 	
 	public void updateById(Integer id, Produto produto) {
-		this.produtoDao.updateById(id, produto);
+		this.produtoDao.updateProdutoById(id, produto);
 	}
 	
 	public void addQuantidade(Integer id, Integer quantidade) {

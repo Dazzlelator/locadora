@@ -1,8 +1,9 @@
 package br.com.locadora.services;
 
-import java.sql.Connection;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import br.com.locadora.helpers.DateHelper;
 import br.com.locadora.model.Aluguel;
@@ -12,9 +13,9 @@ import br.com.locadora.model.dao.ConnectionFactory;
 public class AluguelService {
 	private AluguelDAO aluguelDao;
 	
-	public AluguelService() {
-		Connection con = new ConnectionFactory().recuperarConexao();
-		this.aluguelDao = new AluguelDAO(con);
+	public AluguelService() {		
+		EntityManager em = ConnectionFactory.getEntityManager();
+		this.aluguelDao = new AluguelDAO(em);
 	}
 	
 	public void salvar(Aluguel aluguel) {
@@ -112,13 +113,13 @@ public class AluguelService {
 		return this.aluguelDao.getAluguelById(id);
 	}
 	
-	public List<Aluguel> getFilmes(){
-		return this.aluguelDao.getFilmesOuJogos(1);
-	}
-	public List<Aluguel> getJogos(){
-		return this.aluguelDao.getFilmesOuJogos(2);
-	}
-	
+//	public List<Aluguel> getFilmes(){
+//		return this.aluguelDao.getFilmesOuJogos(1);
+//	}
+//	public List<Aluguel> getJogos(){
+//		return this.aluguelDao.getFilmesOuJogos(2);
+//	}
+//	
 	public Aluguel getFilmeAtivoByIdUsuarioByIdFilme(Integer idUsuario, Integer idFilme) {
 		return this.aluguelDao.getAluguelFilmeAtivoByIdByIdFilme(idUsuario, idFilme);
 	}
@@ -165,6 +166,6 @@ public class AluguelService {
 	}
 	
 	public void deletar(Integer id) {
-		this.aluguelDao.deletarAluguel(id);
+		this.aluguelDao.deletarAluguelById(id);
 	}
 }

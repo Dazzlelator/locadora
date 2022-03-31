@@ -2,11 +2,24 @@ package br.com.locadora.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+@Entity
+@Table(name="filmes")
 public class Filme {
-	private Integer idFilme;
-	private Integer idProduto;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Integer id_filme;
+	@ManyToOne
+	@JoinColumn(name="id_produto") //isso aqui diz qual coluna vai ser pego a FK
+	private Produto produto;
 	private String tecnologia;
-	private String numSerial;
+	private String num_serial;
 	private String nome;
 	private String franquia;
 	private String generos;
@@ -15,22 +28,24 @@ public class Filme {
 	private String protagonistas;
 	private String diretor;
 	private String produtor;
-	private String destribuidor;
-	private String faixaEtaria;
+	private String destribuidor; //distribuidor*
+	private String faixa_etaria;
 	private String integridade;
-	private Date dataLancamento;
-	private Date dataCadastro;
+	private Date data_lancamento;
+	private Date data_cadastro;
 	private String status;
 	private String sinopse;
+	
+	public Filme() {}
 
-	public Filme(Integer idFilme, Integer idProduto, String tecnologia, String numSerial, String nome, String franquia,
+	public Filme(Integer idFilme, Produto idProduto, String tecnologia, String numSerial, String nome, String franquia,
 			String generos, String premios, String notas, String protagonistas, String diretor, String produtor,
-			String destribuidor, String faixaEtaria, String integridade, Date dataLancamento, Date dataCadastro,
+			String distribuidor, String faixaEtaria, String integridade, Date dataLancamento, Date dataCadastro,
 			String status, String sinopse) {
-		this.idFilme = idFilme;
-		this.idProduto = idProduto;
+		this.id_filme = idFilme;
+		this.produto = idProduto;
 		this.tecnologia = tecnologia;
-		this.numSerial = numSerial;
+		this.num_serial = numSerial;
 		this.nome = nome;
 		this.franquia = franquia;
 		this.generos = generos;
@@ -39,22 +54,22 @@ public class Filme {
 		this.protagonistas = protagonistas;
 		this.diretor = diretor;
 		this.produtor = produtor;
-		this.destribuidor = destribuidor;
-		this.faixaEtaria = faixaEtaria;
+		this.destribuidor = distribuidor;
+		this.faixa_etaria = faixaEtaria;
 		this.integridade = integridade;
-		this.dataLancamento = dataLancamento;
-		this.dataCadastro = dataCadastro;
+		this.data_lancamento = dataLancamento;
+		this.data_cadastro = dataCadastro;
 		this.status = status;
 		this.sinopse = sinopse;
 	}
 	
-	public Filme(Integer idProduto, String tecnologia, String numSerial, String nome, String franquia,
+	public Filme(Produto idProduto, String tecnologia, String numSerial, String nome, String franquia,
 			String generos, String premios, String notas, String protagonistas, String diretor, String produtor,
-			String destribuidor, String faixaEtaria, String integridade, Date dataLancamento, Date dataCadastro,
+			String distribuidor, String faixaEtaria, String integridade, Date dataLancamento, Date dataCadastro,
 			String status, String sinopse) {
-		this.idProduto = idProduto;
+		this.produto = idProduto;
 		this.tecnologia = tecnologia;
-		this.numSerial = numSerial;
+		this.num_serial = numSerial;
 		this.nome = nome;
 		this.franquia = franquia;
 		this.generos = generos;
@@ -63,11 +78,11 @@ public class Filme {
 		this.protagonistas = protagonistas;
 		this.diretor = diretor;
 		this.produtor = produtor;
-		this.destribuidor = destribuidor;
-		this.faixaEtaria = faixaEtaria;
+		this.destribuidor = distribuidor;
+		this.faixa_etaria = faixaEtaria;
 		this.integridade = integridade;
-		this.dataLancamento = dataLancamento;
-		this.dataCadastro = dataCadastro;
+		this.data_lancamento = dataLancamento;
+		this.data_cadastro = dataCadastro;
 		this.status = status;
 		this.sinopse = sinopse;
 	}
@@ -77,15 +92,15 @@ public class Filme {
 	}
 	
 	public void setDataLancamento(Date data) {
-		this.dataLancamento = data;
+		this.data_lancamento = data;
 	}
 
 	public Integer getIdFilme() {
-		return idFilme;
+		return id_filme;
 	}
 
 	public Integer getIdProduto() {
-		return idProduto;
+		return produto.getId();
 	}
 
 	public String getTecnologia() {
@@ -93,7 +108,7 @@ public class Filme {
 	}
 
 	public String getNumSerial() {
-		return numSerial;
+		return num_serial;
 	}
 
 	public String getNome() {
@@ -133,7 +148,7 @@ public class Filme {
 	}
 
 	public String getFaixaEtaria() {
-		return faixaEtaria;
+		return faixa_etaria;
 	}
 
 	public String getIntegridade() {
@@ -141,11 +156,11 @@ public class Filme {
 	}
 
 	public Date getDataLancamento() {
-		return dataLancamento;
+		return data_lancamento;
 	}
 	
 	public Date getDataCadastro() {
-		return dataCadastro;
+		return data_cadastro;
 	}
 
 	public String getStatus() {

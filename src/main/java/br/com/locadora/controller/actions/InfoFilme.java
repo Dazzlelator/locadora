@@ -6,9 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.locadora.model.Aluguel;
 import br.com.locadora.model.Filme;
-import br.com.locadora.services.AluguelService;
 import br.com.locadora.services.FilmeService;
 
 public class InfoFilme implements Acao{

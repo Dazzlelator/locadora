@@ -1,9 +1,10 @@
 package br.com.locadora.services;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import br.com.locadora.helpers.DateHelper;
 import br.com.locadora.model.Jogo;
@@ -14,8 +15,8 @@ public class JogoService {
 	private JogoDAO jogoDao;
 
 	public JogoService() {
-		Connection con = new ConnectionFactory().recuperarConexao();
-		this.jogoDao = new JogoDAO(con);
+		EntityManager em = ConnectionFactory.getEntityManager();
+		this.jogoDao = new JogoDAO(em);
 	}
 
 	public void salvar(Jogo jogo) {
@@ -23,7 +24,7 @@ public class JogoService {
 	}
 
 	public void updateById(Integer id, Jogo jogo) {
-		this.jogoDao.updateJogosById(id, jogo);
+		this.jogoDao.updateJogoById(id, jogo);
 	}
 
 	public void updateStatus(Integer id, Integer status) {
@@ -31,38 +32,38 @@ public class JogoService {
 		Jogo jogoAtual = this.jogoDao.getJogoById(id);
 		String statusAtual = jogoAtual.getStatus();
 
-		ProdutoService pc = new ProdutoService();
+		ProdutoService ps = new ProdutoService();
 
 		switch (status) {
 		case 1:
 			if (!statusAtual.equals("disponivel")) {
 				jogoAtual.setStatus("disponivel");
-				pc.entrada(jogoAtual.getIdProduto());
-				this.jogoDao.updateJogosById(id, jogoAtual);
+				ps.entrada(jogoAtual.getIdProduto());
+				this.jogoDao.updateJogoById(id, jogoAtual);
 			}
 			System.out.println("Jogo já está " + statusAtual);
 			break;
 		case 2:
 			if (!statusAtual.equals("alugado")) {
 				jogoAtual.setStatus("alugado");
-				pc.retirada(jogoAtual.getIdProduto());
-				this.jogoDao.updateJogosById(id, jogoAtual);
+				ps.retirada(jogoAtual.getIdProduto());
+				this.jogoDao.updateJogoById(id, jogoAtual);
 			}
 			System.out.println("Jogo já está " + statusAtual);
 			break;
 		case 3:
 			if (!statusAtual.equals("vendido")) {
 				jogoAtual.setStatus("vendido");
-				pc.retirada(jogoAtual.getIdProduto());
-				this.jogoDao.updateJogosById(id, jogoAtual);
+				ps.retirada(jogoAtual.getIdProduto());
+				this.jogoDao.updateJogoById(id, jogoAtual);
 			}
 			System.out.println("Jogo já está " + statusAtual);
 			break;
 		case 4:
 			if (!statusAtual.equals("extraviado")) {
 				jogoAtual.setStatus("extraviado");
-				pc.retirada(jogoAtual.getIdProduto());
-				this.jogoDao.updateJogosById(id, jogoAtual);
+				ps.retirada(jogoAtual.getIdProduto());
+				this.jogoDao.updateJogoById(id, jogoAtual);
 			}
 			System.out.println("Jogo já está " + statusAtual);
 			break;
@@ -118,6 +119,11 @@ public class JogoService {
 	}
 
 	public void deletar(Integer id) {
+		
+		ProdutoService ps = new ProdutoService();
+		Jogo jogo = this.getById(id);
+		ps.retirada(jogo.getIdProduto());		
+		
 		this.jogoDao.deletarById(id);
 	}
 }

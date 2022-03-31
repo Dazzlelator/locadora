@@ -2,61 +2,71 @@ package br.com.locadora.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="usuarios")
 public class Usuario {
-	
+	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Integer id;
 	private String nome;
 	private String senha;
-	private Integer nivelAcesso;
+	private Integer nivel_acesso;
 	private String cpf;
-	private Date dataNascimento;
+	private Date data_nascimento;
 	private String telefone;
 	private String email;
 	private String endereco;
 	private Double credito;
-	private Date dataCriacao;
+	private Date data_criacao;
 	
+	public Usuario() {}
 	
 	public Usuario(Integer id, String nome, String senha, Integer nivelAcesso, String cpf, Date dataNascimento, String telefone, String email, String endereco, Double credito, Date dataCriacao) {
 		this.id = id;
 		this.nome = nome;
 		this.senha = senha;
-		this.nivelAcesso = nivelAcesso;
+		this.nivel_acesso = nivelAcesso;
 		this.cpf = cpf;
-		this.dataNascimento = dataNascimento;
+		this.data_nascimento = dataNascimento;
 		this.telefone = telefone;
 		this.email = email;
 		this.endereco = endereco;
 		this.credito = credito;
-		this.dataCriacao = dataCriacao;
+		this.data_criacao = dataCriacao;
 	}
 	
 	public Usuario(String nome, String senha, Integer nivelAcesso, String cpf, Date dataNascimento, String telefone, String email, String endereco, Double credito, Date dataCriacao) {
 		
 		this.nome = nome;
 		this.senha = senha;
-		this.nivelAcesso = nivelAcesso;
+		this.nivel_acesso = nivelAcesso;
 		this.cpf = cpf;
-		this.dataNascimento = dataNascimento;
+		this.data_nascimento = dataNascimento;
 		this.telefone = telefone;
 		this.email = email;
 		this.endereco = endereco;
 		this.credito = credito;
-		this.dataCriacao = dataCriacao;
+		this.data_criacao = dataCriacao;
 	}
 	
 public Usuario(String nome, String senha, String cpf, Date dataNascimento, String telefone, String email, String endereco) {
 		
 		this.nome = nome;
 		this.senha = senha;
-		this.nivelAcesso = 1;
+		this.nivel_acesso = 1;
 		this.cpf = cpf;
-		this.dataNascimento = dataNascimento;
+		this.data_nascimento = dataNascimento;
 		this.telefone = telefone;
 		this.email = email;
 		this.endereco = endereco;
 		this.credito = 0.0;
-		this.dataCriacao = new Date();
+		this.data_criacao = new Date();
 	}
 
 	public void setNome(String nome) {
@@ -72,7 +82,7 @@ public Usuario(String nome, String senha, String cpf, Date dataNascimento, Strin
 	}
 	
 	public void setDataNascimento(Date data) {
-		this.dataNascimento = data;
+		this.data_nascimento = data;
 	}
 	
 	public void setTelefone(String telefone) {
@@ -105,7 +115,7 @@ public Usuario(String nome, String senha, String cpf, Date dataNascimento, Strin
 	}
 
 	public Integer getNivelAcesso() {
-		return nivelAcesso;
+		return nivel_acesso;
 	}
 
 	public String getCpf() {
@@ -113,7 +123,7 @@ public Usuario(String nome, String senha, String cpf, Date dataNascimento, Strin
 	}
 
 	public Date getDataNascimento() {
-		return dataNascimento;
+		return data_nascimento;
 	}
 
 	public String getTelefone() {
@@ -133,7 +143,7 @@ public Usuario(String nome, String senha, String cpf, Date dataNascimento, Strin
 	}
 
 	public Date getDataCriacao() {
-		return dataCriacao;
+		return data_criacao;
 	}
 
 	

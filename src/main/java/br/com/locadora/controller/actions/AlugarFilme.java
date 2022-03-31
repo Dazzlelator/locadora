@@ -40,7 +40,7 @@ public class AlugarFilme implements Acao{
 		Double valorAluguel = produto.getValorAluguel();
 		Double valorMulta = produto.getValorMulta();
 
-		Aluguel aluguel = new Aluguel(idUsuario, idFilme, null, valorAluguel, valorMulta, valorAluguel, valorAluguel);
+		Aluguel aluguel = new Aluguel(usuario, filme, null, valorAluguel, valorMulta, valorAluguel, valorAluguel);
 		
 		if(credito > valorAluguel) {
 			as.salvar(aluguel);

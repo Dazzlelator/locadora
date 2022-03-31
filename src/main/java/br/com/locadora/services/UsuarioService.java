@@ -1,7 +1,8 @@
 package br.com.locadora.services;
 
-import java.sql.Connection;
 import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import br.com.locadora.model.Usuario;
 import br.com.locadora.model.dao.ConnectionFactory;
@@ -11,8 +12,8 @@ public class UsuarioService {
 	private UsuarioDAO usuarioDao;
 	
 	public UsuarioService() {
-		Connection con = new ConnectionFactory().recuperarConexao();
-		this.usuarioDao = new UsuarioDAO(con);
+		EntityManager em = ConnectionFactory.getEntityManager();
+		this.usuarioDao = new UsuarioDAO(em);
 	}
 	
 	public void salvar(Usuario usuario) {
@@ -42,12 +43,21 @@ public class UsuarioService {
 	}
 	
 	public Usuario getByEmail(String email) {
-		if(this.usuarioDao.getusuarioByEmail(email) != null){
-			return this.usuarioDao.getusuarioByEmail(email);
+		if(this.usuarioDao.getUsuarioByEmail(email) != null){
+			return this.usuarioDao.getUsuarioByEmail(email);
 		}else {
 			System.out.println("Usuario não foi encontrado");
 			return null;
 		}		
+	}
+	
+	public Usuario getByNome(String nome) {
+		if(this.usuarioDao.getUsuarioByNome(nome)!= null) {
+			return this.usuarioDao.getUsuarioByEmail(nome);
+		}else {
+			System.out.println("Usuário não encontrado");
+			return null;
+		}
 	}
 	
 	public boolean check(String email, String senha) {

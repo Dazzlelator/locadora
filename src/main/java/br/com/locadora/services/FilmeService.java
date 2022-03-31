@@ -1,12 +1,14 @@
 package br.com.locadora.services;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import br.com.locadora.helpers.DateHelper;
 import br.com.locadora.model.Filme;
+import br.com.locadora.model.Jogo;
 import br.com.locadora.model.dao.ConnectionFactory;
 import br.com.locadora.model.dao.FilmeDAO;
 
@@ -14,8 +16,8 @@ public class FilmeService {
 	private FilmeDAO filmeDao;
 
 	public FilmeService() {
-		Connection con = new ConnectionFactory().recuperarConexao();
-		this.filmeDao = new FilmeDAO(con);
+		EntityManager em = ConnectionFactory.getEntityManager();
+		this.filmeDao = new FilmeDAO(em);
 	}
 
 	public void salvar(Filme filme) {
@@ -117,7 +119,9 @@ public class FilmeService {
 	}
 
 	public void deletar(Integer id) {
+		ProdutoService ps = new ProdutoService();
+		Filme filme = this.getById(id);
+		ps.retirada(filme.getIdProduto());	
 		this.filmeDao.deletarFilmeById(id);
-
 	}
 }

@@ -2,67 +2,83 @@ package br.com.locadora.model;
 
 import java.util.Date;
 
-public class Jogo {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-	private Integer idJogo;
-	private Integer idProduto;
+@Entity
+@Table(name="jogos")
+
+public class Jogo {
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Integer id_jogo;
+	@ManyToOne
+	@JoinColumn(name="id_produto")
+	private Produto produto;
 	private String plataforma;
-	private String numSerial;
+	private String num_serial;
 	private String nome;
 	private String franquia;
 	private String generos;
 	private String premios;
 	private String notas;
 	private String produtor;
-	private String destribuidor;
-	private String faixaEtaria;
+	private String destribuidor; //distribuidor*
+	private String faixa_etaria;
 	private String integridade;
-	private Date dataLancamento;
-	private Date dataCadadastro;
+	private Date data_lancamento;
+	private Date data_cadadastro;
 	private String status;
+	
+	public Jogo() {}
 
-	public Jogo(Integer idJogo, Integer idProduto, String plataforma, String numSerial,
+	public Jogo(Integer idJogo, Produto idProduto, String plataforma, String numSerial,
 			String nome, String franquia, String generos, String premios,
-			String notas, String produtor, String destribuidor, String faixaEtaria,
+			String notas, String produtor, String distribuidor, String faixaEtaria,
 			String integridade, Date dataLancamento, Date dataCadastro, String status) {
-		this.idJogo = idJogo;
-		this.idProduto = idProduto;
+		this.id_jogo = idJogo;
+		this.produto = idProduto;
 		this.plataforma = plataforma;
-		this.numSerial = numSerial;
+		this.num_serial = numSerial;
 		this.nome = nome;
 		this.franquia = franquia;
 		this.generos = generos;
 		this.premios = premios;
 		this.notas = notas;
 		this.produtor = produtor;
-		this.destribuidor = destribuidor;
-		this.faixaEtaria = faixaEtaria;
+		this.destribuidor = distribuidor;
+		this.faixa_etaria = faixaEtaria;
 		this.integridade = integridade;
-		this.dataLancamento = dataLancamento;
-		this.dataCadadastro = dataCadastro;
+		this.data_lancamento = dataLancamento;
+		this.data_cadadastro = dataCadastro;
 		this.status = status;
 		
 	}
 	
-	public Jogo(Integer idProduto, String plataforma, String numSerial,
+	public Jogo(Produto idProduto, String plataforma, String numSerial,
 			String nome, String franquia, String generos, String premios,
-			String notas, String produtor, String destribuidor, String faixaEtaria,
+			String notas, String produtor, String distribuidor, String faixaEtaria,
 			String integridade, Date dataLancamento, Date dataCadastro, String status) {
 		
-		this.idProduto = idProduto;
+		this.produto = idProduto;
 		this.plataforma = plataforma;
-		this.numSerial = numSerial;
+		this.num_serial = numSerial;
 		this.nome = nome;
 		this.franquia = franquia;
 		this.generos = generos;
 		this.premios = premios;
 		this.notas = notas;
 		this.produtor = produtor;
-		this.destribuidor = destribuidor;
-		this.faixaEtaria = faixaEtaria;
+		this.destribuidor = distribuidor;
+		this.faixa_etaria = faixaEtaria;
 		this.integridade = integridade;
-		this.dataLancamento = dataLancamento;
-		this.dataCadadastro = dataCadastro;
+		this.data_lancamento = dataLancamento;
+		this.data_cadadastro = dataCadastro;
 		this.status = status;
 		
 	}
@@ -73,11 +89,11 @@ public class Jogo {
 	}
 
 	public Integer getIdJogo() {	
-			return idJogo;
+			return id_jogo;
 	}
 
 	public Integer getIdProduto() {
-		return idProduto;
+		return produto.getProdutoId();
 	}
 
 	public String getPlataforma() {
@@ -85,7 +101,7 @@ public class Jogo {
 	}
 
 	public String getNumSerial() {
-		return numSerial;
+		return num_serial;
 	}
 
 	public String getNome() {
@@ -117,7 +133,7 @@ public class Jogo {
 	}
 
 	public String getFaixaEtaria() {
-		return faixaEtaria;
+		return faixa_etaria;
 	}
 
 	public String getIntegridade() {
@@ -125,11 +141,11 @@ public class Jogo {
 	}
 
 	public Date getDataLancamento() {
-		return dataLancamento;
+		return data_lancamento;
 	}
 
 	public Date getDataCadadastro() {
-		return dataCadadastro;
+		return data_cadadastro;
 	}
 
 	public String getStatus() {

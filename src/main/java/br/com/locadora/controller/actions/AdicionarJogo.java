@@ -12,8 +12,10 @@ import br.com.locadora.helpers.DateHelper;
 import br.com.locadora.helpers.ToJson;
 import br.com.locadora.model.Jogo;
 import br.com.locadora.model.Produto;
+import br.com.locadora.model.Usuario;
 import br.com.locadora.services.JogoService;
 import br.com.locadora.services.ProdutoService;
+import br.com.locadora.services.UsuarioService;
 
 public class AdicionarJogo implements Acao {
 
@@ -80,7 +82,7 @@ public class AdicionarJogo implements Acao {
 
 				ps.addQuantidade(idProduto, quantidade);
 
-				Jogo jogo = new Jogo(produto.getProdutoId(), produto.getTipo(), paramNumSerial, produto.getNome(),
+				Jogo jogo = new Jogo(produto, produto.getTipo(), paramNumSerial, produto.getNome(),
 						paramFranquia, paramGeneros, paramPremios, paramNotas, paramProdutor, paramDestribuidor,
 						paramFaixaEtaria, paramIntegridade, dataLancamento.getData(), new Date(), paramStatus);
 				
@@ -98,13 +100,16 @@ public class AdicionarJogo implements Acao {
 				Double valorCusto = Double.valueOf(paramValorCusto);
 				Integer quantidade = Integer.valueOf(paramQuantidade);
 				Double valorAluguel = Double.valueOf(paramValorAluguel);
-				Double valorMulta = Double.valueOf(paramValorMulta);			
+				Double valorMulta = Double.valueOf(paramValorMulta);
 				
-				Produto novoProduto = new Produto(idUsuario, paramCodProduto, paramNome, valor, valorCusto, quantidade, new Date(), paramTipo, valorAluguel, valorMulta);
+				UsuarioService us = new UsuarioService();
+				Usuario usuario = us.getById(idUsuario);
 				
-				novoProduto = ps.getById(ps.salvar(novoProduto));
+				Produto novoProduto = new Produto(usuario, paramCodProduto, paramNome, valor, valorCusto, quantidade, new Date(), paramTipo, valorAluguel, valorMulta);
 				
-				Jogo jogo = new Jogo(novoProduto.getProdutoId(), novoProduto.getTipo(), paramNumSerial, novoProduto.getNome(),
+				ps.salvar(novoProduto);
+				
+				Jogo jogo = new Jogo(novoProduto, novoProduto.getTipo(), paramNumSerial, novoProduto.getNome(),
 						paramFranquia, paramGeneros, paramPremios, paramNotas, paramProdutor, paramDestribuidor,
 						paramFaixaEtaria, paramIntegridade, dataLancamento.getData(), new Date(), paramStatus);
 				

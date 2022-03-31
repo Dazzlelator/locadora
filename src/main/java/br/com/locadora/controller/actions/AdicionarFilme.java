@@ -12,8 +12,10 @@ import br.com.locadora.helpers.DateHelper;
 import br.com.locadora.helpers.ToJson;
 import br.com.locadora.model.Filme;
 import br.com.locadora.model.Produto;
+import br.com.locadora.model.Usuario;
 import br.com.locadora.services.FilmeService;
 import br.com.locadora.services.ProdutoService;
+import br.com.locadora.services.UsuarioService;
 
 public class AdicionarFilme implements Acao {
 
@@ -92,7 +94,7 @@ public class AdicionarFilme implements Acao {
 				
 				ps.addQuantidade(idProduto, quantidade);
 				
-				Filme filme = new Filme(produto.getProdutoId(), produto.getTipo(), paramNumSerial, produto.getNome(),
+				Filme filme = new Filme(produto, produto.getTipo(), paramNumSerial, produto.getNome(),
 					paramFranquia, paramGeneros, paramPremios, paramNotas, paramProtagonistas, paramDiretor,
 					paramProdutor, paramDestribuidor, paramFaixaEtaria, paramIntegridade, dataLancamento.getData(),
 					new Date(), paramStatus, paramSinopse);
@@ -107,20 +109,24 @@ public class AdicionarFilme implements Acao {
 				
 			}
 
-			if (!checkProduto) {
+			if (!checkProduto) {			
+				
 				Integer idUsuario = Integer.valueOf(paramIdUsuario);
+				
+				UsuarioService us = new UsuarioService();
+				Usuario usuario = us.getById(idUsuario);
+				
 				Double valor = Double.valueOf(paramValor);
 				Double valorCusto = Double.valueOf(paramValorCusto);
 				Integer quantidade = Integer.valueOf(paramQuantidade);
 				Double valorAluguel = Double.valueOf(paramValorAluguel);
 				Double valorMulta = Double.valueOf(paramValorMulta);			
 				
-				Produto novoProduto = new Produto(idUsuario, paramCodProduto, paramNome, valor, valorCusto, quantidade, new Date(), paramTipo, valorAluguel, valorMulta);
+				Produto novoProduto = new Produto(usuario, paramCodProduto, paramNome, valor, valorCusto, quantidade, new Date(), paramTipo, valorAluguel, valorMulta);
 				
-				novoProduto = ps.getById(ps.salvar(novoProduto));
+				ps.salvar(novoProduto);				
 				
-				
-				Filme filme = new Filme(novoProduto.getProdutoId(), novoProduto.getTipo(), paramNumSerial, novoProduto.getNome(),
+				Filme filme = new Filme(novoProduto, novoProduto.getTipo(), paramNumSerial, novoProduto.getNome(),
 						paramFranquia, paramGeneros, paramPremios, paramNotas, paramProtagonistas, paramDiretor,
 						paramProdutor, paramDestribuidor, paramFaixaEtaria, paramIntegridade, dataLancamento.getData(),
 						new Date(), paramStatus, paramSinopse);	

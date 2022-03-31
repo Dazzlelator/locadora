@@ -2,119 +2,149 @@ package br.com.locadora.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+@Entity
+@Table(name="aluguel")
 public class Aluguel {
-	private Integer idAluguel;
-	private Integer id;
-	private Integer idFilme;
-	private Integer idJogo;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)	
+	private Integer id_aluguel;
+	
+	@ManyToOne
+	@JoinColumn(name="id")
+	private Usuario usuario;
+	@ManyToOne
+	@JoinColumn(name="id_filme")
+	private Filme filme;
+	@ManyToOne
+	@JoinColumn(name="id_jogo")
+	private Jogo jogo;
 	private Double valor;
-	private Double multa;
-	private Date dataAluguel;
-	private Date dataDevolucao;
-	private Date dataDevolvido;
-	private Integer idFuncionario;
-	private Integer diasDevolucao;
-	private Double valorPago;
-	private Double valorTotal;
+	private Double valor_multa;
+	private Date data_aluguel;
+	private Date data_devolucao;
+	private Date data_devolvido;
+	@ManyToOne
+	@JoinColumn(name="id", insertable=false, updatable=false)
+	private Usuario funcionario;
+	private Integer dias_para_devolucao;
+	private Double valor_pago;
+	private Double valor_total;
+	
+	public Aluguel() {}
 
-	public Aluguel(Integer idAluguel, Integer id, Integer idFilme, Integer idJogo, Double valor, Double multa,
-			Date dataAluguel, Date dataDevolucao, Date dataDevolvido, Integer idFuncionario, Integer diasDevolucao,
+	public Aluguel(Integer idAluguel, Usuario id, Filme idFilme, Jogo idJogo, Double valor, Double multa,
+			Date dataAluguel, Date dataDevolucao, Date dataDevolvido, Usuario idFuncionario, Integer diasDevolucao,
 			Double valorPago, Double valorTotal) {
-		this.idAluguel = idAluguel;
-		this.id = id;
-		this.idFilme = idFilme;
-		this.idJogo = idJogo;
+		this.id_aluguel = idAluguel;
+		this.usuario = id;
+		this.filme = idFilme;
+		this.jogo = idJogo;
 		this.valor = valor;
-		this.multa = multa;
-		this.dataAluguel = dataAluguel;
-		this.dataDevolucao = dataDevolucao;
-		this.dataDevolvido = dataDevolvido;
-		this.idFuncionario = idFuncionario;
-		this.diasDevolucao = diasDevolucao;
-		this.valorPago = valorPago;
-		this.valorTotal = valorTotal;
+		this.valor_multa = multa;
+		this.data_aluguel = dataAluguel;
+		this.data_devolucao = dataDevolucao;
+		this.data_devolvido = dataDevolvido;
+		this.funcionario = idFuncionario;
+		this.dias_para_devolucao = diasDevolucao;
+		this.valor_pago = valorPago;
+		this.valor_total = valorTotal;
 	}
 
-	public Aluguel(Integer id, Integer idFilme, Integer idJogo, Double valor, Double multa, Date dataAluguel,
-			Date dataDevolucao, Date dataDevolvido, Integer idFuncionario, Integer diasDevolucao, Double valorPago, Double valorTotal) {
-		this.id = id;
-		this.idFilme = idFilme;
-		this.idJogo = idJogo;
+	public Aluguel(Usuario id, Filme idFilme, Jogo idJogo, Double valor, Double multa, Date dataAluguel,
+			Date dataDevolucao, Date dataDevolvido, Usuario idFuncionario, Integer diasDevolucao, Double valorPago, Double valorTotal) {
+		this.usuario = id;
+		this.filme = idFilme;
+		this.jogo = idJogo;
 		this.valor = valor;
-		this.multa = multa;
-		this.dataAluguel = dataAluguel;
-		this.dataDevolucao = dataDevolucao;
-		this.dataDevolvido = dataDevolvido;
-		this.idFuncionario = idFuncionario;
-		this.diasDevolucao = diasDevolucao;
-		this.valorPago = valorPago;
-		this.valorTotal = valorTotal;
+		this.valor_multa = multa;
+		this.data_aluguel = dataAluguel;
+		this.data_devolucao = dataDevolucao;
+		this.data_devolvido = dataDevolvido;
+		this.funcionario = idFuncionario;
+		this.dias_para_devolucao = diasDevolucao;
+		this.valor_pago = valorPago;
+		this.valor_total = valorTotal;
 	}
 	
-	public Aluguel(Integer id, Integer idFilme, Integer idJogo, Double valor, Double multa, Double valorPago, Double valorTotal) {
-		this.id = id;
-		this.idFilme = idFilme;
-		this.idJogo = idJogo;
+	public Aluguel(Usuario id, Filme idFilme, Jogo idJogo, Double valor, Double multa, Double valorPago, Double valorTotal) {
+		this.usuario = id;
+		this.filme = idFilme;
+		this.jogo = idJogo;
 		this.valor = valor;
-		this.multa = multa;
-		this.valorPago = valorPago;
-		this.valorTotal = valorTotal;
+		this.valor_multa = multa;
+		this.valor_pago = valorPago;
+		this.valor_total = valorTotal;
 	
+	}
+	
+	public void setValor(Double valor) {
+		this.valor = valor;
+	}
+	
+	public void setValorMulta(Double valorMulta) {
+		this.valor_multa = valorMulta;
 	}
 	
 	public void setValorTotal(Double valorTotal) {
-		this.valorTotal = valorTotal;
+		this.valor_total = valorTotal;
 	}
 	
 	public void setDataAluguel(Date dataAluguel) {
-		this.dataAluguel = dataAluguel;
+		this.data_aluguel = dataAluguel;
 	}
 
 	public void setDataDevolucao(Date devolucao) {
-		this.dataDevolucao = devolucao;
+		this.data_devolucao = devolucao;
 	}
 
 	public void setDataDevolvido(Date devolvido) {
-		this.dataDevolvido = devolvido;
+		this.data_devolvido = devolvido;
 	}
 	
 	public void setDiasDevolucao(Integer diasDevolucao) {
-		this.diasDevolucao = diasDevolucao;
+		this.dias_para_devolucao = diasDevolucao;
 	}
 	
-	public void setIdFuncionario(Integer idFuncionario) {
-		this.idFuncionario = idFuncionario;
+	public void setIdFuncionario(Usuario idFuncionario) {
+		this.funcionario = idFuncionario;
 	}
 	public Integer getDiasDevolucao() {
-		return diasDevolucao;
+		return dias_para_devolucao;
 	}
 
 	public Double getValorPago() {
-		return valorPago;
+		return valor_pago;
 	}
 
 	public void setValorPago(Double valorPago) {
-		this.valorPago = valorPago;
+		this.valor_pago = valorPago;
 	}
 
 	public Double getValorTotal() {
-		return valorTotal;
+		return valor_total;
 	}
 
 	public Integer getIdAluguel() {
-		return idAluguel;
+		return id_aluguel;
 	}
 
 	public Integer getId() {
-		return id;
+		return usuario.getId();
 	}
 
 	public Integer getIdFilme() {
-		return idFilme;
+		return filme.getIdFilme();
 	}
 
 	public Integer getIdJogo() {
-		return idJogo;
+		return jogo.getIdJogo();
 	}
 
 	public Double getValor() {
@@ -122,22 +152,22 @@ public class Aluguel {
 	}
 
 	public Double getMulta() {
-		return multa;
+		return valor_multa;
 	}
 
 	public Date getDataAluguel() {
-		return dataAluguel;
+		return data_aluguel;
 	}
 
 	public Date getDataDevolucao() {
-		return dataDevolucao;
+		return data_devolucao;
 	}
 
 	public Date getDataDevolvido() {
-		return dataDevolvido;
+		return data_devolvido;
 	}
 
 	public Integer getIdFuncionario() {
-		return idFuncionario;
+		return funcionario.getId();
 	}
 }

@@ -1,223 +1,72 @@
 package br.com.locadora.model.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
-import br.com.locadora.helpers.DateHelper;
+import javax.persistence.EntityManager;
+
 import br.com.locadora.model.Produto;
 
 public class ProdutoDAO {
-	private Connection connection;
+	private EntityManager em;
 
-	public ProdutoDAO(Connection connection) {
-		this.connection = connection;
+	public ProdutoDAO(EntityManager em) {
+		this.em = em;
 	}
-
-	public Integer salvar(Produto produto) {
-		String sql = "INSERT INTO produtos (id, cod_produto, nome, valor, valor_custo, quantidade, data_cadastro, tipo, valor_aluguel, valor_multa) VALUES (?,?,?,?,?,?,?,?,?,?)";
-		try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-			try {
-				DateHelper dataCadastro = new DateHelper(produto.getDataCadastro());
-
-				pstm.setInt(1, produto.getId());
-				pstm.setString(2, produto.getCodProduto());
-				pstm.setString(3, produto.getNome());
-				pstm.setDouble(4, produto.getValor());
-				pstm.setDouble(5, produto.getCusto());
-				pstm.setInt(6, produto.getQuantidade());
-				pstm.setDate(7, dataCadastro.getAsSQL());
-				pstm.setString(8, produto.getTipo());
-				pstm.setDouble(9, produto.getValorAluguel());
-				pstm.setDouble(10, produto.getValorMulta());
-
-				pstm.execute();
-
-				ResultSet rst = pstm.getGeneratedKeys();
-				rst.next();
-
-				System.out.println("Produto de id " + rst.getInt(1) + " foi adicionado com sucesso!");
-				return rst.getInt(1);
-			}finally {
-				pstm.close();
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return 0;
-		}
+	
+	public void salvar(Produto produto) {
+		this.em.getTransaction().begin();
+		this.em.persist(produto);
+		this.em.getTransaction().commit();
+		this.em.close();
 	}
-
-	public void updateById(Integer id, Produto produto) {
-		String sql = "UPDATE produtos SET id = ?, cod_produto = ?, nome = ?, valor = ?, valor_custo = ?, quantidade = ?, data_cadastro = ?, tipo = ?, valor_aluguel = ?, valor_multa = ?  WHERE id_produto = ?";
-		try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-			try {
-				DateHelper dataCadastro = new DateHelper(produto.getDataCadastro());
-
-				pstm.setInt(1, produto.getId());
-				pstm.setString(2, produto.getCodProduto());
-				pstm.setString(3, produto.getNome());
-				pstm.setDouble(4, produto.getValor());
-				pstm.setDouble(5, produto.getCusto());
-				pstm.setInt(6, produto.getQuantidade());
-				pstm.setDate(7, dataCadastro.getAsSQL());
-				pstm.setString(8, produto.getTipo());
-				pstm.setDouble(9, produto.getValorAluguel());
-				pstm.setDouble(10, produto.getValorMulta());
-				pstm.setInt(11, id);
-
-				pstm.execute();
-
-				System.out.println("Produto de id " + id + " foi alterado com sucesso!");
-
-			}finally {
-				pstm.close();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	
+	public Produto getProdutoById(Integer id) {
+		return this.em.find(Produto.class, id);
+	}
+	
+	public void updateProdutoById(Integer id, Produto alterado) {
+		this.getProdutoById(id);
+		this.em.merge(alterado);
+		this.em.getTransaction().commit();
+		this.em.close();
+		
 	}
 	
 	public void addQuantidade(Integer id, Integer quantidade) {
+		Produto produto = this.getProdutoById(id);
+		this.em.getTransaction().begin();
+		produto.setQuantidade(quantidade);
+		this.em.getTransaction().commit();
+		this.em.close();
 		
-		Integer quantidadeOriginal = this.getProdutoById(id).getQuantidade();
-		Integer total = quantidadeOriginal + quantidade;		
-		String sql = "UPDATE produtos SET quantidade = ? WHERE id_produto = ?";
-		
-		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			
-			try {
-				pstm.setInt(1, total);
-				pstm.setInt(2, id);
-				pstm.execute();
-				
-				System.out.println("Quantidade de produto atualizado com sucesso. Quantidade atual: "+ total);
-			}finally {
-				pstm.close();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public void updateValor(Integer id, Double valor) {
-		
-		Double valorOriginal = this.getProdutoById(id).getValor();
-		Double total = valorOriginal + valor;
-		String sql = "UPDATE produtos SET valor = ? WHERE id_produto = ?";
-		
-		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			try {
-				pstm.setDouble(1, total);
-				pstm.setInt(2, id);
-				pstm.execute();
-				
-				System.out.println("Produto de id "+id+" foi aterado para valor "+total+"com sucesso!");
-			}finally {
-				pstm.close();
-			}
-		
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
+		Produto produto = this.getProdutoById(id);
+		this.em.getTransaction().begin();
+		produto.setValor(valor);
+		this.em.getTransaction().commit();
+		this.em.close();
 	}
 
-	public List<Produto> getAllProdutos() {		
-		List<Produto> produtos = new ArrayList<>();
-		String sql = "SELECT * FROM produtos";
-
-		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-			try {
-				pstm.execute();
-				resultToProdutos(produtos, pstm);
-				return produtos;
-			}finally {
-				pstm.close();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
+	public List<Produto> getAllProdutos(){
+		String jpql = "SELECT p FROM Produto p";
+		return em.createQuery(jpql, Produto.class).getResultList();
 	}
 
-	public Produto getProdutoById(Integer id) {
-		
-		List<Produto> produtos = new ArrayList<>();
-		String sql = "SELECT * FROM produtos WHERE id_produto = ?";
 
-		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
-			try {
-				pstm.setInt(1, id);
-				pstm.execute();
-
-				resultToProdutos(produtos, pstm);
-
-				return produtos.get(0);
-			}finally {
-				pstm.close();
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	public List<Produto> getProdutosByNome(String nome) {
-		List<Produto> produtos = new ArrayList<>();
-		String sql = "SELECT * FROM produtos WHERE nome = ?";
-		
-		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			
-			pstm.setString(1, nome);
-			
-			pstm.execute();
-			
-			this.resultToProdutos(produtos, pstm);
-			if(produtos.size()>0) {
-				return produtos;
-			}else {
-				return null;
-			}
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-		
+	public List<Produto> getProdutosByNome(String nome){
+		String jpql = "SELECT p FROM Produto p WHERE nome = ?1";
+		return em.createQuery(jpql, Produto.class).setParameter("1", nome).getResultList();
 	}
 	
 	public void deleteById(Integer id) {
-		String sql = "DELETE FROM produtos WHERE id_produto = ?";
+		Produto produto = this.getProdutoById(id);
+		this.em.getTransaction().begin();
+		this.em.remove(produto);
+		this.em.getTransaction().commit();
+		this.em.close();
 		
-		try(PreparedStatement pstm = connection.prepareStatement(sql)){
-			try {
-				pstm.setInt(1, id);
-				pstm.execute();
-				
-				System.out.println("Produto de id "+id+" foi deletado com sucesso!");
-				
-			}finally {
-				pstm.close();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
-	private void resultToProdutos(List<Produto> produtos, PreparedStatement pstm) throws SQLException {
-		ResultSet rst = pstm.getResultSet();
-		while (rst.next()) {
-			Produto produto = new Produto(rst.getInt(1), rst.getInt(2), rst.getString(3), rst.getString(4),
-					rst.getDouble(5), rst.getDouble(6), rst.getInt(7), rst.getDate(8), rst.getString(9), rst.getDouble(10),
-					rst.getDouble(11));
-			produtos.add(produto);
-		}
-	}
 }
