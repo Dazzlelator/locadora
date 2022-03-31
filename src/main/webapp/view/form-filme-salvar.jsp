@@ -75,7 +75,7 @@
 				<label class="item-form">produtor</label><input type="text" name='produtor' id='produtor' class="item-form">
 			</div>
 			<div style="grid-column: 3/5; grid-row: 7">
-				<label class="item-form">Destribuidor </label><input type='text' name='destribuidor' id='destribuidor' class="item-form">
+				<label class="item-form">Distribuidor </label><input type='text' name='destribuidor' id='destribuidor' class="item-form">
 			</div>
 			<div style="grid-column: 1; grid-row: 8">
 				<label class="item-form">Faixa etária </label><input type='text' name='faixa_etaria' id='faixa_etaria' class="item-form">
