@@ -40,7 +40,7 @@
 		notas <input type="text" name="notas" id="notas"><br>
 		
 		produtor<input type="text" name='produtor' id='produtor'><br>
-		Destribuidor <input type='text' name='destribuidor' id='destribuidor'><br>
+		Distribuidor <input type='text' name='destribuidor' id='destribuidor'><br>
 		Faixa etária <input type='text' name='faixa_etaria' id='faixa_etaria'><br>
 		Integridade <input type='text' name='integridade' id='integridade'><br>
 		Data de Lançamento <input type='date' name='data_lancamento' id='data_lancamento'><br>
