@@ -50,7 +50,7 @@ class Pesquisa{
 		var listaNomes2 = document.querySelectorAll('.item_pesquisa');
 		
 		inputKeyWord.addEventListener('input', function(){
-			
+			console.log("teclado!");
 			if(inputKeyWord.value.length > 2){
 				divNomes.classList.remove('hidden');
 				
@@ -101,8 +101,6 @@ class Pesquisa{
 		var divNomes = document.querySelector('#idPesquisa');
 		
 		this._dados2.forEach(dado=>{
-//			console.log(Date.parse(dado.dataLancamento));
-			
 			if(idProduto == dado.idProduto){
 				this._inputNumSerial.value = dado.numSerial;
 				this._inputFranquia.value = dado.franquia;
@@ -114,6 +112,7 @@ class Pesquisa{
 				this._inputFaixaEtaria.value = dado.faixaEtaria;
 				this._inputIntegridade.value = dado.integridade;
 				this._inputDataLancamento.value = dado.dataLancamento;
+<<<<<<< HEAD
 				
 				
 					this._inputSinopse.value = dado.sinopse
@@ -123,6 +122,11 @@ class Pesquisa{
 					console.log("formulario não possui protagonistas nem diretor");
 				
 				
+=======
+				this._inputSinopse.value = dado.sinopse;
+				this._inputProtagonistas.value = dado.protagonistas; //a ordem importa pra evitar null exceprion
+				this._inputDiretor.value = dado.diretor;
+>>>>>>> parent of a4d7f71 (implementando design)
 			}
 		})
 		divNomes.classList.add('hidden');

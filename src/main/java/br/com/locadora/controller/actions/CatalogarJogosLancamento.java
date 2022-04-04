@@ -15,7 +15,7 @@ public class CatalogarJogosLancamento implements Acao{
 	public String executar(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {	
 		JogoService js = new JogoService();
-		List<Jogo> jogos = js.getLancamento(3); //mes 1
+		List<Jogo> jogos = js.getLancamento(1); //mes 1
 		
 		request.setAttribute("jogos", jogos);
 		

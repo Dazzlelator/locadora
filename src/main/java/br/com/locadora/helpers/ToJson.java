@@ -13,7 +13,6 @@ public class ToJson {
 		Gson gSon = gBuilder.create();
 		
 		String jsonObject = gSon.toJson(objetos);
-//		gSon.toJson(jsonObject, null);
 		return jsonObject;
 	}
 

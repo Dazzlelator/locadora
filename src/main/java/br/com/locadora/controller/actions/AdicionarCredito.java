@@ -19,28 +19,20 @@ public class AdicionarCredito implements Acao{
 		UsuarioService us = new UsuarioService();
 		
 		String paramId = request.getParameter("id");
-		
+		Integer id = Integer.valueOf(paramId);
 		
 		String paramValor = request.getParameter("valor");
+		Double credito = Double.valueOf(paramValor);
+		
+		us.addCredito(id, credito);
+		Usuario user = us.getById(id);
+		
+		HttpSession sess = request.getSession();
+		sess.setAttribute("usuarioLogado",  user);
 		
 		
 		
-		if(paramValor != null) {
-			Integer id = Integer.valueOf(paramId);
-			Double credito = Double.valueOf(paramValor);
-			us.addCredito(id, credito);
-			Usuario user = us.getById(id);
-			
-			HttpSession sess = request.getSession();
-			sess.setAttribute("usuarioLogado",  user);
-			return "redirect:CatalogarFilmes";
-			
-		}else {
-			return "dispatcher:adicionar-credito.jsp";
-		}
-		
-		
-		
+		return "redirect:CatalogarFilmes";
 	}
 
 }

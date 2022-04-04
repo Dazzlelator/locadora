@@ -7,20 +7,11 @@ class DesenhaDropdown extends Viewer{
 		
         var listaParagrafos = []
         for (let i=0; i< model.length; i++){
-            let item = model[i];
-			if(item.plataforma){
-				 listaParagrafos.push(                                
+            let item = model[i];           
+            listaParagrafos.push(                                
                 `<p id="${item.idFilme}" class="item_pesquisa hidden" onclick='pesquisa.selectPesquisa("${item.idProduto}")'>${item.nome}, ${item.plataforma}</p>`
-           		 )
-            				
-			}
-			if(item.tecnologia){
-				listaParagrafos.push(                                
-                `<p id="${item.idFilme}" class="item_pesquisa hidden" onclick='pesquisa.selectPesquisa("${item.idProduto}")'>${item.nome}, ${item.tecnologia}</p>`
-           		 )
-            		
-			}
-           
+            )
+            console.log(item);
         }
        	
         return listaParagrafos.join('')

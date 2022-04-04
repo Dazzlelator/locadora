@@ -16,7 +16,7 @@ public class CatalogarFilmesLancamento implements Acao{
 	public String executar(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {	
 		FilmeService fs = new FilmeService();
-		List<Filme> filmes = fs.getLancamento(3); //mes 1
+		List<Filme> filmes = fs.getLancamento(1); //mes 1
 		
 		request.setAttribute("filmes", filmes);
 		

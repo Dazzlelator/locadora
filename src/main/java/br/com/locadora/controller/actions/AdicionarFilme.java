@@ -28,9 +28,6 @@ public class AdicionarFilme implements Acao {
 		ProdutoService ps = new ProdutoService();
 		List<Produto> produtos = ps.getAll();
 		
-		//tratamento de data
-		
-		
 
 		// sobre produto
 		String paramIdUsuario = request.getParameter("id");
@@ -66,7 +63,6 @@ public class AdicionarFilme implements Acao {
 		String paramSinopse = request.getParameter("sinopse");
 		
 		String jsonFilmes = new ToJson().converter(filmes);
-		
 		String jsonProdutos = new ToJson().converter(produtos);
 		
 		request.setAttribute("filmes", jsonFilmes);

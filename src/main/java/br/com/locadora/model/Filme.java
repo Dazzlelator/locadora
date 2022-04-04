@@ -90,10 +90,13 @@ public class Filme {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+<<<<<<< HEAD
 	
 	public void setDataLancamento(Date data) {
 		this.data_lancamento = data;
 	}
+=======
+>>>>>>> parent of a4d7f71 (implementando design)
 
 	public Integer getIdFilme() {
 		return id_filme;
@@ -158,7 +161,7 @@ public class Filme {
 	public Date getDataLancamento() {
 		return data_lancamento;
 	}
-	
+
 	public Date getDataCadastro() {
 		return data_cadastro;
 	}
